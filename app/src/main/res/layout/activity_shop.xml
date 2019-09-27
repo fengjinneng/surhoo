@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".designer.view.DesignerActivity">
+
+    <include
+        android:id="@+id/include11"
+        layout="@layout/toolbar_layout" />
+
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include11">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp">
+
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/view10"
+                        android:background="@color/pageTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" >
+
+                        <ImageView
+                            android:id="@+id/activity_shop_logo"
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="8dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@mipmap/goods_home" />
+
+                        <TextView
+                            android:id="@+id/activity_shop_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:text="尚乎官方旗舰店"
+                            android:textColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="@+id/activity_shop_logo"
+                            app:layout_constraintStart_toEndOf="@+id/activity_shop_logo"
+                            app:layout_constraintTop_toTopOf="@+id/activity_shop_logo" />
+                    </android.support.constraint.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/view11"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:background="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+
+                    <com.bigkoo.convenientbanner.ConvenientBanner
+                        android:id="@+id/activity_shop_banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/view11"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </com.bigkoo.convenientbanner.ConvenientBanner>
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+            <com.flyco.tablayout.SlidingTabLayout
+                android:id="@+id/activity_shop_category_tab"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:tl_textSelectColor="@color/themeColor"
+                app:tabIndicatorColor="@color/white"
+                app:tabSelectedTextColor="@color/themeColor"
+                app:tl_textUnselectColor="@color/grey"
+                app:tabTextColor="#A7A7A7" />
+
+            <com.flyco.tablayout.SlidingTabLayout
+                android:id="@+id/activity_shop_sort_tab"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:tabIndicatorColor="@color/white"
+                app:tabSelectedTextColor="@color/themeColor"
+                app:tabTextColor="#A7A7A7" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/activity_shop_viewPager"
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        </android.support.v4.view.ViewPager>
+    </android.support.design.widget.CoordinatorLayout>
+
+
+</android.support.constraint.ConstraintLayout>

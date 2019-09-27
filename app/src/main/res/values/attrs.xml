@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <declare-styleable name="MineItem">
+
+        <attr name="text" format="string"></attr>
+        <attr name="img" format="reference"></attr>
+
+    </declare-styleable>
+
+</resources>

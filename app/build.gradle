@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.surhoo.sh"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -16,13 +16,73 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0-rc02'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:design:28.0.0-rc02'
+    implementation 'com.android.support:support-v4:28.0.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation 'com.lzy.net:okgo:3.0.4'
+
+    //图片轮播库
+    implementation 'com.bigkoo:convenientbanner:2.0.5'
+
+    //utils
+    implementation 'com.blankj:utilcode:1.20.4'
+
+    //recylerviewadapter
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
+
+    //gson
+    implementation 'com.alibaba:fastjson:1.1.55.android'
+
+    //butterknife
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+//    api 'com.google.dagger:dagger:2.11'
+//    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
+
+
+    api 'com.google.dagger:dagger:2.4'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.4'
+    //java注解
+    implementation 'org.glassfish:javax.annotation:10.0-b28'
+
+
+    implementation 'me.jessyan:autosize:1.1.2'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+
+    //导航+viewPager
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+
+    //
+    implementation 'me.samlss:broccoli:1.0.0'
+
+
+    implementation 'com.github.zyyoona7:EasyPopup:1.1.2'
+
+    implementation 'com.hyman:flowlayout-lib:1.1.2'
+
+    implementation('com.alibaba.android:vlayout:1.2.8@aar') {
+        transitive = true
+    }
+
+
 }

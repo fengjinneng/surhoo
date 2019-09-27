@@ -3,4 +3,31 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+
+
+
+
+    <color name="topColor">#333434</color>
+
+    <color name="dividerLine">#D9D5CC</color>
+
+    <color name="themeColor">#FF5100</color>
+
+    <color name="white">#FFFFFF</color>
+
+    <color name="pageTitle">#090203</color>
+
+    <color name="goodsName">#000000</color>
+
+    <color name="borderColor">#E8EAEB</color>
+
+    <color name="linePrice">#999999</color>
+
+
+    <color name="saleColor">#9B9B9B</color>
+
+    <color name="grey">#33000000</color>
+
+
 </resources>

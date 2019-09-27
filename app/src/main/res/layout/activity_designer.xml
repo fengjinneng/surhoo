@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".designer.view.DesignerActivity">
+
+    <include
+        android:id="@+id/include11"
+        layout="@layout/toolbar_layout" />
+
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include11">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <!--<include layout="@layout/toolbar_layout"/>-->
+
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <android.support.constraint.ConstraintLayout
+                    android:background="@color/grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="600dp">
+
+                    <ImageView
+                        android:id="@+id/activity_designer_img"
+                        android:layout_width="0dp"
+                        android:layout_height="328dp"
+                        android:scaleType="fitXY"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@mipmap/surhoo_logo" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraintLayout6"
+                        android:layout_width="0dp"
+                        android:layout_height="66dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_designer_img">
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <ImageView
+                        android:id="@+id/imageView14"
+                        android:layout_width="0dp"
+                        android:layout_height="206dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
+                        app:srcCompat="@mipmap/surhoo_logo" />
+
+
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraintLayout7"
+                        android:layout_width="0dp"
+                        android:layout_height="182dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@color/white"
+                        app:layout_constraintBottom_toTopOf="@+id/imageView14"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <TextView
+                            android:id="@+id/activity_designer_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="22dp"
+                            android:layout_marginLeft="22dp"
+                            android:layout_marginTop="48dp"
+                            android:text="一叶知秋"
+                            android:textColor="@color/pageTitle"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/activity_designer_level"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:text="lv9"
+                            android:background="@drawable/bg_round_corner_orange_button"
+                            android:textColor="@color/white"
+                            android:paddingRight="10dp"
+                            android:paddingLeft="10dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/activity_designer_name"
+                            app:layout_constraintStart_toEndOf="@+id/activity_designer_name" />
+
+                        <TextView
+                            android:id="@+id/activity_designer_content"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginBottom="66dp"
+                            android:text="个人简介内容个人简介内容个人简介内容个人个人简介内容个人简介内容个人简介内容个人"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:maxLines="2"
+                            android:ellipsize="end"
+                            app:layout_constraintStart_toStartOf="@+id/activity_designer_name" />
+                    </android.support.constraint.ConstraintLayout>
+
+                    <ImageView
+                        android:id="@+id/activity_designer_avator"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="22dp"
+                        android:layout_marginLeft="22dp"
+                        android:layout_marginBottom="95dp"
+                        app:layout_constraintBottom_toTopOf="@+id/constraintLayout6"
+                        app:layout_constraintStart_toStartOf="@+id/constraintLayout7"
+                        app:srcCompat="@mipmap/goods_home" />
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/activity_design_tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                app:tabIndicatorColor="@color/white"
+                app:tabSelectedTextColor="@color/themeColor"
+                app:tabTextColor="#A7A7A7" />
+
+
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/activity_design_viewPager"
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        </android.support.v4.view.ViewPager>
+    </android.support.design.widget.CoordinatorLayout>
+
+
+</android.support.constraint.ConstraintLayout>

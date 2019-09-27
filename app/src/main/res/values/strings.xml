@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">surhoo</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="Auth">eyJhbGciOiJIUzUxMiJ9.eyJuaWNrbmFtZSI6IlJIRVRUIiwiaGVhZGltZ3VybCI6Imh0dHBzOi8vd3gucWxvZ28uY24vbW1vcGVuL3ZpXzMyL3R3MUxPU0piT1h6aFhPOERTOWljajZBdXhRRVNEakhsWU1uOHZJaGxDNGlhc0Qza055U0UyYlM2VUY5OU9hTWx0QndzUTk4d0JlS1pabThZNzFCMVRqc1EvMTMyIiwiaWQiOjEwMDEwMDg1LCJleHAiOjE1NzAwNzE1MjksIm9wZW5pZCI6Im9sNHlsNVA0eXcyajNOYmprVTMweTJWcmEwSHciLCJhcHBpZCI6Ind4NDEwNTY4NDk4ZjNjOWNiYSJ9.azjI8z-YToh1CXDkLcdAAhUmRkkSx0nPpw_by25BrNOBYF-u9O0q7TB2M4eVfSTjMcgn3aS0CMxclnNt5NE9PA</string>
 </resources>

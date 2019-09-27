@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".search.SearchActivity">
+
+
+    <include
+        android:id="@+id/include6"
+        layout="@layout/search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include5" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="搜索制定的内容"
+        android:textColor="@color/dividerLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include6" />
+
+    <TextView
+        android:id="@+id/activity_search_goods"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="商品"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/view7"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <View
+        android:id="@+id/view6"
+        android:layout_width="1dp"
+        android:layout_height="13dp"
+        android:background="@color/dividerLine"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_search_scenario"
+        app:layout_constraintEnd_toStartOf="@+id/activity_search_shop"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/activity_search_scenario"
+        app:layout_constraintTop_toTopOf="@+id/activity_search_scenario" />
+
+    <TextView
+        android:id="@+id/activity_search_scenario"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="场景"
+        android:textSize="14sp"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/view6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/view7"
+        app:layout_constraintTop_toTopOf="@+id/activity_search_goods" />
+
+    <View
+        android:id="@+id/view7"
+        android:layout_width="1dp"
+        android:layout_height="13dp"
+        android:background="@color/dividerLine"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_search_goods"
+        app:layout_constraintEnd_toStartOf="@+id/activity_search_scenario"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/activity_search_goods"
+        app:layout_constraintTop_toTopOf="@+id/activity_search_goods" />
+
+    <TextView
+        android:id="@+id/activity_search_shop"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="店铺"
+        android:textSize="14sp"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/view8"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/view6"
+        app:layout_constraintTop_toTopOf="@+id/activity_search_scenario" />
+
+    <View
+        android:id="@+id/view8"
+        android:layout_width="1dp"
+        android:layout_height="13dp"
+        android:background="@color/dividerLine"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_search_shop"
+        app:layout_constraintEnd_toStartOf="@+id/activity_search_designer"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/activity_search_shop"
+        app:layout_constraintTop_toTopOf="@+id/activity_search_shop" />
+
+    <TextView
+        android:id="@+id/activity_search_designer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="设计师"
+        android:textSize="14sp"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/view9"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/view8"
+        app:layout_constraintTop_toTopOf="@+id/activity_search_shop" />
+
+    <View
+        android:id="@+id/view9"
+        android:layout_width="1dp"
+        android:layout_height="13dp"
+        android:background="@color/dividerLine"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_search_designer"
+        app:layout_constraintEnd_toStartOf="@+id/activity_search_material"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/activity_search_designer"
+        app:layout_constraintTop_toTopOf="@+id/activity_search_designer" />
+
+    <TextView
+        android:id="@+id/activity_search_material"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:text="素材"
+        android:gravity="center"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/view9"
+        app:layout_constraintTop_toTopOf="@+id/activity_search_designer" />
+</android.support.constraint.ConstraintLayout>

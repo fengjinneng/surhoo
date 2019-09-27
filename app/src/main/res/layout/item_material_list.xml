@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/item_material_img"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/surhoo_logo" />
+
+    <TextView
+        android:id="@+id/item_material_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="小星球"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textColor="@color/pageTitle"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/item_material_price"
+        app:layout_constraintStart_toEndOf="@+id/item_material_img"
+        app:layout_constraintTop_toTopOf="@+id/item_material_img" />
+
+    <TextView
+        android:id="@+id/item_material_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="¥699.00"
+        android:textSize="20sp"
+        android:textColor="@color/themeColor"
+        app:layout_constraintBottom_toBottomOf="@+id/item_material_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.zhy.view.flowlayout.TagFlowLayout
+        android:id="@+id/item_material_tag"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/item_material_img"
+        app:layout_constraintTop_toBottomOf="@+id/item_material_name">
+
+    </com.zhy.view.flowlayout.TagFlowLayout>
+
+    <TextView
+        android:id="@+id/item_material_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="素材介绍素材介绍素材介绍"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_material_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/item_material_img" />
+</android.support.constraint.ConstraintLayout>
