@@ -43,8 +43,8 @@ public class GoodDetailBean {
      * goodsDetail : 啊啊啊啊啊啊
      */
 
-    private int id;
-    private int goodsType;
+    private Integer id;
+    private Integer goodsType;
     private String goodsNo;
     private String goodsName;
     private Object goodsClassifyOneId;
@@ -52,25 +52,25 @@ public class GoodDetailBean {
     private Object goodsClassifyThreeId;
     private String goodsMarketPrice;
     private String goodsPrice;
-    private int weight;
-    private int fakeSaleCount;
-    private int saleCount;
-    private int sort;
-    private int freightTemplateId;
+    private Integer weight;
+    private Integer fakeSaleCount;
+    private Integer saleCount;
+    private Integer sort;
+    private Integer freightTemplateId;
     private String logo;
     private String img;
     private String banner;
-    private int richTextId;
+    private Integer richTextId;
     private String createdAt;
     private Object updatedAt;
-    private int status;
+    private Integer status;
     private boolean isDelete;
     private boolean isFreight;
     private boolean platformStatus;
     private boolean isPlatform;
     private boolean isRecommend;
-    private int shopId;
-    private int evaluateCount;
+    private Integer shopId;
+    private Integer evaluateCount;
     private Object skuId;
     private Object goodsNum;
     private boolean isCollect;
@@ -79,19 +79,19 @@ public class GoodDetailBean {
     private List<SkuListBean> skuList;
     private List<SpecListBean> specList;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getGoodsType() {
+    public Integer getGoodsType() {
         return goodsType;
     }
 
-    public void setGoodsType(int goodsType) {
+    public void setGoodsType(Integer goodsType) {
         this.goodsType = goodsType;
     }
 
@@ -151,43 +151,43 @@ public class GoodDetailBean {
         this.goodsPrice = goodsPrice;
     }
 
-    public int getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
-    public int getFakeSaleCount() {
+    public Integer getFakeSaleCount() {
         return fakeSaleCount;
     }
 
-    public void setFakeSaleCount(int fakeSaleCount) {
+    public void setFakeSaleCount(Integer fakeSaleCount) {
         this.fakeSaleCount = fakeSaleCount;
     }
 
-    public int getSaleCount() {
+    public Integer getSaleCount() {
         return saleCount;
     }
 
-    public void setSaleCount(int saleCount) {
+    public void setSaleCount(Integer saleCount) {
         this.saleCount = saleCount;
     }
 
-    public int getSort() {
+    public Integer getSort() {
         return sort;
     }
 
-    public void setSort(int sort) {
+    public void setSort(Integer sort) {
         this.sort = sort;
     }
 
-    public int getFreightTemplateId() {
+    public Integer getFreightTemplateId() {
         return freightTemplateId;
     }
 
-    public void setFreightTemplateId(int freightTemplateId) {
+    public void setFreightTemplateId(Integer freightTemplateId) {
         this.freightTemplateId = freightTemplateId;
     }
 
@@ -215,11 +215,11 @@ public class GoodDetailBean {
         this.banner = banner;
     }
 
-    public int getRichTextId() {
+    public Integer getRichTextId() {
         return richTextId;
     }
 
-    public void setRichTextId(int richTextId) {
+    public void setRichTextId(Integer richTextId) {
         this.richTextId = richTextId;
     }
 
@@ -239,11 +239,11 @@ public class GoodDetailBean {
         this.updatedAt = updatedAt;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -287,19 +287,19 @@ public class GoodDetailBean {
         this.isRecommend = isRecommend;
     }
 
-    public int getShopId() {
+    public Integer getShopId() {
         return shopId;
     }
 
-    public void setShopId(int shopId) {
+    public void setShopId(Integer shopId) {
         this.shopId = shopId;
     }
 
-    public int getEvaluateCount() {
+    public Integer getEvaluateCount() {
         return evaluateCount;
     }
 
-    public void setEvaluateCount(int evaluateCount) {
+    public void setEvaluateCount(Integer evaluateCount) {
         this.evaluateCount = evaluateCount;
     }
 
@@ -392,15 +392,15 @@ public class GoodDetailBean {
          * isAnonymous : null
          */
 
-        private int id;
+        private Integer id;
         private Object orderId;
         private Object orderDataId;
         private Object goodsId;
         private Object materialId;
         private Object goodsType;
         private Object goodsName;
-        private int userId;
-        private int mark;
+        private Integer userId;
+        private Integer mark;
         private String userName;
         private Object skuId;
         private String skuName;
@@ -419,14 +419,14 @@ public class GoodDetailBean {
         private Object sysId;
         private Object shopId;
         private Object isPlatform;
-        private int type;
+        private Integer type;
         private Object isAnonymous;
 
-        public int getId() {
+        public Integer getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(Integer id) {
             this.id = id;
         }
 
@@ -478,19 +478,19 @@ public class GoodDetailBean {
             this.goodsName = goodsName;
         }
 
-        public int getUserId() {
+        public Integer getUserId() {
             return userId;
         }
 
-        public void setUserId(int userId) {
+        public void setUserId(Integer userId) {
             this.userId = userId;
         }
 
-        public int getMark() {
+        public Integer getMark() {
             return mark;
         }
 
-        public void setMark(int mark) {
+        public void setMark(Integer mark) {
             this.mark = mark;
         }
 
@@ -638,11 +638,11 @@ public class GoodDetailBean {
             this.isPlatform = isPlatform;
         }
 
-        public int getType() {
+        public Integer getType() {
             return type;
         }
 
-        public void setType(int type) {
+        public void setType(Integer type) {
             this.type = type;
         }
 
@@ -675,36 +675,36 @@ public class GoodDetailBean {
          * goodsSkuFictitiousSales : 40
          */
 
-        private int id;
-        private int goodsId;
+        private Integer id;
+        private Integer goodsId;
         private String goodsSkuName;
         private String goodsSkuImg;
         private String goodsSkuNo;
         private String goodsSkuCostPrice;
         private String goodsSkuMarketPrices;
         private String goodsSkuRetailPrice;
-        private int goodsSkuWeight;
-        private int goodsSkuVolume;
-        private int goodsSkuStockLock;
-        private int goodsSkuStock;
+        private Integer goodsSkuWeight;
+        private Integer goodsSkuVolume;
+        private Integer goodsSkuStockLock;
+        private Integer goodsSkuStock;
         private String gmtCreate;
         private String gmtModified;
         private boolean disable;
-        private int goodsSkuFictitiousSales;
+        private Integer goodsSkuFictitiousSales;
 
-        public int getId() {
+        public Integer getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(Integer id) {
             this.id = id;
         }
 
-        public int getGoodsId() {
+        public Integer getGoodsId() {
             return goodsId;
         }
 
-        public void setGoodsId(int goodsId) {
+        public void setGoodsId(Integer goodsId) {
             this.goodsId = goodsId;
         }
 
@@ -756,35 +756,35 @@ public class GoodDetailBean {
             this.goodsSkuRetailPrice = goodsSkuRetailPrice;
         }
 
-        public int getGoodsSkuWeight() {
+        public Integer getGoodsSkuWeight() {
             return goodsSkuWeight;
         }
 
-        public void setGoodsSkuWeight(int goodsSkuWeight) {
+        public void setGoodsSkuWeight(Integer goodsSkuWeight) {
             this.goodsSkuWeight = goodsSkuWeight;
         }
 
-        public int getGoodsSkuVolume() {
+        public Integer getGoodsSkuVolume() {
             return goodsSkuVolume;
         }
 
-        public void setGoodsSkuVolume(int goodsSkuVolume) {
+        public void setGoodsSkuVolume(Integer goodsSkuVolume) {
             this.goodsSkuVolume = goodsSkuVolume;
         }
 
-        public int getGoodsSkuStockLock() {
+        public Integer getGoodsSkuStockLock() {
             return goodsSkuStockLock;
         }
 
-        public void setGoodsSkuStockLock(int goodsSkuStockLock) {
+        public void setGoodsSkuStockLock(Integer goodsSkuStockLock) {
             this.goodsSkuStockLock = goodsSkuStockLock;
         }
 
-        public int getGoodsSkuStock() {
+        public Integer getGoodsSkuStock() {
             return goodsSkuStock;
         }
 
-        public void setGoodsSkuStock(int goodsSkuStock) {
+        public void setGoodsSkuStock(Integer goodsSkuStock) {
             this.goodsSkuStock = goodsSkuStock;
         }
 
@@ -812,11 +812,11 @@ public class GoodDetailBean {
             this.disable = disable;
         }
 
-        public int getGoodsSkuFictitiousSales() {
+        public Integer getGoodsSkuFictitiousSales() {
             return goodsSkuFictitiousSales;
         }
 
-        public void setGoodsSkuFictitiousSales(int goodsSkuFictitiousSales) {
+        public void setGoodsSkuFictitiousSales(Integer goodsSkuFictitiousSales) {
             this.goodsSkuFictitiousSales = goodsSkuFictitiousSales;
         }
     }
@@ -831,26 +831,26 @@ public class GoodDetailBean {
          * goodsSkuSpecVals : [{"id":78,"goodsId":1,"goodsSkuSpecId":63,"goodsSkuSpecValName":"黄色","gmtCreate":1556508501000},{"id":79,"goodsId":1,"goodsSkuSpecId":63,"goodsSkuSpecValName":"绿色","gmtCreate":1556508501000}]
          */
 
-        private int id;
-        private int goodsId;
+        private Integer id;
+        private Integer goodsId;
         private String goodsSpecName;
         private long gmtCreate;
         private Object skuNo;
         private List<GoodsSkuSpecValsBean> goodsSkuSpecVals;
 
-        public int getId() {
+        public Integer getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(Integer id) {
             this.id = id;
         }
 
-        public int getGoodsId() {
+        public Integer getGoodsId() {
             return goodsId;
         }
 
-        public void setGoodsId(int goodsId) {
+        public void setGoodsId(Integer goodsId) {
             this.goodsId = goodsId;
         }
 
@@ -895,33 +895,42 @@ public class GoodDetailBean {
              * gmtCreate : 1556508501000
              */
 
-            private int id;
-            private int goodsId;
-            private int goodsSkuSpecId;
+            private Integer id;
+            private Integer goodsId;
+            private Integer goodsSkuSpecId;
             private String goodsSkuSpecValName;
             private long gmtCreate;
+            private Boolean isChecked;
 
-            public int getId() {
+            public Boolean getChecked() {
+                return isChecked;
+            }
+
+            public void setChecked(Boolean checked) {
+                isChecked = checked;
+            }
+
+            public Integer getId() {
                 return id;
             }
 
-            public void setId(int id) {
+            public void setId(Integer id) {
                 this.id = id;
             }
 
-            public int getGoodsId() {
+            public Integer getGoodsId() {
                 return goodsId;
             }
 
-            public void setGoodsId(int goodsId) {
+            public void setGoodsId(Integer goodsId) {
                 this.goodsId = goodsId;
             }
 
-            public int getGoodsSkuSpecId() {
+            public Integer getGoodsSkuSpecId() {
                 return goodsSkuSpecId;
             }
 
-            public void setGoodsSkuSpecId(int goodsSkuSpecId) {
+            public void setGoodsSkuSpecId(Integer goodsSkuSpecId) {
                 this.goodsSkuSpecId = goodsSkuSpecId;
             }
 

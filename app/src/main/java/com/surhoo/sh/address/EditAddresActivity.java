@@ -37,15 +37,26 @@ public class EditAddresActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_addres);
-        ButterKnife.bind(this);
+    }
 
-        initView();
+    @Override
+    public int getContentView() {
+        return R.layout.activity_edit_addres;
+    }
+
+    @Override
+    public boolean isFirstInLoadData() {
+        return false;
     }
 
     @Override
     public void initView() {
         toolbarLayoutTitle.setText("新增/编辑收货地址");
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     @Override

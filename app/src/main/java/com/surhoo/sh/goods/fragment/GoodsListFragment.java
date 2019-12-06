@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,20 +14,19 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.surhoo.sh.R;
-import com.surhoo.sh.base.PagerBaseView;
+import com.surhoo.sh.base.BaseFragment;
 import com.surhoo.sh.goods.adapter.GoodsListAdapter;
 import com.surhoo.sh.goods.bean.GoodsBean;
-import com.surhoo.sh.goods.di.DaggerGoodsComponent;
 import com.surhoo.sh.goods.presenter.GoodsPresenter;
+import com.surhoo.sh.goods.presenter.impl.GoodsPresenterImpl;
 import com.surhoo.sh.goods.view.impl.GoodsDetailActivity;
 import com.surhoo.sh.goods.view.GoodsView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
@@ -36,13 +34,12 @@ import butterknife.Unbinder;
  * Use the {@link GoodsListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GoodsListFragment extends Fragment implements GoodsView {
+public class GoodsListFragment extends BaseFragment implements GoodsView {
     private static final String FROM = "from";
     private static final String CATEGORYID = "categoryId";
     private static final String SORTTYPE = "sortType";
     @BindView(R.id.fragment_goods_list_recyclerView)
     RecyclerView fragmentGoodsListRecyclerview;
-    Unbinder unbinder;
 
 
     //1为查看商品分类  2为查看店铺下的产品  3为场景下的商品
@@ -50,10 +47,8 @@ public class GoodsListFragment extends Fragment implements GoodsView {
     private int categoryId;
     private int sortType;
 
-    @Inject
     GoodsPresenter goodsPresenter;
 
-    @Inject
     GoodsListAdapter goodsListAdapter;
 
     List<GoodsBean> datas;
@@ -84,20 +79,29 @@ public class GoodsListFragment extends Fragment implements GoodsView {
         }
     }
 
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_goods_list, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        return view;
+    public View getView(ViewGroup container) {
+        return getLayoutInflater().inflate(R.layout.fragment_goods_list, container, false);
+    }
+
+    @Override
+    public void init() {
+        goodsPresenter = new GoodsPresenterImpl();
+        goodsPresenter.bindView(getActivity(),this);
+
+        goodsListAdapter = new GoodsListAdapter(R.layout.item_goods_list,new ArrayList<>());
+    }
+
+    @Override
+    public boolean isFirstInLoadData() {
+        return false;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        DaggerGoodsComponent.create().inject(this);
 
         datas = goodsListAdapter.getData();
 
@@ -106,7 +110,7 @@ public class GoodsListFragment extends Fragment implements GoodsView {
         fragmentGoodsListRecyclerview.setAdapter(goodsListAdapter);
 
 
-        goodsPresenter.bindView(getContext(),this);
+        goodsPresenter.bindView(getActivity(),this);
         requestData();
 
 
@@ -125,15 +129,12 @@ public class GoodsListFragment extends Fragment implements GoodsView {
         });
     }
 
-    private void requestData() {
+    @Override
+    public void requestData() {
         goodsPresenter.requestData(from,categoryId,pageSize,pageIndex,sortType);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
+
 
     @Override
     public void showToastMsg(String msg) {

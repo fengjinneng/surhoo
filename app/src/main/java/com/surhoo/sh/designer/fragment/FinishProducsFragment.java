@@ -3,46 +3,51 @@ package com.surhoo.sh.designer.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.ToastUtils;
+import com.lzy.okgo.model.HttpParams;
 import com.surhoo.sh.R;
+import com.surhoo.sh.base.BaseFragment;
+import com.surhoo.sh.base.NoPageListBaseView;
+import com.surhoo.sh.common.custom.MyLoadMoreView;
+import com.surhoo.sh.common.util.Api;
+import com.surhoo.sh.common.util.NetworkReturnUtil;
+import com.surhoo.sh.designer.adapter.FinishProductsAdapter;
+import com.surhoo.sh.designer.bean.FinishProductBean;
+import com.surhoo.sh.material.bean.MaterialBean;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link FinishProducsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FinishProducsFragment extends Fragment {
+public class FinishProducsFragment extends BaseFragment implements NoPageListBaseView {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static final String MATERIALID = "materialId";
+    @BindView(R.id.fragment_finish_products_recyclerview)
+    RecyclerView recyclerView;
 
 
-    public FinishProducsFragment() {
-        // Required empty public constructor
-    }
+    private Integer materialId;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FinishProducsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FinishProducsFragment newInstance(String param1, String param2) {
+    FinishProductsAdapter adapter;
+    List<FinishProductBean> datas;
+
+
+    public static FinishProducsFragment newInstance(Integer materialId) {
         FinishProducsFragment fragment = new FinishProducsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(MATERIALID, materialId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,16 +56,56 @@ public class FinishProducsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            materialId = getArguments().getInt(MATERIALID);
         }
     }
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_finish_producs, container, false);
+    public View getView(ViewGroup container) {
+        return getLayoutInflater().inflate(R.layout.fragment_finish_producs, container, false);
     }
 
+    @Override
+    public void init() {
+
+
+        datas = new ArrayList();
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        adapter = new FinishProductsAdapter(R.layout.item_designer_finish_product, datas);
+
+        recyclerView.setAdapter(adapter);
+
+        adapter.setEmptyView(getLayoutInflater().inflate(R.layout.empty_view_layout, null));
+        adapter.setLoadMoreView(new MyLoadMoreView());
+    }
+
+    @Override
+    public boolean isFirstInLoadData() {
+        return true;
+    }
+
+    @Override
+    public void requestData() {
+
+        HttpParams httpParams = new HttpParams();
+        httpParams.put("isSelf", false);
+        httpParams.put("designerId", materialId);
+
+        NetworkReturnUtil.requestList(this, getActivity(), Api.FINISHPRODUCTOFDESIGNER, httpParams, MaterialBean.class);
+
+    }
+
+    @Override
+    public void showToastMsg(String msg) {
+        ToastUtils.showShort(msg);
+    }
+
+    @Override
+    public void showList(List list) {
+        datas.addAll(list);
+        adapter.setNewData(list);
+        adapter.loadMoreEnd();
+    }
 }

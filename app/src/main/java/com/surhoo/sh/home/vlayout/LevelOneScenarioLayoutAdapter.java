@@ -1,6 +1,7 @@
 package com.surhoo.sh.home.vlayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.surhoo.sh.R;
 import com.surhoo.sh.home.bean.HomePageBean;
 import com.surhoo.sh.scenario.view.ScenarioActivity;
+import com.surhoo.sh.search.SearchCategoryActivity;
 
 import java.util.List;
 
@@ -65,7 +67,10 @@ public class LevelOneScenarioLayoutAdapter extends DelegateAdapter.Adapter<Level
         scenarioLayoutViewHolder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityUtils.startActivity(ScenarioActivity.class);
+
+                Intent intent = new Intent(context,ScenarioActivity.class);
+                intent.putExtra("id",item.getSceneId());
+                ActivityUtils.startActivity(intent);
             }
         });
 

@@ -1,5 +1,6 @@
 package com.surhoo.sh.login.presenter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.CountDownTimer;
 
@@ -10,6 +11,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
+import com.surhoo.sh.R;
 import com.surhoo.sh.common.util.Api;
 import com.surhoo.sh.login.view.LoginView;
 
@@ -20,14 +22,14 @@ public class LoginPresenterImpl implements LoginPresenter {
 
 
     LoginView loginView;
-    Context context;
+    Activity activity;
 
 
 
     @Override
-    public void bindView(Context ctx, LoginView view) {
+    public void bindView(Activity activity, LoginView loginView) {
 
-        this.context = ctx;
+        this.activity = activity;
         this.loginView = loginView;
     }
 
@@ -53,8 +55,8 @@ public class LoginPresenterImpl implements LoginPresenter {
 
         String url = Api.GETVERIFYCODE;
         GetRequest<String> request = OkGo.<String>get(url)
-                .tag(context)
-                .headers("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJuaWNrbmFtZSI6IlJIRVRUIiwiaGVhZGltZ3VybCI6Imh0dHBzOi8vd3gucWxvZ28uY24vbW1vcGVuL3ZpXzMyL3R3MUxPU0piT1h6aFhPOERTOWljajZBdXhRRVNEakhsWU1uOHZJaGxDNGlhc0Qza055U0UyYlM2VUY5OU9hTWx0QlZ2R0R4cjZ6aWFtMThoV3RDOTZGNXRnLzEzMiIsImlkIjoxMDAxMDA4NSwiZXhwIjoxNTY4MTg0OTY4LCJvcGVuaWQiOiJvbDR5bDVQNHl3MmozTmJqa1UzMHkyVnJhMEh3IiwiYXBwaWQiOiJ3eDQxMDU2ODQ5OGYzYzljYmEifQ.2r1BKcYbxd_NWkEB6OVAn1KKX2EfJIOC-7sHG59FDzHPqtGjyDM94CAZfSuuU7v01t4K2Wf6ugmSUh_td-NOLg")
+                .tag(activity)
+                .headers("Authorization", activity.getResources().getString(R.string.Auth))
                 .params("mobile", phone);
 
 

@@ -34,10 +34,16 @@ public class CollectActivity extends BaseActivity implements CollectView{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_collect);
-        ButterKnife.bind(this);
+    }
 
-        initView();
+    @Override
+    public int getContentView() {
+        return R.layout.activity_collect;
+    }
+
+    @Override
+    public boolean isFirstInLoadData() {
+        return false;
     }
 
     @Override
@@ -57,6 +63,11 @@ public class CollectActivity extends BaseActivity implements CollectView{
         arr[3] = " 店铺";
         activityCollectViewpager.setAdapter(new BaseViewpageAdapter(getSupportFragmentManager(), datas));
         activityCollectTab.setViewPager(activityCollectViewpager, arr);
+
+    }
+
+    @Override
+    public void initData() {
 
     }
 

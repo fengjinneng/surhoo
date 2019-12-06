@@ -37,19 +37,23 @@ public class GoodsListActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_goods_list);
-        ButterKnife.bind(this);
 
+    }
 
-        id = getIntent().getIntExtra("id",0);
+    @Override
+    public int getContentView() {
+        return R.layout.activity_goods_list;
+    }
 
-        initView();
-
+    @Override
+    public boolean isFirstInLoadData() {
+        return false;
     }
 
 
     @Override
     public void initView() {
+        id = getIntent().getIntExtra("id",0);
         toolbarLayoutTitle.setText("商品列表");
 
         List<Fragment> datas = new ArrayList<>();
@@ -63,6 +67,11 @@ public class GoodsListActivity extends BaseActivity {
         arr[2] = "价格";
         activityGoodsListViewpager.setAdapter(new BaseViewpageAdapter(getSupportFragmentManager(), datas));
         activityGoodsListSlidingTabLayout.setViewPager(activityGoodsListViewpager, arr);
+    }
+
+    @Override
+    public void initData() {
+
     }
 
 

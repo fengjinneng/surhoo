@@ -54,21 +54,34 @@ public class ShopActivity extends BaseActivity implements ShopView{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shop);
-        ButterKnife.bind(this);
 
-        initView();
+
+
+    }
+
+    @Override
+    public int getContentView() {
+        return R.layout.activity_shop;
+    }
+
+    @Override
+    public boolean isFirstInLoadData() {
+        return true;
+    }
+
+    @Override
+    public void initView() {
 
         presenter = new ShopPresenterImpl();
 
         presenter.bindView(this,this);
 
-        requestData();
+        toolbarLayoutTitle.setText("店铺详情");
     }
 
     @Override
-    public void initView() {
-        toolbarLayoutTitle.setText("店铺详情");
+    public void initData() {
+
     }
 
     @Override

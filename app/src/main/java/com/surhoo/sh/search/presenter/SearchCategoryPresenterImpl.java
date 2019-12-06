@@ -1,5 +1,6 @@
 package com.surhoo.sh.search.presenter;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.lzy.okgo.model.HttpParams;
@@ -8,7 +9,7 @@ import com.surhoo.sh.common.util.NetworkReturnUtil;
 import com.surhoo.sh.designer.bean.DesignerLabelBean;
 import com.surhoo.sh.designer.bean.DesignerListBean;
 import com.surhoo.sh.goods.bean.GoodsBean;
-import com.surhoo.sh.material.MaterialBean;
+import com.surhoo.sh.material.bean.MaterialBean;
 import com.surhoo.sh.scenario.bean.ScenarioBean;
 import com.surhoo.sh.search.view.SearchCategoryView;
 import com.surhoo.sh.shop.ShopListBean;
@@ -18,12 +19,12 @@ public class SearchCategoryPresenterImpl implements SearchCategoryPresenter {
     public static final String TAG = "SearchCategoryPresenterImpl";
 
     private SearchCategoryView searchCategoryView;
-    private Context context;
+    private Activity activity;
 
     @Override
-    public void bindView(Context ctx, SearchCategoryView view) {
-        searchCategoryView = view;
-        context = ctx;
+    public void bindView(Activity activity, SearchCategoryView view) {
+        this.searchCategoryView = view;
+        this.activity = activity;
     }
 
     @Override
@@ -47,20 +48,20 @@ public class SearchCategoryPresenterImpl implements SearchCategoryPresenter {
         //1 商品 2 场景 3 店铺 4 设计师 5素材
         switch (type) {
             case 1:
-                NetworkReturnUtil.requestPage(searchCategoryView, context, Api.SEARCHCATEGORY, httpParams, GoodsBean.class, pageIndex);
+                NetworkReturnUtil.requestPage(searchCategoryView, activity, Api.SEARCHCATEGORY, httpParams, GoodsBean.class, pageIndex);
                 break;
             case 2:
-                NetworkReturnUtil.requestPage(searchCategoryView, context, Api.SEARCHCATEGORY, httpParams, ScenarioBean.class, pageIndex);
+                NetworkReturnUtil.requestPage(searchCategoryView, activity, Api.SEARCHCATEGORY, httpParams, ScenarioBean.class, pageIndex);
                 break;
 
             case 3:
-                NetworkReturnUtil.requestPage(searchCategoryView, context, Api.SEARCHCATEGORY, httpParams, ShopListBean.class, pageIndex);
+                NetworkReturnUtil.requestPage(searchCategoryView, activity, Api.SEARCHCATEGORY, httpParams, ShopListBean.class, pageIndex);
                 break;
             case 4:
-                NetworkReturnUtil.requestPage(searchCategoryView, context, Api.SEARCHCATEGORY, httpParams, DesignerListBean.class, pageIndex);
+                NetworkReturnUtil.requestPage(searchCategoryView, activity, Api.SEARCHCATEGORY, httpParams, DesignerListBean.class, pageIndex);
                 break;
             case 5:
-                NetworkReturnUtil.requestPage(searchCategoryView, context, Api.SEARCHCATEGORY, httpParams, MaterialBean.class, pageIndex);
+                NetworkReturnUtil.requestPage(searchCategoryView, activity, Api.SEARCHCATEGORY, httpParams, MaterialBean.class, pageIndex);
                 break;
         }
 
@@ -79,7 +80,7 @@ public class SearchCategoryPresenterImpl implements SearchCategoryPresenter {
             case 3:
                 break;
             case 4:
-                NetworkReturnUtil.requestList(searchCategoryView, context, Api.DESIGNERLABEL, null, DesignerLabelBean.class);
+                NetworkReturnUtil.requestList(searchCategoryView, activity, Api.DESIGNERLABEL, null, DesignerLabelBean.class);
                 break;
             case 5:
                 break;

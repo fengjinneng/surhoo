@@ -40,21 +40,32 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
-        ButterKnife.bind(this);
 
-        initView();
+    }
 
-        loginPresenter = new LoginPresenterImpl();
+    @Override
+    public int getContentView() {
+        return R.layout.activity_login;
+    }
 
-        loginPresenter.bindView(this,this);
+    @Override
+    public boolean isFirstInLoadData() {
+        return false;
     }
 
 
     @Override
     public void initView() {
+        loginPresenter = new LoginPresenterImpl();
+
+        loginPresenter.bindView(this,this);
         toolbarLayoutTitle.setText("登录");
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     @Override

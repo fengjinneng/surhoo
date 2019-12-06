@@ -2,7 +2,6 @@ package com.surhoo.sh.search;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,13 +22,17 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.surhoo.sh.base.BaseActivity;
 import com.surhoo.sh.R;
+import com.surhoo.sh.common.util.GridDivider;
 import com.surhoo.sh.designer.adapter.DesignerLabelAdapter;
+import com.surhoo.sh.designer.bean.DesignerLabelBean;
 import com.surhoo.sh.designer.bean.DesignerListBean;
 import com.surhoo.sh.designer.view.DesignerActivity;
 import com.surhoo.sh.goods.bean.GoodsBean;
 import com.surhoo.sh.goods.view.impl.GoodsDetailActivity;
-import com.surhoo.sh.material.MaterialBean;
+import com.surhoo.sh.material.bean.MaterialBean;
+import com.surhoo.sh.material.MaterialDetailActivity;
 import com.surhoo.sh.scenario.bean.ScenarioBean;
+import com.surhoo.sh.scenario.view.ScenarioActivity;
 import com.surhoo.sh.search.adapter.SearchDesignerAdapter;
 import com.surhoo.sh.search.adapter.SearchGoodsAdapter;
 import com.surhoo.sh.search.adapter.SearchMaterialAdapter;
@@ -45,7 +48,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SearchCategoryActivity extends BaseActivity implements SearchCategoryView,
@@ -55,7 +57,6 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
     EditText searchLayoutContent;
     @BindView(R.id.activity_search_category_recyclerview)
     RecyclerView activitySearchCategoryRecyclerview;
-
     SearchCategoryPresenter searchCategoryPresenter;
     SearchGoodsAdapter searchGoodsAdapter;
     SearchScenarioAdapter searchScenarioAdapter;
@@ -72,29 +73,30 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
     private int type;//1 商品 2 场景 3 店铺 4 设计师 5素材
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_category);
-        ButterKnife.bind(this);
+    public int getContentView() {
+        return R.layout.activity_search_category;
+    }
 
-        type = getIntent().getIntExtra("type", 0);
-
-
-        searchCategoryPresenter = new SearchCategoryPresenterImpl();
-        searchCategoryPresenter.bindView(this, this);
-
-        initView();
-
+    @Override
+    public boolean isFirstInLoadData() {
+        return false;
     }
 
     @Override
     public void initView() {
+
+        type = getIntent().getIntExtra("type", 0);
+
         setPageTitle();
+
+        searchCategoryPresenter = new SearchCategoryPresenterImpl();
+        searchCategoryPresenter.bindView(this, this);
 
         searchLayoutContent.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    KeyboardUtils.hideSoftInput(SearchCategoryActivity.this);
                     pageIndex = 1;
                     requestData();
                     return true;
@@ -102,6 +104,12 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
                 return false;
             }
         });
+
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     private void setPageTitle() {
@@ -115,10 +123,11 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
                 datas = new ArrayList<GoodsBean>();
                 searchGoodsAdapter = new SearchGoodsAdapter(R.layout.item_goods_list, datas);
                 activitySearchCategoryRecyclerview.setAdapter(searchGoodsAdapter);
-
                 searchGoodsAdapter.setOnLoadMoreListener(this, activitySearchCategoryRecyclerview);
-
                 searchGoodsAdapter.setOnItemClickListener(this);
+                activitySearchCategoryRecyclerview.addItemDecoration(new GridDivider(20));
+
+
                 break;
             case 2:
                 searchLayoutContent.setHint("搜索场景");
@@ -128,6 +137,15 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
                 searchScenarioAdapter = new SearchScenarioAdapter(R.layout.item_scenario, datas);
                 activitySearchCategoryRecyclerview.setAdapter(searchScenarioAdapter);
                 searchScenarioAdapter.setOnLoadMoreListener(this, activitySearchCategoryRecyclerview);
+                searchScenarioAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        ScenarioBean scenarioBean = (ScenarioBean) adapter.getData().get(position);
+                        Intent intent = new Intent(SearchCategoryActivity.this, ScenarioActivity.class);
+                        intent.putExtra("id", scenarioBean.getSceneId());
+                        ActivityUtils.startActivity(intent);
+                    }
+                });
                 break;
             case 3:
                 searchLayoutContent.setHint("搜索店铺");
@@ -136,6 +154,7 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
                 datas = new ArrayList<ShopListBean>();
                 searchShopAdapter = new SearchShopAdapter(R.layout.item_shop_list, datas);
                 activitySearchCategoryRecyclerview.setAdapter(searchShopAdapter);
+                searchShopAdapter.setOnLoadMoreListener(this, activitySearchCategoryRecyclerview);
                 break;
             case 4:
                 searchLayoutContent.setHint("搜索设计师");
@@ -144,6 +163,30 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
                 datas = new ArrayList<DesignerListBean>();
                 searchDesignerAdapter = new SearchDesignerAdapter(R.layout.item_designer_list, datas);
                 activitySearchCategoryRecyclerview.setAdapter(searchDesignerAdapter);
+                searchDesignerAdapter.setOnItemClickListener(this);
+                searchDesignerAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                    @Override
+                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        DesignerListBean designerListBean = (DesignerListBean) adapter.getData().get(position);
+                        switch (view.getId()) {
+                            case R.id.item_designer_list_material_1:
+                                ActivityUtils.startActivity(MaterialDetailActivity.class);
+                                break;
+                            case R.id.item_designer_list_material_2:
+                                break;
+                            case R.id.item_designer_list_material_3:
+                                break;
+                            case R.id.item_designer_list_material_4:
+                                break;
+                            case R.id.item_designer_list_material_5:
+                                break;
+                            case R.id.item_designer_list_material_6:
+                                break;
+
+                        }
+                    }
+                });
+                searchDesignerAdapter.setOnLoadMoreListener(this, activitySearchCategoryRecyclerview);
                 break;
             case 5:
                 searchLayoutContent.setHint("搜索素材");
@@ -152,6 +195,16 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
                 datas = new ArrayList<MaterialBean>();
                 searchMaterialAdapter = new SearchMaterialAdapter(R.layout.item_material_list, datas);
                 activitySearchCategoryRecyclerview.setAdapter(searchMaterialAdapter);
+                searchMaterialAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        MaterialBean materialBean = (MaterialBean) adapter.getData().get(position);
+                        Intent i = new Intent(SearchCategoryActivity.this, MaterialDetailActivity.class);
+                        i.putExtra("id", materialBean.getMaterialId());
+                        ActivityUtils.startActivity(i);
+                    }
+                });
+                searchMaterialAdapter.setOnLoadMoreListener(this, activitySearchCategoryRecyclerview);
                 break;
         }
     }
@@ -161,7 +214,7 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
     @Override
     public void requestData() {
         searchCategoryPresenter.requestData(type, searchLayoutContent.getText().toString().trim(),
-                10, pageIndex, 1, "");
+                20, pageIndex, 1, "");
     }
 
     @Override
@@ -171,29 +224,28 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
 
     @Override
     public void firstInEmpty() {
-        datas.clear();
-
-        switch (type) {
-            case 1:
-                searchGoodsAdapter.notifyDataSetChanged();
-                break;
-            case 2:
-                searchScenarioAdapter.notifyDataSetChanged();
-                break;
-
-            case 3:
-                searchShopAdapter.notifyDataSetChanged();
-                break;
-
-            case 4:
-                searchDesignerAdapter.notifyDataSetChanged();
-                break;
-
-            case 5:
-                searchMaterialAdapter.notifyDataSetChanged();
-                break;
-        }
+//        datas.clear();
+//        switch (type) {
+//            case 1:
+//                searchGoodsAdapter.notifyDataSetChanged();
+//                break;
+//            case 2:
+//                searchScenarioAdapter.notifyDataSetChanged();
+//                break;
+//
+//            case 3:
+//                searchShopAdapter.notifyDataSetChanged();
+//                break;
+//
+//            case 4:
+//                searchDesignerAdapter.notifyDataSetChanged();
+//                break;
+//
+//            case 5:
+//                searchMaterialAdapter.notifyDataSetChanged();
+//                break;
     }
+//    }
 
     @Override
     public void loadEnd() {
@@ -223,7 +275,6 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
 
     @Override
     public void refresh(List list) {
-        datas.addAll(list);
 
         //1 商品 2 场景 3 店铺 4 设计师 5素材
         switch (type) {
@@ -257,7 +308,6 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
 
     @Override
     public void loadData(List list) {
-        datas.addAll(list);
 
         //1 商品 2 场景 3 店铺 4 设计师 5素材
         switch (type) {
@@ -309,9 +359,11 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
 
             case 3:
                 break;
-
             case 4:
-                ActivityUtils.startActivity(DesignerActivity.class);
+                DesignerListBean designerBean = (DesignerListBean) adapter.getData().get(position);
+                Intent designerIntent = new Intent(this, DesignerActivity.class);
+                designerIntent.putExtra("id", designerBean.getDesignerId());
+                ActivityUtils.startActivity(designerIntent);
                 break;
 
             case 5:
@@ -333,9 +385,9 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
 
                 switch (type) {
                     case 4:
-                        if(ObjectUtils.isEmpty(designerLabelPop)){
+                        if (ObjectUtils.isEmpty(designerLabelPop)) {
                             searchCategoryPresenter.requestDesignerLable(4);
-                        }else {
+                        } else {
                             designerLabelPop.showAtLocation(searchLayoutContent, Gravity.TOP, 0, 0);
                         }
                         break;
@@ -347,7 +399,7 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
 
     @Override
     public void showList(List list) {
-        switch (type){
+        switch (type) {
             case 1:
                 break;
 
@@ -358,6 +410,10 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
                 break;
         }
     }
+
+    //搜索设计师时的点击上一个标签
+    private DesignerLabelBean lastDesignerLabelBean;
+    private int lastDesignerLabelPosition;
 
     private void setDesignerPopInfo(List list) {
         if (ObjectUtils.isEmpty(designerLabelPop)) {
@@ -381,29 +437,57 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
 
             Button cancle = designerLabelPop.findViewById(R.id.pop_designer_label_cancle);
             Button confirm = designerLabelPop.findViewById(R.id.pop_designer_label_confirm);
-            RecyclerView recyclerview = designerLabelPop.findViewById(R.id.pop_designer_label_recyclerView);
+            RecyclerView recyclerView = designerLabelPop.findViewById(R.id.pop_designer_label_recyclerview);
 
-            recyclerview.setLayoutManager(new GridLayoutManager(this, 3));
+            recyclerView.setLayoutManager(new GridLayoutManager(this,3));
+            DesignerLabelAdapter adapter = new DesignerLabelAdapter(R.layout.item_designer_label, list);
 
-            DesignerLabelAdapter adapter = new DesignerLabelAdapter(R.layout.item_designer_label,list);
-            recyclerview.setAdapter(adapter);
+            recyclerView.setAdapter(adapter);
+
+            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+                    if(!ObjectUtils.isEmpty(lastDesignerLabelBean)){
+                        if(lastDesignerLabelPosition==position){
+                            return;
+                        }
+                    }
+
+                    DesignerLabelBean designerLabelBean = (DesignerLabelBean) adapter.getData().get(position);
+                    designerLabelBean.setChecked(true);
+
+                    if (ObjectUtils.isEmpty(lastDesignerLabelBean)) {
+
+                    } else {
+                        lastDesignerLabelBean.setChecked(false);
+                        adapter.notifyItemChanged(lastDesignerLabelPosition);
+
+                    }
+                    lastDesignerLabelBean = designerLabelBean;
+                    lastDesignerLabelPosition = position;
+//
+                    adapter.notifyItemChanged(position);
+
+
+                }
+            });
+
 
             cancle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtils.showShort("dsadsad");
+                    designerLabelPop.dismiss();
                 }
             });
 
             confirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtils.showShort("xzczxcxzc");
+                    designerLabelPop.dismiss();
                 }
             });
-
         }
-
         designerLabelPop.showAtLocation(searchLayoutContent, Gravity.TOP, 0, 0);
     }
 }

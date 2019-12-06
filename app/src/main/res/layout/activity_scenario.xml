@@ -31,36 +31,165 @@
 
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/activity_scenario_category_img"
                 android:layout_width="match_parent"
                 android:layout_height="224dp"
                 app:layout_scrollFlags="scroll"
-                app:srcCompat="@mipmap/ic_launcher" />
+                app:srcCompat="@mipmap/placeholder_img" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/activity_scenario_nextlevel_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="80dp">
+                android:layout_height="80dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone">
 
 
             </android.support.v7.widget.RecyclerView>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="20dp" />
+                android:background="@color/bgColor"
+                android:layout_height="10dp" />
 
 
-            <android.support.design.widget.TabLayout
+
+
+            <com.flyco.tablayout.SlidingTabLayout
                 android:id="@+id/activity_scenario_category_tab"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="#ffffff" />
+                app:tl_indicator_color="@color/themeColor"
+                app:tl_indicator_width="40dp"
+                app:tl_tab_space_equal="true"
+                android:visibility="gone"
+                app:tl_textSelectColor="@color/themeColor"
+                app:tl_textUnselectColor="@color/saleColor" >
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/activity_scenario_sort_tab"
+            </com.flyco.tablayout.SlidingTabLayout>
+
+            <View
+                android:id="@+id/view30"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="#ffffff" />
+                android:background="#D6D6D6"
+                android:layout_height="1dp" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/activity_scenario_sort_goods_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/activity_scenario_sort_goods_normal"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="综合"
+                        android:textColor="@color/themeColor"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/activity_scenario_sort_goods_sale_count"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/activity_scenario_sort_goods_sale_count"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="销量"
+                        android:textColor="@color/saleColor"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/activity_scenario_sort_goods_price"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/activity_scenario_sort_goods_normal"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/activity_scenario_sort_goods_price"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="价格"
+                        android:textColor="@color/saleColor"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/activity_scenario_sort_goods_sale_count"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/activity_scenario_sort_material_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/activity_scenario_sort_material_normal"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="综合"
+                        android:textColor="@color/themeColor"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/activity_scenario_sort_material_sale_count"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/activity_scenario_sort_material_sale_count"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="销量"
+                        android:textColor="@color/saleColor"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/activity_scenario_sort_material_price"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/activity_scenario_sort_material_normal"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/activity_scenario_sort_material_price"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="价格"
+                        android:textColor="@color/saleColor"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/activity_scenario_sort_material_sale_count"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
+
+
+            </android.support.constraint.ConstraintLayout>
+
+
 
         </android.support.design.widget.AppBarLayout>
 

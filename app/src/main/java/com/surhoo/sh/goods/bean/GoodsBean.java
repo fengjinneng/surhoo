@@ -2,18 +2,18 @@ package com.surhoo.sh.goods.bean;
 
 public class GoodsBean {
 
-        private int goodsId;
+        private Integer goodsId;
         private String logo;
-        private int saleCount;
+        private Integer saleCount;
         private String goodsName;
         private String goodsPrice;
         private String shopLogo;
 
-        public int getGoodsId() {
+        public Integer getGoodsId() {
             return goodsId;
         }
 
-        public void setGoodsId(int goodsId) {
+        public void setGoodsId(Integer goodsId) {
             this.goodsId = goodsId;
         }
 
@@ -25,11 +25,11 @@ public class GoodsBean {
             this.logo = logo;
         }
 
-        public int getSaleCount() {
+        public Integer getSaleCount() {
             return saleCount;
         }
 
-        public void setSaleCount(int saleCount) {
+        public void setSaleCount(Integer saleCount) {
             this.saleCount = saleCount;
         }
 

@@ -35,13 +35,15 @@ public class MainActivity extends BaseActivity {
     private HomeFragment homeFragment;
     private MineFragment mineFragment;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
 
-        initView();
+    @Override
+    public int getContentView() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public boolean isFirstInLoadData() {
+        return false;
     }
 
     FragmentManager fragmentManager ;
@@ -55,6 +57,11 @@ public class MainActivity extends BaseActivity {
         homeFragment = new HomeFragment();
         fragmentTransaction.add(R.id.activity_main_container, homeFragment);
         fragmentTransaction.commit();
+
+    }
+
+    @Override
+    public void initData() {
 
     }
 

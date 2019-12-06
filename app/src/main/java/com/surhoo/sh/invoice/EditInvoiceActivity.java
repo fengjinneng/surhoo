@@ -33,10 +33,16 @@ public class EditInvoiceActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_invoice);
-        ButterKnife.bind(this);
+    }
 
-        initView();
+    @Override
+    public int getContentView() {
+        return R.layout.activity_edit_invoice;
+    }
+
+    @Override
+    public boolean isFirstInLoadData() {
+        return false;
     }
 
     @Override
@@ -58,6 +64,11 @@ public class EditInvoiceActivity extends BaseActivity {
                 activityEditInvoiceSpecialVatInvoiceLayout.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     @Override

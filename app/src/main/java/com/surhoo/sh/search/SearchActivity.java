@@ -39,11 +39,18 @@ public class SearchActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
-        ButterKnife.bind(this);
-
-        initView();
     }
+
+    @Override
+    public int getContentView() {
+        return R.layout.activity_search;
+    }
+
+    @Override
+    public boolean isFirstInLoadData() {
+        return false;
+    }
+
 
     @Override
     public void initView() {
@@ -58,6 +65,11 @@ public class SearchActivity extends BaseActivity {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     @Override

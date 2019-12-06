@@ -1,5 +1,6 @@
 package com.surhoo.sh.goods.presenter.impl;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.lzy.okgo.model.HttpParams;
@@ -14,11 +15,11 @@ public class GoodsPresenterImpl implements GoodsPresenter {
     private static final String TAG = "GoodsPresenterImpl";
 
     GoodsView goodsView;
-    Context context;
+    Activity activity;
 
     @Override
-    public void bindView(Context ctx, GoodsView view) {
-        this.context = ctx;
+    public void bindView(Activity activity, GoodsView view) {
+        this.activity = activity;
         this.goodsView = view;
     }
 
@@ -43,19 +44,19 @@ public class GoodsPresenterImpl implements GoodsPresenter {
             case 1:
                 httpParams.put("classifyId", classifyld);
                 httpParams.put("sortType", sortType);
-                NetworkReturnUtil.requestPage(goodsView, context, Api.GOODSLIST, httpParams, GoodsBean.class, pageIndex);
+                NetworkReturnUtil.requestPage(goodsView, activity, Api.GOODSLIST, httpParams, GoodsBean.class, pageIndex);
                 break;
             case 2:
                 httpParams.put("classifyId", classifyld);
                 httpParams.put("sortType", sortType);
-                NetworkReturnUtil.requestPage(goodsView, context, Api.SHOPGOODS, httpParams, GoodsBean.class, pageIndex);
+                NetworkReturnUtil.requestPage(goodsView, activity, Api.SHOPGOODS, httpParams, GoodsBean.class, pageIndex);
                 break;
             case 3:
                 break;
 
             case 4:
                 httpParams.put("type", 1);
-                NetworkReturnUtil.requestPage(goodsView, context, Api.COLLECT, httpParams, GoodsBean.class, pageIndex);
+                NetworkReturnUtil.requestPage(goodsView, activity, Api.COLLECT, httpParams, GoodsBean.class, pageIndex);
                 break;
         }
     }

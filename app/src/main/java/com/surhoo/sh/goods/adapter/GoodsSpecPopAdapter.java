@@ -5,10 +5,15 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.surhoo.sh.R;
 import com.surhoo.sh.goods.bean.GoodDetailBean;
+import com.surhoo.sh.goods.view.impl.GoodsDetailActivity;
+import com.surhoo.sh.goods.view.impl.OnDDD;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -23,6 +28,23 @@ public class GoodsSpecPopAdapter extends BaseQuickAdapter<GoodDetailBean.SpecLis
         super(layoutResId, data);
     }
 
+    OnDDD onDDD;
+
+    public void setOnDDD(OnDDD onDDD) {
+        this.onDDD = onDDD;
+    }
+
+    //默认需要选择的sku
+    List<GoodDetailBean.SkuListBean> skuListBeans;
+
+    public List<GoodDetailBean.SkuListBean> getSkuListBeans() {
+        return skuListBeans;
+    }
+
+    public void setSkuListBeans(List<GoodDetailBean.SkuListBean> skuListBeans) {
+        this.skuListBeans = skuListBeans;
+    }
+
     @Override
     protected void convert(@NonNull BaseViewHolder helper, GoodDetailBean.SpecListBean item) {
 
@@ -35,17 +57,52 @@ public class GoodsSpecPopAdapter extends BaseQuickAdapter<GoodDetailBean.SpecLis
 
         List<String> strings = new ArrayList<>();
 
+
+
+        String[] split = skuListBeans.get(0).getGoodsSkuName().split("_");
+
+
+        int checked = 0;
+
+        for (int j = 0; j < split.length; j++) {
+            for (int i = 0; i < item.getGoodsSkuSpecVals().size(); i++) {
+                if(StringUtils.equals(split[j],item.getGoodsSkuSpecVals().get(i).getGoodsSkuSpecValName())){
+                    checked  = i;
+                }
+            }
+        }
+
         for (int i = 0; i < item.getGoodsSkuSpecVals().size(); i++) {
             strings.add(item.getGoodsSkuSpecVals().get(i).getGoodsSkuSpecValName());
         }
 
 
-        flowLayout.setAdapter(new TagAdapter<String>(strings) {
+        TagAdapter<String> tagAdapter = new TagAdapter<String>(strings) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
                 TextView tv = (TextView) mLayoutInflater.inflate(R.layout.item_goods_spec_flow, null);
                 tv.setText(s);
                 return tv;
+            }
+        };
+
+        tagAdapter.setSelectedList(checked);
+        flowLayout.setAdapter(tagAdapter);
+
+        flowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+            @Override
+            public boolean onTagClick(View view, int position, FlowLayout parent) {
+
+                for (int i = 0; i < item.getGoodsSkuSpecVals().size(); i++) {
+                    item.getGoodsSkuSpecVals().get(i).setChecked(false);
+                }
+
+                item.getGoodsSkuSpecVals().get(position).setChecked(true);
+
+
+                onDDD.onddd(helper.getLayoutPosition(),item.getGoodsSkuSpecVals().get(position).getGoodsSkuSpecValName());
+
+                return true;
             }
         });
 

@@ -1,4 +1,6 @@
-package com.surhoo.sh.material;
+package com.surhoo.sh.material.bean;
+
+import com.zhy.view.flowlayout.TagAdapter;
 
 import java.util.List;
 
@@ -28,7 +30,34 @@ public class MaterialBean {
     private Boolean isCollect;
     private String video;
     private String richText;
+    private Integer designerId;
     private List<LabelInfoListBean> labelInfoList;
+    private boolean hasTagAdapter;
+    private TagAdapter tagAdapter;
+
+    public Integer getDesignerId() {
+        return designerId;
+    }
+
+    public void setDesignerId(Integer designerId) {
+        this.designerId = designerId;
+    }
+
+    public boolean isHasTagAdapter() {
+        return hasTagAdapter;
+    }
+
+    public void setHasTagAdapter(boolean hasTagAdapter) {
+        this.hasTagAdapter = hasTagAdapter;
+    }
+
+    public TagAdapter getTagAdapter() {
+        return tagAdapter;
+    }
+
+    public void setTagAdapter(TagAdapter tagAdapter) {
+        this.tagAdapter = tagAdapter;
+    }
 
     public Integer getMaterialId() {
         return materialId;

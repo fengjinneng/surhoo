@@ -15,21 +15,30 @@ public class DesignerLabelBean {
      * value : null
      */
 
-    private int id;
+    private Integer id;
     private String name;
-    private int type;
-    private int sort;
+    private Integer type;
+    private Integer sort;
     private Object isDelete;
     private Object gmtGreate;
     private Object gmtModified;
     private Object selected;
     private Object value;
+    private Boolean checked;
 
-    public int getId() {
+    public Boolean getChecked() {
+        return checked;
+    }
+
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -41,19 +50,19 @@ public class DesignerLabelBean {
         this.name = name;
     }
 
-    public int getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
-    public int getSort() {
+    public Integer getSort() {
         return sort;
     }
 
-    public void setSort(int sort) {
+    public void setSort(Integer sort) {
         this.sort = sort;
     }
 

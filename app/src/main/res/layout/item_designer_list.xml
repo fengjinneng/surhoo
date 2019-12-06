@@ -4,131 +4,189 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/bgColor"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/item_designer_list_avator"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/surhoo_logo" />
-
-    <TextView
-        android:id="@+id/item_designer_list_name"
-        android:layout_width="wrap_content"
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:text="飞羽"
-        android:textSize="16sp"
-        android:textColor="@color/pageTitle"
-        app:layout_constraintStart_toEndOf="@+id/item_designer_list_avator"
-        app:layout_constraintTop_toTopOf="@+id/item_designer_list_avator" />
-
-    <com.zhy.view.flowlayout.TagFlowLayout
-        android:id="@+id/item_designer_list_tag"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/bg_desinger_item"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/item_designer_list_avator"
-        app:layout_constraintTop_toBottomOf="@+id/item_designer_list_name">
-
-    </com.zhy.view.flowlayout.TagFlowLayout>
-
-    <TextView
-        android:id="@+id/item_designer_list_level"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:background="@drawable/bg_round_corner_orange_button"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="lv9"
-        android:textColor="@color/white"
-        android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="@+id/item_designer_list_name"
-        app:layout_constraintStart_toEndOf="@+id/item_designer_list_name"
-        app:layout_constraintTop_toTopOf="@+id/item_designer_list_name" />
-
-    <TextView
-        android:id="@+id/textView23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="查看详情"
-        app:layout_constraintBottom_toBottomOf="@+id/item_designer_list_name"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/item_designer_list_content"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:text="设计师简介设计师简介设计师简介设计师简介设计师简介设计师简介设计师简介设计师简介设计师简介设计师简介设计师简介设计师简介设计师简介设计师简介设计师简介设计师简介"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/item_designer_list_avator"
-        app:layout_constraintTop_toBottomOf="@+id/item_designer_list_tag" />
-
-    <ImageView
-        android:id="@+id/item_designer_list_img1"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/item_designer_list_content"
-        app:layout_constraintTop_toBottomOf="@+id/item_designer_list_content"
-        app:srcCompat="@mipmap/surhoo_logo" />
-
-    <ImageView
-        android:id="@+id/item_designer_list_img2"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintStart_toEndOf="@+id/item_designer_list_img1"
-        app:layout_constraintTop_toTopOf="@+id/item_designer_list_img1"
-        app:srcCompat="@mipmap/surhoo_logo" />
-
-    <ImageView
-        android:id="@+id/item_designer_list_img3"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintStart_toEndOf="@+id/item_designer_list_img2"
-        app:layout_constraintTop_toTopOf="@+id/item_designer_list_img1"
-        app:srcCompat="@mipmap/surhoo_logo" />
-
-    <TextView
-        android:id="@+id/textView25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="热门素材"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/item_designer_list_img1"
-        app:layout_constraintEnd_toStartOf="@+id/item_designer_list_img1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/item_designer_list_img1" />
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/item_designer_list_avator"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/placeholder_head_img" />
+
+        <TextView
+            android:id="@+id/item_designer_list_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:text="飞羽"
+            android:textColor="@color/pageTitle"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/item_designer_list_avator"
+            app:layout_constraintTop_toTopOf="@+id/item_designer_list_avator" />
+
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/item_designer_list_tag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/item_designer_list_avator"
+            app:layout_constraintTop_toBottomOf="@+id/item_designer_list_name">
+
+        </com.zhy.view.flowlayout.TagFlowLayout>
+
+        <TextView
+            android:id="@+id/item_designer_list_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/bg_round_corner_orange_button"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="lv9"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@+id/item_designer_list_name"
+            app:layout_constraintStart_toEndOf="@+id/item_designer_list_name"
+            app:layout_constraintTop_toTopOf="@+id/item_designer_list_name" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:drawableRight="@mipmap/arrow_right"
+            android:drawablePadding="4dp"
+            android:text="查看详情"
+            android:textColor="@color/saleColor"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/item_designer_list_name"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/item_designer_list_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/a4a4a4"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/item_designer_list_avator"
+            app:layout_constraintTop_toBottomOf="@+id/item_designer_list_tag"
+            app:layout_goneMarginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/item_designer_list_hot_material"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:text="热门素材"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/item_designer_list_material"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/item_designer_list_material" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/item_designer_list_material"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/item_designer_list_content"
+            app:layout_constraintTop_toBottomOf="@+id/item_designer_list_content">
+
+            <ImageView
+                android:id="@+id/item_designer_list_material_1"
+                android:layout_width="82dp"
+                android:layout_height="82dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/placeholder_img" />
+
+            <ImageView
+                android:id="@+id/item_designer_list_material_2"
+                android:layout_width="82dp"
+                android:layout_height="82dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintStart_toEndOf="@+id/item_designer_list_material_1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/placeholder_img" />
+
+            <ImageView
+                android:id="@+id/item_designer_list_material_3"
+                android:layout_width="82dp"
+                android:layout_height="82dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintStart_toEndOf="@+id/item_designer_list_material_2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/placeholder_img" />
+
+            <ImageView
+                android:id="@+id/item_designer_list_material_4"
+                android:layout_width="82dp"
+                android:layout_height="82dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_designer_list_material_1"
+                app:srcCompat="@mipmap/placeholder_img" />
+
+            <ImageView
+                android:id="@+id/item_designer_list_material_5"
+                android:layout_width="82dp"
+                android:layout_height="82dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintStart_toEndOf="@+id/item_designer_list_material_4"
+                app:layout_constraintTop_toTopOf="@+id/item_designer_list_material_4"
+                app:srcCompat="@mipmap/placeholder_img" />
+
+            <ImageView
+                android:id="@+id/item_designer_list_material_6"
+                android:layout_width="82dp"
+                android:layout_height="82dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintStart_toEndOf="@+id/item_designer_list_material_5"
+                app:layout_constraintTop_toTopOf="@+id/item_designer_list_material_5"
+                app:srcCompat="@mipmap/placeholder_img" />
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
 </android.support.constraint.ConstraintLayout>

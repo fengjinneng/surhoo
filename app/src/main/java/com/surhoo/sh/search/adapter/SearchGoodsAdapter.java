@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.surhoo.sh.R;
+import com.surhoo.sh.common.util.GlideUtil;
 import com.surhoo.sh.goods.bean.GoodsBean;
 
 import java.util.List;
@@ -38,6 +39,6 @@ public class SearchGoodsAdapter extends BaseQuickAdapter<GoodsBean
         }
 
         ImageView goodsImg = (ImageView) helper.getView(R.id.item_goods_list_img);
-        Glide.with(mContext).load(item.getLogo()).into(goodsImg);
+        GlideUtil.loadGoodsImage(mContext,item.getLogo() ,goodsImg);
     }
 }

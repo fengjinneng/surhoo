@@ -10,6 +10,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.surhoo.sh.base.BaseActivity;
 import com.surhoo.sh.R;
+import com.surhoo.sh.common.util.LinnearLayoutItemDecoration;
 import com.surhoo.sh.goods.adapter.AllCommentsAdapter;
 import com.surhoo.sh.goods.bean.CommentBean;
 import com.surhoo.sh.goods.presenter.AllCommentsPresenter;
@@ -34,21 +35,22 @@ public class AllCommentsActivity extends BaseActivity implements AllCommentsView
 
     private int id;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_comments);
-        ButterKnife.bind(this);
+    public int getContentView() {
+        return R.layout.activity_all_comments;
+    }
 
-
-        id = getIntent().getIntExtra("id",0);
-
-        initView();
-        requestData();
+    @Override
+    public boolean isFirstInLoadData() {
+        return true;
     }
 
     @Override
     public void initView() {
+
+        id = getIntent().getIntExtra("id",0);
+
         datas = new ArrayList<>();
 
         toolbarLayoutTitle.setText("全部评价");
@@ -70,6 +72,15 @@ public class AllCommentsActivity extends BaseActivity implements AllCommentsView
                 requestData();
             }
         },activityAllCommentsRecyclerview);
+
+
+        activityAllCommentsRecyclerview.addItemDecoration(
+                new LinnearLayoutItemDecoration(this,R.drawable.item_decoration_linearlayout_10dp));
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     private int pageSize = 20;
@@ -88,11 +99,6 @@ public class AllCommentsActivity extends BaseActivity implements AllCommentsView
 
     List<CommentBean.ListBean> datas;
 
-    @Override
-    public void firstInEmpty() {
-        datas.clear();
-        allCommentsAdapter.notifyDataSetChanged();
-    }
 
     @Override
     public void loadEnd() {
@@ -109,7 +115,7 @@ public class AllCommentsActivity extends BaseActivity implements AllCommentsView
     @Override
     public void loadData(List<CommentBean.ListBean> list) {
         datas.addAll(list);
-        allCommentsAdapter.setNewData(list);
+        allCommentsAdapter.addData(list);
         allCommentsAdapter.loadMoreComplete();
     }
 

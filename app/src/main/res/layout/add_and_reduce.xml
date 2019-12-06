@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/pop_goods_spec_addNum"
+        android:layout_width="33dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:background="@color/f5f5f5"
+        app:layout_constraintBottom_toBottomOf="@+id/textView7"
+        app:layout_constraintStart_toEndOf="@+id/textView15"
+        app:layout_constraintTop_toTopOf="@+id/textView7">
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@mipmap/goods_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <!--<TextView-->
+        <!--android:id="@+id/pop_goods_spec_num"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:layout_marginEnd="1dp"-->
+        <!--android:layout_marginRight="1dp"-->
+        <!--android:background="@color/edebeb"-->
+        <!--android:gravity="center"-->
+        <!--android:inputType="number"-->
+        <!--android:paddingLeft="10dp"-->
+        <!--android:paddingRight="10dp"-->
+        <!--android:text="1"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/pop_goods_spec_addNum"-->
+        <!--app:layout_constraintEnd_toStartOf="@+id/pop_goods_spec_addNum"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/pop_goods_spec_addNum" />-->
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/pop_goods_spec_reduceNum"
+        android:layout_width="33dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:background="@color/f5f5f5"
+        app:layout_constraintEnd_toStartOf="@+id/pop_goods_spec_num"
+        app:layout_constraintTop_toTopOf="@+id/pop_goods_spec_num">
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="2dp"
+            android:src="@mipmap/goods_reduce"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="38dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:gravity="center"
+        android:text="1"
+        android:background="@color/edebeb"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/pop_goods_spec_reduceNum"
+        app:layout_constraintStart_toEndOf="@+id/pop_goods_spec_reduceNum"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

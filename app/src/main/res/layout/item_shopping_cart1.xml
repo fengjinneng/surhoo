@@ -5,8 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@drawable/bg_shoppingcart_head"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
     android:layout_height="wrap_content">
 
     <TextView
@@ -16,6 +17,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:text="TextView"
+        android:textSize="13sp"
+        android:textColor="@color/pageTitle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/item_shopping_cart1_checkbox"
         app:layout_constraintTop_toTopOf="parent" />

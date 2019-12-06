@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".material.MaterialDetailActivity">
+
+    <include
+        android:id="@+id/include16"
+        layout="@layout/toolbar_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include16">
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/activity_material_detail_img"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/placeholder_img" />
+
+            <TextView
+                android:id="@+id/activity_material_detail_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textColor="@color/pageTitle"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/activity_material_detail_img"
+                app:layout_constraintTop_toTopOf="@+id/activity_material_detail_img" />
+
+            <TextView
+                android:id="@+id/activity_material_detail_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/themeColor"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/activity_material_detail_name"
+                app:layout_constraintTop_toBottomOf="@+id/activity_material_detail_name" />
+
+            <TextView
+                android:id="@+id/activity_material_detail_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:lines="2"
+                android:ellipsize="end"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/activity_material_detail_price"
+                app:layout_constraintTop_toBottomOf="@+id/activity_material_detail_price" />
+
+            <WebView
+                android:id="@+id/activity_material_detail_webview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_goneMarginTop="30dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activity_material_detail_video"
+                tools:ignore="WebViewLayout" />
+
+            <View
+                android:id="@+id/view28"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/dividerLine"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activity_material_detail_img" />
+
+            <TextView
+                android:id="@+id/textView51"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="素材标签"
+                android:textSize="13sp"
+                android:textColor="@color/a4a4a4"
+                app:layout_constraintEnd_toEndOf="@+id/activity_material_detail_img"
+                app:layout_constraintStart_toStartOf="@+id/activity_material_detail_img"
+                app:layout_constraintTop_toBottomOf="@+id/view28" />
+
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/activity_material_detail_tagFlowLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/activity_material_detail_desc"
+                app:layout_constraintTop_toTopOf="@+id/textView51">
+
+            </com.zhy.view.flowlayout.TagFlowLayout>
+
+            <ImageView
+                android:id="@+id/activity_material_detail_video"
+                android:layout_width="0dp"
+                android:layout_height="210dp"
+                android:layout_marginTop="24dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activity_material_detail_tagFlowLayout"
+                app:srcCompat="@mipmap/placeholder_img" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </ScrollView>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout7"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/activity_material_detail_apply_material"
+            android:layout_width="123dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_round_corner_grey_border"
+            android:gravity="center"
+            android:text="应用素材"
+            android:textColor="@color/pageTitle"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/activity_material_detail_to_designer"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/activity_material_detail_to_designer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_gradient_round_origin_button"
+            android:gravity="center"
+            android:text="查看设计师"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/activity_material_detail_apply_material"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.surhoo.sh.designer.presenter.impl;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.lzy.okgo.model.HttpParams;
@@ -13,13 +14,13 @@ public class DesignerPresenterImpl implements DesignerPresenter {
 
 
     private DesignerViewList designerView;
-    private Context context;
+    private Activity activity;
 
 
     @Override
-    public void bindView(Context ctx, DesignerViewList view) {
-        context =ctx;
-        designerView = view;
+    public void bindView(Activity activity, DesignerViewList view) {
+        this.activity =activity;
+        this.designerView = view;
 
     }
 
@@ -35,7 +36,7 @@ public class DesignerPresenterImpl implements DesignerPresenter {
         HttpParams httpParams = new HttpParams();
         httpParams.put("isSelf",isSelf);
         httpParams.put("designerId",designerId);
-        NetworkReturnUtil.requestOne(designerView,context,Api.DESIGNERINFO,httpParams,DesignerDetailBean.class);
+        NetworkReturnUtil.requestOne(designerView,activity,Api.DESIGNERINFO,httpParams,DesignerDetailBean.class);
 
     }
 }

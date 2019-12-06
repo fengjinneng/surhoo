@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".designer.view.DesignerActivity">
 
     <include
@@ -21,8 +22,7 @@
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:layout_height="wrap_content">
 
             <!--<include layout="@layout/toolbar_layout"/>-->
 
@@ -33,19 +33,17 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <android.support.constraint.ConstraintLayout
-                    android:background="@color/grey"
                     android:layout_width="match_parent"
-                    android:layout_height="600dp">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/activity_designer_img"
                         android:layout_width="0dp"
-                        android:layout_height="328dp"
-                        android:scaleType="fitXY"
+                        android:layout_height="375dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@mipmap/surhoo_logo" />
+                        app:srcCompat="@mipmap/placeholder_img" />
 
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/constraintLayout6"
@@ -58,70 +56,112 @@
                     </android.support.constraint.ConstraintLayout>
 
                     <ImageView
-                        android:id="@+id/imageView14"
+                        android:id="@+id/activity_designer_video"
                         android:layout_width="0dp"
-                        android:layout_height="206dp"
+                        android:layout_height="210dp"
+                        android:scaleType="fitXY"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
-                        app:srcCompat="@mipmap/surhoo_logo" />
+                        app:srcCompat="@mipmap/placeholder_img" />
 
-
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraintLayout7"
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/activity_desinger_cardview"
                         android:layout_width="0dp"
                         android:layout_height="182dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginRight="16dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="@color/white"
-                        app:layout_constraintBottom_toTopOf="@+id/imageView14"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="3dp"
+                        app:layout_constraintBottom_toTopOf="@+id/activity_designer_video"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent">
 
-                        <TextView
-                            android:id="@+id/activity_designer_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="22dp"
-                            android:layout_marginLeft="22dp"
-                            android:layout_marginTop="48dp"
-                            android:text="一叶知秋"
-                            android:textColor="@color/pageTitle"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/activity_designer_level"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginLeft="8dp"
-                            android:text="lv9"
-                            android:background="@drawable/bg_round_corner_orange_button"
-                            android:textColor="@color/white"
-                            android:paddingRight="10dp"
-                            android:paddingLeft="10dp"
-                            app:layout_constraintBottom_toBottomOf="@+id/activity_designer_name"
-                            app:layout_constraintStart_toEndOf="@+id/activity_designer_name" />
+                        <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                        <TextView
-                            android:id="@+id/activity_designer_content"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginRight="8dp"
-                            android:layout_marginBottom="66dp"
-                            android:text="个人简介内容个人简介内容个人简介内容个人个人简介内容个人简介内容个人简介内容个人"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            android:maxLines="2"
-                            android:ellipsize="end"
-                            app:layout_constraintStart_toStartOf="@+id/activity_designer_name" />
-                    </android.support.constraint.ConstraintLayout>
+                            <TextView
+                                android:id="@+id/activity_designer_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="48dp"
+                                android:text="一叶知秋"
+                                android:textColor="@color/goodsName"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/activity_designer_level"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:background="@drawable/bg_round_corner_orange_button"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:text="lv9"
+                                android:textColor="@color/white"
+                                app:layout_constraintBottom_toBottomOf="@+id/activity_designer_name"
+                                app:layout_constraintStart_toEndOf="@+id/activity_designer_name"
+                                app:layout_constraintTop_toTopOf="@+id/activity_designer_name" />
+
+                            <TextView
+                                android:id="@+id/activity_designer_content"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="20dp"
+                                android:layout_marginRight="20dp"
+                                android:ellipsize="end"
+                                android:minLines="2"
+                                android:maxLines="2"
+                                android:text="个人简介内容个人简介内容个"
+                                android:textColor="@color/saleColor"
+                                android:textSize="12sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="@+id/activity_designer_name"
+                                app:layout_constraintTop_toBottomOf="@+id/activity_designer_name" />
+
+                            <com.zhy.view.flowlayout.TagFlowLayout
+                                android:id="@+id/activity_desinger_tagFlowLayout"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="8dp"
+
+                                app:layout_constraintEnd_toStartOf="@+id/textView44"
+                                app:layout_constraintStart_toStartOf="@+id/activity_designer_content"
+                                app:layout_constraintTop_toBottomOf="@+id/activity_designer_content"
+                                app:srcCompat="@mipmap/market_hot" />
+
+                            <TextView
+                                android:id="@+id/textView44"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginRight="16dp"
+                                android:text="投诉"
+                                android:drawableLeft="@mipmap/warming_triangle"
+                                android:textColor="@color/saleColor"
+                                android:textSize="12sp"
+                                android:drawablePadding="2dp"
+                                app:layout_constraintEnd_toEndOf="@+id/activity_designer_content"
+                                app:layout_constraintTop_toBottomOf="@+id/activity_designer_content" />
+                        </android.support.constraint.ConstraintLayout>
+
+                    </android.support.v7.widget.CardView>
+
 
                     <ImageView
                         android:id="@+id/activity_designer_avator"
@@ -129,10 +169,11 @@
                         android:layout_height="70dp"
                         android:layout_marginStart="22dp"
                         android:layout_marginLeft="22dp"
-                        android:layout_marginBottom="95dp"
+                        android:layout_marginBottom="97dp"
+                        android:elevation="3dp"
                         app:layout_constraintBottom_toTopOf="@+id/constraintLayout6"
-                        app:layout_constraintStart_toStartOf="@+id/constraintLayout7"
-                        app:srcCompat="@mipmap/goods_home" />
+                        app:layout_constraintStart_toStartOf="@+id/activity_desinger_cardview"
+                        app:srcCompat="@mipmap/placeholder_head_img" />
 
                 </android.support.constraint.ConstraintLayout>
 
@@ -146,7 +187,6 @@
                 app:tabIndicatorColor="@color/white"
                 app:tabSelectedTextColor="@color/themeColor"
                 app:tabTextColor="#A7A7A7" />
-
 
 
         </android.support.design.widget.AppBarLayout>

@@ -18,6 +18,7 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.surhoo.sh.R;
+import com.surhoo.sh.base.BaseFragment;
 import com.surhoo.sh.goods.view.impl.CategoryActivity;
 import com.surhoo.sh.home.bean.HomePageBean;
 import com.surhoo.sh.home.presenter.HomePresenter;
@@ -42,12 +43,11 @@ import butterknife.Unbinder;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements HomeView {
+public class HomeFragment extends BaseFragment implements HomeView {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     @BindView(R.id.fragment_home_recyclerview)
     RecyclerView recyclerView;
-    Unbinder unbinder;
     @BindView(R.id.fragment_home_category)
     ImageView fragmentHomeCategory;
     @BindView(R.id.fragment_home_search)
@@ -80,24 +80,14 @@ public class HomeFragment extends Fragment implements HomeView {
         }
     }
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        return view;
+    public View getView(ViewGroup container) {
+        return getLayoutInflater().inflate(R.layout.fragment_home, container, false);
     }
 
-    VirtualLayoutManager layoutManager;
-    DelegateAdapter delegateAdapter;
-    HomePresenter homePresenter;
-
-
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
+    public void init() {
         layoutManager = new VirtualLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
@@ -106,22 +96,23 @@ public class HomeFragment extends Fragment implements HomeView {
 
         homePresenter = new HomePresenterImpl();
 
-        homePresenter.bindView(getContext(), this);
-
-        addData();
-
-    }
-
-    private void addData() {
-
-        homePresenter.requestData();
+        homePresenter.bindView(getActivity(), this);
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
+    public boolean isFirstInLoadData() {
+        return true;
     }
+
+    @Override
+    public void requestData() {
+        homePresenter.requestData();
+    }
+
+    VirtualLayoutManager layoutManager;
+    DelegateAdapter delegateAdapter;
+    HomePresenter homePresenter;
+
 
     @Override
     public void showData(HomePageBean homePageBean) {
@@ -164,7 +155,6 @@ public class HomeFragment extends Fragment implements HomeView {
             delegateAdapter.addAdapter(goodsLayoutAdapter);
 
         }
-
 
     }
 

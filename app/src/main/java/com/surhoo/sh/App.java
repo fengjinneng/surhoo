@@ -35,7 +35,7 @@ public class App extends Application {
         HttpHeaders headers = new HttpHeaders();
 
         headers.put("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJuaWNrbmFtZSI6IlJIRVRUIiwiaGVhZGltZ3VybCI6Imh0dHBzOi8vd3gucWxvZ28uY24vbW1vcGVuL3ZpXzMyL3R3MUxPU0piT1h6aFhPOERTOWljajZBdXhRRVNEakhsWU1uOHZJaGxDNGlhc0Qza055U0UyYlM2VUY5OU9hTWx0QlZ2R0R4cjZ6aWFtMThoV3RDOTZGNXRnLzEzMiIsImlkIjoxMDAxMDA4NSwiZXhwIjoxNTY4MTg0OTY4LCJvcGVuaWQiOiJvbDR5bDVQNHl3MmozTmJqa1UzMHkyVnJhMEh3IiwiYXBwaWQiOiJ3eDQxMDU2ODQ5OGYzYzljYmEifQ.2r1BKcYbxd_NWkEB6OVAn1KKX2EfJIOC-7sHG59FDzHPqtGjyDM94CAZfSuuU7v01t4K2Wf6ugmSUh_td-NOLg");
-        headers.put("Content-Type", "application/json;charset=UTF-8");
+//        headers.put("Content-Type", "application/json;charset=UTF-8");
 
 //        headers.put("app_id", "6016011000110001");
 //        headers.put("app_key", "NTA1QUEzRTFDQjI1RTYyOEM1MzY0NzkwRTE4M0ZCREU=");

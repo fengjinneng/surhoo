@@ -7,7 +7,9 @@ public interface GoodsDetailPresenter extends BasePresenter<GoodsDetailView> {
 
     void requestData(int id);
 
-    void showSpec();
+    void addToCar(int goodsId,int skuId,int goodsNum);
+
+    void getShoopingCartNumber();
 
 
 }

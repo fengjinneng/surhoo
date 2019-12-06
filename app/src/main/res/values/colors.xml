@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
 
-
+    <color name="bgColor">#fff6f6f6</color>
 
 
     <color name="topColor">#333434</color>
@@ -29,5 +29,20 @@
 
     <color name="grey">#33000000</color>
 
+    <color name="f2326">#2F2326</color>
+
+    <color name="a4a4a4">#4A4A4A</color>
+
+    <color name="c353535">#353535</color>
+
+
+    <color name="f5f5f5">#fff5f5f5</color>
+
+    <color name="edebeb">#ffedebeb</color>
+
+    <color name="d6d6d6">#D6D6D6</color>
+
+
+    <color name="deleteColor">#F01426</color>
 
 </resources>

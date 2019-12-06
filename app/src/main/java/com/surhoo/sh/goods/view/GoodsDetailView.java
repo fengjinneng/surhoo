@@ -1,14 +1,14 @@
 package com.surhoo.sh.goods.view;
 
-import com.surhoo.sh.base.BaseView;
+import com.surhoo.sh.base.NoPageBaseView;
 import com.surhoo.sh.goods.bean.GoodDetailBean;
 
-public interface GoodsDetailView extends BaseView {
+public interface GoodsDetailView extends NoPageBaseView<GoodDetailBean> {
 
 
-    void show(GoodDetailBean goodDetailBean);
+    void addToCarResult(Integer result);
 
 
-    void showSpec(GoodDetailBean goodDetailBean);
+    void showCarNumber(Integer number);
 
 }

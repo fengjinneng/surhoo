@@ -17,7 +17,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/surhoo_logo" />
+        app:srcCompat="@mipmap/placeholder_img" />
 
     <TextView
         android:id="@+id/item_material_name"
@@ -41,11 +41,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
         android:text="¥699.00"
-        android:textSize="20sp"
         android:textColor="@color/themeColor"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/item_material_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -53,7 +53,7 @@
     <com.zhy.view.flowlayout.TagFlowLayout
         android:id="@+id/item_material_tag"
         android:layout_width="0dp"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -75,7 +75,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:text="素材介绍素材介绍素材介绍"
-        android:maxLines="2"
+        android:lines="2"
         android:ellipsize="end"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/item_material_img"

@@ -4,9 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp"
     android:background="@color/white"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     android:layout_height="wrap_content">
 
     <TextView
@@ -18,10 +18,10 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="TextView"
-        android:minLines="2"
-        android:maxLines="2"
+        android:lines="2"
         android:ellipsize="end"
+        android:textSize="15sp"
+        android:textColor="#343333"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/item_shopping_cart2_img"
         app:layout_constraintTop_toTopOf="@+id/item_shopping_cart2_img" />
@@ -38,7 +38,7 @@
         app:layout_constraintStart_toEndOf="@+id/item_shopping_cart2_checkbox"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@mipmap/surhoo_logo" />
+        app:srcCompat="@mipmap/placeholder_img" />
 
     <CheckBox
         android:id="@+id/item_shopping_cart2_checkbox"
@@ -56,11 +56,83 @@
         android:id="@+id/item_shopping_cart2_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:text="TextView"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:textSize="16sp"
+        android:text="-"
+        android:textColor="@color/themeColor"
         app:layout_constraintBottom_toBottomOf="@+id/item_shopping_cart2_img"
         app:layout_constraintStart_toEndOf="@+id/item_shopping_cart2_img" />
+
+    <TextView
+        android:id="@+id/item_shopping_cart2_skuName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="6dp"
+        android:textSize="12sp"
+        android:text="敖德萨多撒多撒多撒大"
+        android:textColor="@color/saleColor"
+        app:layout_constraintBottom_toTopOf="@+id/item_shopping_cart2_price"
+        app:layout_constraintStart_toEndOf="@+id/item_shopping_cart2_img" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/item_shopping_cart2_addNum"
+        android:layout_width="33dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/f5f5f5"
+        app:layout_constraintBottom_toBottomOf="@+id/item_shopping_cart2_price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/item_shopping_cart2_price">
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@mipmap/goods_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/item_shopping_cart2_reduceNum"
+        android:layout_width="33dp"
+        android:layout_height="24dp"
+        android:background="@color/f5f5f5"
+        app:layout_constraintBottom_toBottomOf="@+id/item_shopping_cart2_addNum"
+        app:layout_constraintEnd_toStartOf="@+id/item_shopping_cart2_num">
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="2dp"
+            android:src="@mipmap/goods_reduce"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/item_shopping_cart2_num"
+        android:layout_width="38dp"
+        android:layout_height="0dp"
+        android:background="@color/edebeb"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="1"
+        app:layout_constraintBottom_toBottomOf="@+id/item_shopping_cart2_addNum"
+        app:layout_constraintEnd_toStartOf="@+id/item_shopping_cart2_addNum"
+        app:layout_constraintTop_toTopOf="@+id/item_shopping_cart2_addNum"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </android.support.constraint.ConstraintLayout>

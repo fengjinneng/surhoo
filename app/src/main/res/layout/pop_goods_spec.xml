@@ -8,23 +8,68 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="0dp"
-        android:background="@color/white"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <TextView
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="@color/themeColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/pop_goods_spec_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="125dp"
+                android:layout_marginLeft="125dp"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/themeColor"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView64"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="库存:"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/pop_goods_spec_price"
+                app:layout_constraintTop_toBottomOf="@+id/pop_goods_spec_price" />
+
+            <TextView
+                android:id="@+id/pop_goods_spec_inventory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView64"
+                app:layout_constraintStart_toEndOf="@+id/textView64" />
+
+            <ImageView
+                android:id="@+id/pop_goods_spec_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/goods_close" />
+
+        </android.support.constraint.ConstraintLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/pop_goods_spec_recyclerview"
@@ -37,86 +82,141 @@
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="24dp"
             android:text="数量"
+            android:textColor="@color/c353535"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pop_goods_spec_recyclerview" />
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:layout_marginRight="32dp"
-            android:background="@color/grey"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="+"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/pop_goods_spec_addNum"
+            android:layout_width="33dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/f5f5f5"
             app:layout_constraintBottom_toBottomOf="@+id/textView7"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView7">
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@mipmap/goods_add"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </android.support.constraint.ConstraintLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/pop_goods_spec_addtocar"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_round_corner_red_border_white_button"
             android:text="加入购物车"
+            android:textColor="@color/themeColor"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button2"
+            app:layout_constraintEnd_toStartOf="@+id/pop_goods_spec_buy_rightNow"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/pop_goods_spec_num"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/linePrice"
+            android:layout_height="30dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@color/edebeb"
+            android:gravity="center"
+            android:inputType="number"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="23"
-            app:layout_constraintBottom_toBottomOf="@+id/textView9"
-            app:layout_constraintEnd_toStartOf="@+id/textView9" />
+            android:text="1"
+            app:layout_constraintBottom_toBottomOf="@+id/pop_goods_spec_addNum"
+            app:layout_constraintEnd_toStartOf="@+id/pop_goods_spec_addNum"
+            app:layout_constraintTop_toTopOf="@+id/pop_goods_spec_addNum" />
 
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/grey"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="-"
-            app:layout_constraintBottom_toBottomOf="@+id/textView9"
-            app:layout_constraintEnd_toStartOf="@+id/textView11" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/pop_goods_spec_reduceNum"
+            android:layout_width="33dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginRight="1dp"
+            android:background="@color/f5f5f5"
+            app:layout_constraintEnd_toStartOf="@+id/pop_goods_spec_num"
+            app:layout_constraintTop_toTopOf="@+id/pop_goods_spec_num">
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="2dp"
+                android:src="@mipmap/goods_reduce"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+        <!--<TextView-->
+        <!--android:id="@+id/pop_goods_spec_num_reduce"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="33dp"-->
+        <!--android:layout_marginEnd="1dp"-->
+        <!--android:layout_marginRight="1dp"-->
+        <!--android:background="@color/f5f5f5"-->
+        <!--android:gravity="center"-->
+        <!--android:text="-"-->
+        <!--android:textSize="20sp"-->
+        <!--android:paddingLeft="10dp"-->
+        <!--android:paddingRight="10dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/pop_goods_spec_num_add"-->
+        <!--app:layout_constraintEnd_toStartOf="@+id/pop_goods_spec_num" />-->
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/pop_goods_spec_buy_rightNow"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/themeColor"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bg_round_corner_orange_button"
             android:text="立刻购买"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/button"
+            app:layout_constraintBottom_toBottomOf="@+id/pop_goods_spec_addtocar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button" />
+            app:layout_constraintStart_toEndOf="@+id/pop_goods_spec_addtocar" />
 
     </android.support.constraint.ConstraintLayout>
 
     <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:id="@+id/pop_goods_spec_img"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:background="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/surhoo_logo" />
+        app:srcCompat="@mipmap/placeholder_head_img" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -1,9 +1,10 @@
 package com.surhoo.sh.designer.bean;
 
+import com.zhy.view.flowlayout.TagAdapter;
+
 import java.util.List;
 
 public class DesignerListBean {
-
 
     /**
      * designerId : 10010085
@@ -22,6 +23,25 @@ public class DesignerListBean {
     private Integer level;
     private String detail;
     private List<String> materialList;
+
+    private boolean hasTagAdapter;
+    private TagAdapter tagAdapter;
+
+    public boolean isHasTagAdapter() {
+        return hasTagAdapter;
+    }
+
+    public void setHasTagAdapter(boolean hasTagAdapter) {
+        this.hasTagAdapter = hasTagAdapter;
+    }
+
+    public TagAdapter getTagAdapter() {
+        return tagAdapter;
+    }
+
+    public void setTagAdapter(TagAdapter tagAdapter) {
+        this.tagAdapter = tagAdapter;
+    }
 
     public Integer getDesignerId() {
         return designerId;

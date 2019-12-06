@@ -5,21 +5,149 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="25dp">
+
+    <LinearLayout
+        android:background="#fffffeff"
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/activity_goods_detail_share"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/textView67"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:srcCompat="@mipmap/share" />
+
+            <TextView
+                android:id="@+id/textView67"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="分享"
+                android:textColor="@color/c353535"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/activity_goods_detail_shoppingCart"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/imageView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/textView68"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:srcCompat="@mipmap/shoppingcart" />
+
+            <TextView
+                android:id="@+id/textView68"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="购物车"
+                android:textColor="@color/c353535"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView14" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/activity_goods_detail_collect"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/imageView27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/textView69"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:srcCompat="@mipmap/un_collect" />
+
+            <TextView
+                android:id="@+id/textView69"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="收藏"
+                android:textColor="@color/c353535"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView27" />
+        </android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/activity_goods_detail_add_to_car"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@color/pageTitle"
+            android:gravity="center"
+            android:text="加入购物车"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/activity_goods_detail_buy_rightNow"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@color/themeColor"
+            android:gravity="center"
+            android:text="立即购买"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+    </LinearLayout>
 
     <include
         android:id="@+id/include2"
-        layout="@layout/toolbar_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        layout="@layout/toolbar_layout" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/activity_goods_detail_nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_behavior="com.surhoo.sh.common.ScrollAwareFABBehavior"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include2">
 
 
@@ -40,31 +168,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/surhoo_logo">
+                app:srcCompat="@mipmap/placeholder_head_img">
 
             </com.bigkoo.convenientbanner.ConvenientBanner>
-
-            <TextView
-                android:id="@+id/activity_goods_detail_goodsname"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:textColor="@color/pageTitle"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/activity_goods_detail_convenientBanner" />
 
             <TextView
                 android:id="@+id/activity_goods_detail_banner_page"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/bg_round_corner_orange_button"
                 android:paddingLeft="10dp"
@@ -74,100 +187,140 @@
                 app:layout_constraintBottom_toBottomOf="@+id/activity_goods_detail_convenientBanner"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:id="@+id/activity_goods_detail_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:minWidth="50dp"
-                android:textColor="@color/themeColor"
-                android:textSize="26sp"
-                app:layout_constraintStart_toStartOf="@+id/activity_goods_detail_goodsname"
-                app:layout_constraintTop_toBottomOf="@+id/activity_goods_detail_goodsname" />
-
-            <TextView
-                android:id="@+id/activity_goods_detail_old_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:minWidth="50dp"
-                android:textColor="@color/linePrice"
-                android:textSize="16sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/activity_goods_detail_price"
-                app:layout_constraintStart_toEndOf="@+id/activity_goods_detail_price" />
-
-            <View
-                android:id="@+id/textView8"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:background="@color/dividerLine"
-                app:layout_constraintBottom_toBottomOf="@+id/activity_goods_detail_old_price"
-                app:layout_constraintEnd_toEndOf="@+id/activity_goods_detail_old_price"
-                app:layout_constraintStart_toStartOf="@+id/activity_goods_detail_old_price"
-                app:layout_constraintTop_toTopOf="@+id/activity_goods_detail_old_price" />
-
-            <TextView
-                android:id="@+id/activity_goods_detail_salescount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/activity_goods_detail_price"
-                app:layout_constraintEnd_toEndOf="@+id/activity_goods_detail_goodsname" />
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:text="销量:"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/activity_goods_detail_salescount"
-                app:layout_constraintEnd_toStartOf="@+id/activity_goods_detail_salescount" />
-
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/constraintLayout"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="16dp"
+                android:id="@+id/activity_goods_detail_name_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/activity_goods_detail_price">
+                app:layout_constraintTop_toBottomOf="@+id/activity_goods_detail_convenientBanner">
+
+
+                <TextView
+                    android:id="@+id/activity_goods_detail_goodsname"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:textColor="@color/pageTitle"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/activity_goods_detail_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:minWidth="50dp"
+                    android:textColor="@color/themeColor"
+                    android:textSize="26sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/activity_goods_detail_goodsname"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_goods_detail_goodsname" />
+
+                <TextView
+                    android:id="@+id/activity_goods_detail_old_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:minWidth="50dp"
+                    android:textColor="@color/linePrice"
+                    android:textSize="16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/activity_goods_detail_price"
+                    app:layout_constraintStart_toEndOf="@+id/activity_goods_detail_price" />
+
+                <View
+                    android:id="@+id/textView8"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/linePrice"
+                    app:layout_constraintBottom_toBottomOf="@+id/activity_goods_detail_old_price"
+                    app:layout_constraintEnd_toEndOf="@+id/activity_goods_detail_old_price"
+                    app:layout_constraintStart_toStartOf="@+id/activity_goods_detail_old_price"
+                    app:layout_constraintTop_toTopOf="@+id/activity_goods_detail_old_price" />
+
+                <TextView
+                    android:id="@+id/activity_goods_detail_salescount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/saleColor"
+                    android:textSize="12sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/activity_goods_detail_price"
+                    app:layout_constraintEnd_toEndOf="@+id/activity_goods_detail_goodsname" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="销量:"
+                    android:textColor="@color/saleColor"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/activity_goods_detail_salescount"
+                    app:layout_constraintEnd_toStartOf="@+id/activity_goods_detail_salescount" />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/activity_goods_detail_spec_layout"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activity_goods_detail_name_layout">
 
                 <ImageView
-                    android:id="@+id/imageView5"
+                    android:id="@+id/activity_goods_detail_spec_img"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@mipmap/surhoo_logo" />
+                    app:layout_constraintTop_toBottomOf="@+id/view22"
+                    app:srcCompat="@mipmap/placeholder_head_img" />
 
                 <TextView
-                    android:id="@+id/activity_goods_detail_choicespec"
+                    android:id="@+id/activity_goods_detail_spec"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
-                    android:layout_marginBottom="8dp"
                     android:text="选择规格"
+                    android:textColor="@color/f2326"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view22" />
+
+                <View
+                    android:id="@+id/view22"
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    android:background="@color/bgColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/constraintLayout2"
                 android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="8dp"
+                android:layout_height="54dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+                app:layout_constraintTop_toBottomOf="@+id/activity_goods_detail_spec_layout">
 
                 <View
                     android:id="@+id/view2"
@@ -178,7 +331,7 @@
                     android:background="@color/themeColor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/view25" />
 
                 <TextView
                     android:id="@+id/textView12"
@@ -186,14 +339,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
                     android:text="评价 ("
+                    android:textStyle="bold"
                     android:textColor="@color/pageTitle"
                     android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/view2"
                     app:layout_constraintStart_toEndOf="@+id/view2"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/view2" />
 
                 <TextView
                     android:id="@+id/activity_goods_detail_comments"
@@ -202,6 +354,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginLeft="4dp"
                     android:text="0"
+                    android:textStyle="bold"
                     android:textColor="@color/pageTitle"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/textView12"
@@ -214,6 +367,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginLeft="4dp"
                     android:text=")"
+                    android:textStyle="bold"
                     android:textColor="@color/pageTitle"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/activity_goods_detail_comments"
@@ -223,13 +377,22 @@
                     android:id="@+id/activity_goods_detail_allcomments"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
-                    android:layout_marginBottom="8dp"
                     android:text="查看全部"
+                    android:textColor="@color/f2326"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view25" />
+
+                <View
+                    android:id="@+id/view25"
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    android:background="@color/bgColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
 
@@ -237,11 +400,6 @@
                 android:id="@+id/activity_goods_detail_comments_recyclerView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
@@ -249,8 +407,7 @@
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/constraintLayout3"
                 android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="8dp"
+                android:layout_height="54dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/activity_goods_detail_comments_recyclerView">
@@ -264,7 +421,7 @@
                     android:background="@color/themeColor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/view26" />
 
                 <TextView
                     android:id="@+id/textView16"
@@ -272,14 +429,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="店铺详情"
+                    android:text="店铺介绍"
                     android:textColor="@color/pageTitle"
                     android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/view3"
                     app:layout_constraintStart_toEndOf="@+id/view3"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/view3" />
+
+                <View
+                    android:id="@+id/view26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="10dp"
+                    android:background="@color/bgColor" />
 
             </android.support.constraint.ConstraintLayout>
 
@@ -300,7 +462,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@mipmap/surhoo_logo" />
+                    app:srcCompat="@mipmap/placeholder_img" />
 
                 <TextView
                     android:id="@+id/activity_goods_detail_shop_name"
@@ -364,8 +526,7 @@
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/constraintLayout5"
                 android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="8dp"
+                android:layout_height="54dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
@@ -379,7 +540,7 @@
                     android:background="@color/themeColor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/view27" />
 
                 <TextView
                     android:id="@+id/textView21"
@@ -387,13 +548,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
                     android:text="商品详情"
                     android:textColor="@color/pageTitle"
                     android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/view4"
                     app:layout_constraintStart_toEndOf="@+id/view4"
+                    app:layout_constraintTop_toTopOf="@+id/view4" />
+
+                <View
+                    android:id="@+id/view27"
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    android:background="@color/bgColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </android.support.constraint.ConstraintLayout>
@@ -403,7 +572,6 @@
                 android:id="@+id/activity_goods_detail_webview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginBottom="32dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -418,28 +586,28 @@
     </android.support.v4.widget.NestedScrollView>
 
     <ImageButton
-        android:id="@+id/activity_goods_detail_servicer"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="128dp"
-        android:background="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@mipmap/goods_servicer" />
-
-    <ImageButton
         android:id="@+id/activity_goods_detail_totop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@null"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/activity_goods_detail_servicer"
         app:layout_constraintEnd_toEndOf="@+id/activity_goods_detail_servicer"
-        app:layout_constraintTop_toBottomOf="@+id/activity_goods_detail_servicer"
+        app:layout_constraintStart_toStartOf="@+id/activity_goods_detail_servicer"
         app:srcCompat="@mipmap/goods_home" />
+
+    <ImageButton
+        android:id="@+id/activity_goods_detail_servicer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="24dp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_goods_detail_nestedScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@mipmap/goods_servicer" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -7,7 +7,6 @@ import java.util.List;
 public interface AllCommentsView extends BaseView {
 
 
-    void firstInEmpty();
 
     void loadEnd();
 

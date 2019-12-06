@@ -23,7 +23,9 @@ public class NetworkImageHolderView implements Holder<String> {
     public void UpdateUI(Context context, int position, String data) {
 //        GlideUtils.loadImageRct(context,data,imageView);
 
-        Glide.with(context).load(data).into(imageView);
+//        Glide.with(context).load(data).into(imageView);
+
+        GlideUtil.loadDefaultImg(context,data,imageView);
     }
 }
 

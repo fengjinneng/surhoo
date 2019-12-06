@@ -1,5 +1,6 @@
 package com.surhoo.sh.shop.presenter.impl;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.lzy.okgo.model.HttpParams;
@@ -13,12 +14,12 @@ public class ShopPresenterImpl implements ShopPresenter {
 
 
     ShopView shopView;
-    Context context;
+    Activity activity;
 
     @Override
-    public void bindView(Context ctx, ShopView view) {
-        shopView = view;
-        context =ctx;
+    public void bindView(Activity activity, ShopView view) {
+        this.shopView = view;
+        this.activity =activity;
     }
 
     @Override
@@ -33,6 +34,6 @@ public class ShopPresenterImpl implements ShopPresenter {
         httpParams.put("isSelf",isSelf);
         httpParams.put("shopId",shopId);
 
-        NetworkReturnUtil.requestOne(shopView,context,Api.SHOPDETAIL,httpParams,ShopDetailBean.class);
+        NetworkReturnUtil.requestOne(shopView,activity,Api.SHOPDETAIL,httpParams,ShopDetailBean.class);
     }
 }

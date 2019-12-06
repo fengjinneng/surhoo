@@ -1,6 +1,7 @@
 package com.surhoo.sh.home.vlayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -57,7 +58,11 @@ public class DesignerLayoutAdapter extends DelegateAdapter.Adapter<DesignerLayou
         homeDesignerAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityUtils.startActivity(DesignerActivity.class);
+
+                int designerId = datas.get(position).getDesignerId();
+                Intent i = new Intent(context,DesignerActivity.class);
+                i.putExtra("id",designerId);
+                ActivityUtils.startActivity(i);
             }
         });
 

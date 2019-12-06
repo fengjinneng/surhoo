@@ -1,5 +1,6 @@
 package com.surhoo.sh.home.presenter;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.surhoo.sh.common.util.Api;
@@ -10,13 +11,13 @@ import com.surhoo.sh.home.view.HomeView;
 public class HomePresenterImpl implements HomePresenter {
 
     HomeView homeView;
-    Context context;
+    Activity activity;
 
 
     @Override
-    public void bindView(Context ctx, HomeView view) {
-        homeView = view;
-        context = ctx;
+    public void bindView(Activity activity, HomeView view) {
+        this.homeView = view;
+        this.activity = activity;
     }
 
     @Override
@@ -27,7 +28,7 @@ public class HomePresenterImpl implements HomePresenter {
     @Override
     public void requestData() {
 
-        NetworkReturnUtil.requestOne(homeView,context,Api.HOMEPAGE,null,HomePageBean.class);
+        NetworkReturnUtil.requestOne(homeView,activity,Api.HOMEPAGE,null,HomePageBean.class);
 
     }
 

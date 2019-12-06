@@ -1,5 +1,6 @@
 package com.surhoo.sh.goods.presenter.impl;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.lzy.okgo.model.HttpParams;
@@ -13,12 +14,12 @@ import com.surhoo.sh.goods.view.CategoryListView;
 public class CategoryPresenterImpl implements CategoryPresenter {
 
     CategoryListView categoryListView;
-    Context context;
+    Activity activity;
 
 
     @Override
-    public void bindView(Context ctx, CategoryListView view) {
-        this.context = ctx;
+    public void bindView(Activity activity, CategoryListView view) {
+        this.activity = activity;
         this.categoryListView = view;
     }
 
@@ -30,7 +31,7 @@ public class CategoryPresenterImpl implements CategoryPresenter {
     @Override
     public void requestLevelOneCategory() {
 
-        NetworkReturnUtil.requestList(categoryListView, context, Api.GOODSLEVERONECATEGORY, null, CategoryBean.class);
+        NetworkReturnUtil.requestList(categoryListView, activity, Api.GOODSLEVERONECATEGORY, null, CategoryBean.class);
 
     }
 
@@ -38,7 +39,7 @@ public class CategoryPresenterImpl implements CategoryPresenter {
     public void requestLevelTwoCategory(int id) {
         HttpParams httpParams = new HttpParams();
         httpParams.put("id",id);
-        NetworkReturnUtil.requestList(categoryListView, context, Api.GOODSLEVERTWOCATEGORY, httpParams, CategoryBean.class);
+        NetworkReturnUtil.requestList(categoryListView, activity, Api.GOODSLEVERTWOCATEGORY, httpParams, CategoryBean.class);
 
     }
 }

@@ -44,10 +44,16 @@ public class CategoryActivity extends BaseActivity implements CategoryListView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category);
-        ButterKnife.bind(this);
-        initView();
-        requestData();
+    }
+
+    @Override
+    public int getContentView() {
+        return R.layout.activity_category;
+    }
+
+    @Override
+    public boolean isFirstInLoadData() {
+        return true;
     }
 
     @Override
@@ -59,6 +65,11 @@ public class CategoryActivity extends BaseActivity implements CategoryListView {
 
         leverOneRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         leverTwoRecyclerview.setLayoutManager(new GridLayoutManager(this, 3));
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     @Override

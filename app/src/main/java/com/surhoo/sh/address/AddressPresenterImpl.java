@@ -1,5 +1,6 @@
 package com.surhoo.sh.address;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.lzy.okgo.model.HttpParams;
@@ -9,25 +10,25 @@ import com.surhoo.sh.common.util.NetworkReturnUtil;
 public class AddressPresenterImpl implements AddressPresenter {
 
 
-    private Context context;
+    private Activity activity;
 
     private AddressView addressView;
 
     @Override
     public void requestData() {
-        NetworkReturnUtil.requestList(addressView,context,Api.ADDRESSLIST,null,AddressBean.class);
+        NetworkReturnUtil.requestList(addressView,activity,Api.ADDRESSLIST,null,AddressBean.class);
     }
 
     @Override
     public void deleteAddress(int id) {
         HttpParams httpParams = new HttpParams();
         httpParams.put("id",id);
-        NetworkReturnUtil.requestOne(addressView,context,Api.ADDRESSDELETE,httpParams,AddressBean.class);
+        NetworkReturnUtil.requestOne(addressView,activity,Api.ADDRESSDELETE,httpParams,AddressBean.class);
     }
 
     @Override
-    public void bindView(Context ctx, AddressView view) {
-            this.context = ctx;
+    public void bindView(Activity activity, AddressView view) {
+            this.activity = activity;
             this.addressView = view;
     }
 

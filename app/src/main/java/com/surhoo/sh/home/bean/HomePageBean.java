@@ -71,20 +71,20 @@ public class HomePageBean {
          * materialList : null
          */
 
-        private int designerId;
+        private Integer designerId;
         private String designerName;
         private String headimgurl;
         private String labelNames;
-        private int level;
+        private Integer level;
         private String detail;
 
 
 
-        public int getDesignerId() {
+        public Integer getDesignerId() {
             return designerId;
         }
 
-        public void setDesignerId(int designerId) {
+        public void setDesignerId(Integer designerId) {
             this.designerId = designerId;
         }
 
@@ -112,11 +112,11 @@ public class HomePageBean {
             this.labelNames = labelNames;
         }
 
-        public int getLevel() {
+        public Integer getLevel() {
             return level;
         }
 
-        public void setLevel(int level) {
+        public void setLevel(Integer level) {
             this.level = level;
         }
 
@@ -145,19 +145,19 @@ public class HomePageBean {
          * sysId : null
          */
 
-        private int id;
+        private Integer id;
         private String banner;
-        private int type;
-        private int sort;
-        private int status;
-        private int typeId;
+        private Integer type;
+        private Integer sort;
+        private Integer status;
+        private Integer typeId;
 
 
-        public int getId() {
+        public Integer getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(Integer id) {
             this.id = id;
         }
 
@@ -169,35 +169,35 @@ public class HomePageBean {
             this.banner = banner;
         }
 
-        public int getType() {
+        public Integer getType() {
             return type;
         }
 
-        public void setType(int type) {
+        public void setType(Integer type) {
             this.type = type;
         }
 
-        public int getSort() {
+        public Integer getSort() {
             return sort;
         }
 
-        public void setSort(int sort) {
+        public void setSort(Integer sort) {
             this.sort = sort;
         }
 
-        public int getStatus() {
+        public Integer getStatus() {
             return status;
         }
 
-        public void setStatus(int status) {
+        public void setStatus(Integer status) {
             this.status = status;
         }
 
-        public int getTypeId() {
+        public Integer getTypeId() {
             return typeId;
         }
 
-        public void setTypeId(int typeId) {
+        public void setTypeId(Integer typeId) {
             this.typeId = typeId;
         }
 
@@ -213,7 +213,7 @@ public class HomePageBean {
          * detail : null
          */
 
-        private int sceneId;
+        private Integer sceneId;
         private String icon;
         private String name;
         private String logo;
@@ -221,11 +221,11 @@ public class HomePageBean {
 
 
 
-        public int getSceneId() {
+        public Integer getSceneId() {
             return sceneId;
         }
 
-        public void setSceneId(int sceneId) {
+        public void setSceneId(Integer sceneId) {
             this.sceneId = sceneId;
         }
 
@@ -274,20 +274,20 @@ public class HomePageBean {
          * shopLogo : null
          */
 
-        private int goodsId;
+        private Integer goodsId;
         private String logo;
-        private int saleCount;
+        private Integer saleCount;
         private String goodsName;
         private String goodsPrice;
         private String shopLogo;
 
 
 
-        public int getGoodsId() {
+        public Integer getGoodsId() {
             return goodsId;
         }
 
-        public void setGoodsId(int goodsId) {
+        public void setGoodsId(Integer goodsId) {
             this.goodsId = goodsId;
         }
 
@@ -299,11 +299,11 @@ public class HomePageBean {
             this.logo = logo;
         }
 
-        public int getSaleCount() {
+        public Integer getSaleCount() {
             return saleCount;
         }
 
-        public void setSaleCount(int saleCount) {
+        public void setSaleCount(Integer saleCount) {
             this.saleCount = saleCount;
         }
 
@@ -343,7 +343,7 @@ public class HomePageBean {
          * detail : 场景描叙
          */
 
-        private int sceneId;
+        private Integer sceneId;
         private String icon;
         private String name;
         private String logo;
@@ -351,11 +351,11 @@ public class HomePageBean {
 
 
 
-        public int getSceneId() {
+        public Integer getSceneId() {
             return sceneId;
         }
 
-        public void setSceneId(int sceneId) {
+        public void setSceneId(Integer sceneId) {
             this.sceneId = sceneId;
         }
 

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="275dp">
+    android:layout_height="285dp">
 
     <TextView
         android:id="@+id/item_scenario_content"
@@ -15,10 +15,10 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         android:gravity="center"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="14sp"
+        android:textColor="@color/a4a4a4"
+        app:layout_constraintBottom_toTopOf="@+id/view29"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/item_scenario_img" />
@@ -35,5 +35,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/surhoo_logo" />
+        app:srcCompat="@mipmap/placeholder_img" />
+
+    <View
+        android:id="@+id/view29"
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        android:background="@color/bgColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

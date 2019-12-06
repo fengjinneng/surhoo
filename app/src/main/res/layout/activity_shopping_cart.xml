@@ -18,10 +18,11 @@
         android:id="@+id/activity_shopping_cart_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/bgColor"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_shopping_cart_edit_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout21" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout11"
@@ -32,14 +33,13 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/textView30"
-            android:layout_width="wrap_content"
+            android:id="@+id/activity_shopping_cart_settlement"
+            android:layout_width="110dp"
             android:layout_height="0dp"
             android:background="@color/themeColor"
             android:gravity="center"
             android:text="立即结算"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+            android:textSize="14sp"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,19 +75,32 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/activity_shopping_cart_delete"
+            android:layout_width="110dp"
+            android:layout_height="0dp"
+            android:text="删除"
+            android:background="@color/deleteColor"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/activity_shopping_cart_settlement"
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/activity_shopping_cart_edit_layout"
+        android:id="@+id/constraintLayout21"
         android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:visibility="gone"
+        android:layout_height="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include5">
 
         <CheckBox
-            android:id="@+id/activity_shopping_checkAll"
+            android:id="@+id/activity_shopping_cart_checkAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -95,18 +108,24 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="全选"
+            android:textSize="14sp"
+            android:textColor="@color/pageTitle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView32"
+            android:id="@+id/activity_shopping_cart_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:layout_marginRight="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:padding="10dp"
             android:text="编辑"
             android:textColor="@color/themeColor"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

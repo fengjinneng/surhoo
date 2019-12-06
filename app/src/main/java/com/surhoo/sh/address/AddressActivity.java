@@ -36,20 +36,31 @@ public class AddressActivity extends BaseActivity implements AddressView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_address);
-        ButterKnife.bind(this);
 
-        initView();
+    }
 
-        addressPresenter = new AddressPresenterImpl();
-        addressPresenter.bindView(this, this);
+    @Override
+    public int getContentView() {
+        return R.layout.activity_address;
+    }
 
-        requestData();
+    @Override
+    public boolean isFirstInLoadData() {
+        return true;
     }
 
     @Override
     public void initView() {
+
+        addressPresenter = new AddressPresenterImpl();
+        addressPresenter.bindView(this, this);
+
         toolbarLayoutTitle.setText("选择收货地址");
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     @Override

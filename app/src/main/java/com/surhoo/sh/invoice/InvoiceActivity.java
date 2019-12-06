@@ -35,20 +35,32 @@ public class InvoiceActivity extends BaseActivity implements InvoiceView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_invoice);
-        ButterKnife.bind(this);
 
-        initView();
 
-        presenter = new InvoicePresenterImpl();
-        presenter.bindView(this, this);
 
-        requestData();
+    }
+
+    @Override
+    public int getContentView() {
+        return R.layout.activity_invoice;
+    }
+
+    @Override
+    public boolean isFirstInLoadData() {
+        return true;
     }
 
     @Override
     public void initView() {
+
+        presenter = new InvoicePresenterImpl();
+        presenter.bindView(this, this);
         toolbarLayoutTitle.setText("我的发票");
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     @Override

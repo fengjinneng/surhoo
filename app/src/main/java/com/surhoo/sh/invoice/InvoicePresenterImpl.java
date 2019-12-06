@@ -1,5 +1,6 @@
 package com.surhoo.sh.invoice;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.surhoo.sh.common.util.Api;
@@ -7,12 +8,12 @@ import com.surhoo.sh.common.util.NetworkReturnUtil;
 
 public class InvoicePresenterImpl implements InvoicePresenter {
 
-    private Context context;
+    private Activity activity;
     private InvoiceView invoiceView;
 
     @Override
-    public void bindView(Context ctx, InvoiceView view) {
-        this.context = ctx;
+    public void bindView(Activity activity, InvoiceView view) {
+        this.activity = activity;
         this.invoiceView = view;
     }
 
@@ -23,6 +24,6 @@ public class InvoicePresenterImpl implements InvoicePresenter {
 
     @Override
     public void requestData() {
-        NetworkReturnUtil.requestList(invoiceView,context,Api.INVOICELIST,null,InvoiceBean.class);
+        NetworkReturnUtil.requestList(invoiceView,activity,Api.INVOICELIST,null,InvoiceBean.class);
     }
 }

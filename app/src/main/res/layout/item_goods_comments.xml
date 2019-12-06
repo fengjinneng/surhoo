@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:paddingBottom="10dp"
     android:layout_height="wrap_content">
 
     <TextView
@@ -11,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:text="昵称"
+        android:textSize="12sp"
+        android:textColor="@color/pageTitle"
         app:layout_constraintBottom_toBottomOf="@+id/item_goods_comments_avatar"
         app:layout_constraintStart_toEndOf="@+id/item_goods_comments_avatar"
         app:layout_constraintTop_toTopOf="@+id/item_goods_comments_avatar" />
@@ -25,26 +27,28 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/surhoo_logo" />
+        app:srcCompat="@mipmap/placeholder_head_img" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/item_goods_comments_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="2018-10-10"
+        android:textSize="12sp"
+        android:textColor="@color/saleColor"
         app:layout_constraintStart_toStartOf="@+id/item_goods_comments_avatar"
         app:layout_constraintTop_toBottomOf="@+id/item_goods_comments_avatar" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/item_goods_comments_skuName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/textView15"
-        app:layout_constraintStart_toEndOf="@+id/textView15" />
+        android:textColor="@color/saleColor"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_goods_comments_time"
+        app:layout_constraintStart_toEndOf="@+id/item_goods_comments_time" />
 
     <TextView
         android:id="@+id/item_goods_comments_content"
@@ -53,68 +57,92 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="评价内容评价内容评评价内容评价内容评价内容评价内容评价内容评价内容评价内容评价内容评价内容评价内容价内容评价内容评价内容"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        android:textColor="@color/pageTitle"
+        android:textSize="14sp"
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="60dp"
+        app:layout_goneMarginBottom="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/item_goods_comments_time"
+        app:layout_constraintTop_toBottomOf="@+id/item_goods_comments_time" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/item_goods_comments_layout"
+        android:layout_width="0dp"
         android:layout_height="60dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView8"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_goods_comments_content"
-        app:srcCompat="@mipmap/surhoo_logo" />
-
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-        app:layout_constraintEnd_toStartOf="@+id/imageView9"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:srcCompat="@mipmap/surhoo_logo" />
-
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView8"
-        app:layout_constraintEnd_toStartOf="@+id/imageView10"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView8"
-        app:srcCompat="@mipmap/surhoo_logo" />
-
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
-        app:layout_constraintEnd_toStartOf="@+id/imageView11"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView9"
-        app:srcCompat="@mipmap/surhoo_logo" />
-
-    <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView10"
-        app:srcCompat="@mipmap/surhoo_logo" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_goods_comments_content">
+
+
+        <ImageView
+            android:id="@+id/item_goods_comments_img1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/item_goods_comments_img2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/placeholder_img" />
+
+        <ImageView
+            android:id="@+id/item_goods_comments_img2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/item_goods_comments_img3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/item_goods_comments_img1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/placeholder_img" />
+
+        <ImageView
+            android:id="@+id/item_goods_comments_img3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/item_goods_comments_img4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/item_goods_comments_img2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/placeholder_img" />
+
+        <ImageView
+            android:id="@+id/item_goods_comments_img4"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/item_goods_comments_img5"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/item_goods_comments_img3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/placeholder_img" />
+
+        <ImageView
+            android:id="@+id/item_goods_comments_img5"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/item_goods_comments_img4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/placeholder_img" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
 </android.support.constraint.ConstraintLayout>
