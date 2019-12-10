@@ -1,6 +1,7 @@
-package com.surhoo.sh.invoice;
+package com.surhoo.sh.invoice.present;
 
 import com.surhoo.sh.base.BasePresenter;
+import com.surhoo.sh.invoice.view.InvoiceView;
 
 public interface InvoicePresenter extends BasePresenter<InvoiceView> {
 

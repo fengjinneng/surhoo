@@ -1,10 +1,9 @@
 package com.surhoo.sh.goods.presenter.impl;
 
 import android.app.Activity;
-import android.content.Context;
 
 import com.lzy.okgo.model.HttpParams;
-import com.surhoo.sh.common.util.Api;
+import com.surhoo.sh.common.Api;
 import com.surhoo.sh.common.util.NetworkReturnUtil;
 import com.surhoo.sh.goods.bean.GoodsBean;
 import com.surhoo.sh.goods.presenter.GoodsPresenter;

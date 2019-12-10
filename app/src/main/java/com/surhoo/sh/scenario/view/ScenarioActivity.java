@@ -1,6 +1,5 @@
 package com.surhoo.sh.scenario.view;
 
-import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -16,7 +15,6 @@ import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.flyco.tablayout.SlidingTabLayout;
-import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.HttpParams;
@@ -24,7 +22,7 @@ import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
 import com.surhoo.sh.R;
 import com.surhoo.sh.base.BaseActivity;
-import com.surhoo.sh.common.util.Api;
+import com.surhoo.sh.common.Api;
 import com.surhoo.sh.common.util.BaseViewpageAdapter;
 import com.surhoo.sh.common.util.GlideUtil;
 import com.surhoo.sh.scenario.NextLevelScenarioAdapter;
@@ -38,7 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ScenarioActivity extends BaseActivity implements IScenarioView {

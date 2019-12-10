@@ -1,10 +1,11 @@
-package com.surhoo.sh.invoice;
+package com.surhoo.sh.invoice.present;
 
 import android.app.Activity;
-import android.content.Context;
 
-import com.surhoo.sh.common.util.Api;
+import com.surhoo.sh.common.Api;
 import com.surhoo.sh.common.util.NetworkReturnUtil;
+import com.surhoo.sh.invoice.view.InvoiceView;
+import com.surhoo.sh.invoice.bean.InvoiceBean;
 
 public class InvoicePresenterImpl implements InvoicePresenter {
 

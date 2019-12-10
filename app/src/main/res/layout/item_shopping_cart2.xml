@@ -10,7 +10,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/item_shopping_cart2_shopname"
+        android:id="@+id/item_shopping_cart2_goodsName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -30,8 +30,8 @@
         android:id="@+id/item_shopping_cart2_img"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -44,8 +44,8 @@
         android:id="@+id/item_shopping_cart2_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -72,7 +72,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginBottom="6dp"
         android:textSize="12sp"
-        android:text="敖德萨多撒多撒多撒大"
         android:textColor="@color/saleColor"
         app:layout_constraintBottom_toTopOf="@+id/item_shopping_cart2_price"
         app:layout_constraintStart_toEndOf="@+id/item_shopping_cart2_img" />

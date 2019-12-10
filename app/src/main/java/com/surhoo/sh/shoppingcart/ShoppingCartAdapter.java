@@ -34,8 +34,8 @@ public class ShoppingCartAdapter extends BaseMultiItemQuickAdapter<CarGoodsListB
             case CarGoodsListBean.body:
                 CheckBox checkBox2 = (CheckBox) helper.getView(R.id.item_shopping_cart2_checkbox);
                 checkBox2.setChecked(item.isChecked());
-                helper.setText(R.id.item_shopping_cart2_shopname, item.getGoodsName());
-                helper.setText(R.id.item_shopping_cart2_price, "￥"+item.getGoodsPrice());
+                helper.setText(R.id.item_shopping_cart2_goodsName, item.getGoodsName());
+                helper.setText(R.id.item_shopping_cart2_price, "¥"+item.getGoodsPrice());
                 helper.setText(R.id.item_shopping_cart2_skuName, item.getSkuName());
                 helper.setText(R.id.item_shopping_cart2_num, item.getGoodsNum()+"");
                 helper.addOnClickListener(R.id.item_shopping_cart2_addNum);

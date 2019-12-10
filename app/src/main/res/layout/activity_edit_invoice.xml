@@ -18,10 +18,9 @@
         android:id="@+id/activity_edit_invoice_common_invoice_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="gone"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintBottom_toTopOf="@+id/activity_edit_invoice_save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_edit_invoice_common_invoice">
@@ -146,7 +145,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <EditText
                 android:id="@+id/activity_edit_invoice_common_invoice_content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -158,6 +157,7 @@
                 android:layout_marginBottom="8dp"
                 android:hint="商品明细（不可修改)"
                 android:textSize="14sp"
+                android:background="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView48"
@@ -195,17 +195,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <EditText
                 android:id="@+id/activity_edit_invoice_common_invoice_phone"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
+                android:background="@null"
                 android:hint="请填写手机号"
                 android:textSize="14sp"
+                android:inputType="phone"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView50"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
@@ -282,14 +287,18 @@
         app:layout_constraintTop_toBottomOf="@+id/include14" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/activity_edit_invoice_save"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_round_corner_orange_button"
         android:text="保存"
+        android:textColor="@color/white"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -298,7 +307,8 @@
         android:id="@+id/activity_edit_invoice_special_vat_invoice_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/activity_edit_invoice_save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_edit_invoice_common_invoice">

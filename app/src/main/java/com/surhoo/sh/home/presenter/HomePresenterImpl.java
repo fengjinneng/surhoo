@@ -1,9 +1,8 @@
 package com.surhoo.sh.home.presenter;
 
 import android.app.Activity;
-import android.content.Context;
 
-import com.surhoo.sh.common.util.Api;
+import com.surhoo.sh.common.Api;
 import com.surhoo.sh.common.util.NetworkReturnUtil;
 import com.surhoo.sh.home.bean.HomePageBean;
 import com.surhoo.sh.home.view.HomeView;

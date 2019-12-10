@@ -90,7 +90,7 @@ public class NetworkReturnUtil {
                 .headers("Authorization", activity.getResources().getString(R.string.Auth))
                 .params(params);
 
-        StringCallback stringCallback = new StringCallback() {
+        DialogStringCallback stringCallback = new DialogStringCallback(activity) {
 
             @Override
             public void onSuccess(Response<String> response) {
@@ -137,7 +137,7 @@ public class NetworkReturnUtil {
                 .headers("Authorization", activity.getResources().getString(R.string.Auth))
                 .params(params);
 
-        StringCallback stringCallback = new StringCallback() {
+        DialogStringCallback stringCallback = new DialogStringCallback(activity) {
 
             @Override
             public void onSuccess(Response<String> response) {

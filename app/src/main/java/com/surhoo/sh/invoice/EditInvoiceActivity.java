@@ -3,19 +3,28 @@ package com.surhoo.sh.invoice;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.surhoo.sh.R;
 import com.surhoo.sh.base.BaseActivity;
+import com.surhoo.sh.invoice.bean.RequestSaveInvocieBean;
+import com.surhoo.sh.invoice.present.EditInvoicePresentImpl;
+import com.surhoo.sh.invoice.present.IEditInvoicePresent;
+import com.surhoo.sh.invoice.view.EditInvoiceView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class EditInvoiceActivity extends BaseActivity {
+public class EditInvoiceActivity extends BaseActivity implements EditInvoiceView {
 
     @BindView(R.id.toolbar_layout_back)
     ImageView toolbarLayoutBack;
@@ -30,10 +39,23 @@ public class EditInvoiceActivity extends BaseActivity {
     @BindView(R.id.activity_edit_invoice_special_vat_invoice_layout)
     ScrollView activityEditInvoiceSpecialVatInvoiceLayout;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    @BindView(R.id.activity_edit_invoice_common_invoice_title)
+    EditText activityEditInvoiceCommonInvoiceTitle;
+    @BindView(R.id.activity_edit_invoice_common_invoice_content)
+    EditText activityEditInvoiceCommonInvoiceContent;
+    @BindView(R.id.activity_edit_invoice_common_invoice_phone)
+    EditText activityEditInvoiceCommonInvoicePhone;
+    @BindView(R.id.activity_edit_invoice_common_invoice_default)
+    Switch activityEditInvoiceCommonInvoiceDefault;
+    @BindView(R.id.activity_edit_invoice_save)
+    Button activityEditInvoiceSave;
+
+    private IEditInvoicePresent editInvoicePresent;
+
+
+    // 1 为个人的普通发票  2为企业的普通发票  3为企业的增值税发票
+    private int invoiceType = 1;
+
 
     @Override
     public int getContentView() {
@@ -69,6 +91,9 @@ public class EditInvoiceActivity extends BaseActivity {
     @Override
     public void initData() {
 
+        editInvoicePresent = new EditInvoicePresentImpl();
+        editInvoicePresent.bindView(this, this);
+
     }
 
     @Override
@@ -76,9 +101,37 @@ public class EditInvoiceActivity extends BaseActivity {
 
     }
 
-    @OnClick(R.id.toolbar_layout_back)
-    public void onViewClicked() {
-        KeyboardUtils.hideSoftInput(this);
-        finish();
+    @OnClick({R.id.toolbar_layout_back, R.id.activity_edit_invoice_save})
+    public void onViewClicked(View view) {
+
+        switch (view.getId()) {
+            case R.id.toolbar_layout_back:
+                KeyboardUtils.hideSoftInput(this);
+                finish();
+                break;
+            case R.id.activity_edit_invoice_save:
+                RequestSaveInvocieBean requestSaveInvocieBean = new RequestSaveInvocieBean();
+
+                requestSaveInvocieBean.setTitle(activityEditInvoiceCommonInvoiceTitle.getText().toString());
+                requestSaveInvocieBean.setContent(activityEditInvoiceCommonInvoiceContent.getText().toString());
+                requestSaveInvocieBean.setMobile(activityEditInvoiceCommonInvoicePhone.getText().toString());
+                requestSaveInvocieBean.setNormalType(1);
+                requestSaveInvocieBean.setDefaultStatus(1);
+                requestSaveInvocieBean.setInvoiceType(1);
+
+                editInvoicePresent.saveInvocieInfo(requestSaveInvocieBean.beCommonPersonal());
+                break;
+
+        }
+
     }
+
+    @Override
+    public void getResult() {
+
+        ToastUtils.showShort("擦汗如成功");
+
+    }
+
+
 }

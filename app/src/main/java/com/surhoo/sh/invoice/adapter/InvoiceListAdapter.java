@@ -1,4 +1,4 @@
-package com.surhoo.sh.invoice;
+package com.surhoo.sh.invoice.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.ObjectUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.surhoo.sh.R;
+import com.surhoo.sh.invoice.bean.InvoiceBean;
 
 import java.util.List;
 

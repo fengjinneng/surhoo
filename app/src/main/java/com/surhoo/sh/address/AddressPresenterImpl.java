@@ -1,10 +1,9 @@
 package com.surhoo.sh.address;
 
 import android.app.Activity;
-import android.content.Context;
 
 import com.lzy.okgo.model.HttpParams;
-import com.surhoo.sh.common.util.Api;
+import com.surhoo.sh.common.Api;
 import com.surhoo.sh.common.util.NetworkReturnUtil;
 
 public class AddressPresenterImpl implements AddressPresenter {

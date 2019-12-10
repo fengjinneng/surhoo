@@ -14,7 +14,7 @@ import com.surhoo.sh.R;
 import com.surhoo.sh.base.BaseFragment;
 import com.surhoo.sh.base.NoPageListBaseView;
 import com.surhoo.sh.common.custom.MyLoadMoreView;
-import com.surhoo.sh.common.util.Api;
+import com.surhoo.sh.common.Api;
 import com.surhoo.sh.common.util.NetworkReturnUtil;
 import com.surhoo.sh.designer.adapter.FinishProductsAdapter;
 import com.surhoo.sh.designer.bean.FinishProductBean;

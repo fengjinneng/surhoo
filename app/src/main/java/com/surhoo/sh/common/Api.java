@@ -1,12 +1,12 @@
-package com.surhoo.sh.common.util;
+package com.surhoo.sh.common;
 
 
 public class Api {
 
 
     //   public static final String  URL= "https://yaochengkun-shanghu.f.wmeimob.com/api/";
-//    public static final String URL = "https://xcxtest.shanghusm.com/api/";
-    public static final String URL = "http://zjgweb.imdo.co:34451/api/";
+    public static final String URL = "https://xcxtest.shanghusm.com/api/";
+//    public static final String URL = "http://zjgweb.imdo.co:34451/api/";
 
 
 
@@ -96,13 +96,18 @@ public class Api {
     //地址
     //查看收货地址列表
     public static final String ADDRESSLIST = URL + "user/address/getList";
-    //查看收货地址列表
+    //删除收货地址
     public static final String ADDRESSDELETE = URL + "user/address/delete";
+    //查询订单运费
+    public static final String GETORDERPOSTAGE = URL + "goods/pay/getRreight";
 
 
     //发票
     //发票列表
     public static final String INVOICELIST = URL + "user/invoice/getList";
+
+    //保存发票信息
+    public static final String SAVEINVOICEINFO = URL + "user/invoice/add";
 
 
 

@@ -50,19 +50,19 @@
         android:id="@+id/item_address_list_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/item_address_list_address"
-        app:srcCompat="@mipmap/mine_address" />
+        app:srcCompat="@mipmap/address_delete" />
 
     <ImageView
         android:id="@+id/item_address_list_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
+        android:padding="10dp"
         app:layout_constraintEnd_toStartOf="@+id/item_address_list_delete"
         app:layout_constraintTop_toTopOf="@+id/item_address_list_address"
-        app:srcCompat="@mipmap/mine_customer_service" />
+        app:srcCompat="@mipmap/address_edit" />
 </android.support.constraint.ConstraintLayout>

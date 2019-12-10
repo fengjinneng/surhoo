@@ -1,7 +1,6 @@
 package com.surhoo.sh.login.presenter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.CountDownTimer;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -12,7 +11,7 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
 import com.surhoo.sh.R;
-import com.surhoo.sh.common.util.Api;
+import com.surhoo.sh.common.Api;
 import com.surhoo.sh.login.view.LoginView;
 
 import java.text.SimpleDateFormat;

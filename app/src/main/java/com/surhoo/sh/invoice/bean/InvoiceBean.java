@@ -1,4 +1,4 @@
-package com.surhoo.sh.invoice;
+package com.surhoo.sh.invoice.bean;
 
 public class InvoiceBean {
 

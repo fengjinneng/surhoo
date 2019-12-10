@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,18 +14,15 @@ import com.lzy.okgo.model.HttpParams;
 import com.surhoo.sh.R;
 import com.surhoo.sh.base.BaseFragment;
 import com.surhoo.sh.base.PagerBaseView;
-import com.surhoo.sh.common.util.Api;
+import com.surhoo.sh.common.Api;
 import com.surhoo.sh.common.util.NetworkReturnUtil;
 import com.surhoo.sh.designer.adapter.DesignerDynamicAdapter;
 import com.surhoo.sh.designer.bean.DesignerDynamicBean;
-import com.surhoo.sh.material.bean.MaterialBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -11,11 +11,15 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.surhoo.sh.R;
 import com.surhoo.sh.base.BaseActivity;
+import com.surhoo.sh.invoice.adapter.InvoiceListAdapter;
+import com.surhoo.sh.invoice.bean.InvoiceBean;
+import com.surhoo.sh.invoice.present.InvoicePresenter;
+import com.surhoo.sh.invoice.present.InvoicePresenterImpl;
+import com.surhoo.sh.invoice.view.InvoiceView;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class InvoiceActivity extends BaseActivity implements InvoiceView {

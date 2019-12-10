@@ -1,5 +1,6 @@
 package com.surhoo.sh.shoppingcart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,12 +10,16 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.surhoo.sh.R;
 import com.surhoo.sh.base.BaseActivity;
+import com.surhoo.sh.goods.bean.GoodsBean;
+import com.surhoo.sh.goods.view.impl.GoodsDetailActivity;
+import com.surhoo.sh.order.OrderConfirmationActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,11 +78,16 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingCartVi
                 }
                 List<ShoppingCartBean.CarGoodsListBean> data = adapter.getData();
 
-                for (int i = 0; i < data.size(); i++) {
-                    data.get(i).setChecked(isChecked);
+                if(is){
+                    is = false;
+                }else {
+                    for (int i = 0; i < data.size(); i++) {
+                        data.get(i).setChecked(isChecked);
+                    }
+                    adapter.notifyDataSetChanged();
+                    totalPrice(data);
                 }
-                adapter.notifyDataSetChanged();
-                totalPrice(data);
+
             }
         });
 
@@ -95,12 +105,11 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingCartVi
     }
 
 
-    private List<ShoppingCartBean> allShop;
+
+    private boolean is;
 
     @Override
     public void showList(List<ShoppingCartBean> list) {
-
-        allShop = list;
 
         List<ShoppingCartBean.CarGoodsListBean> data = new ArrayList<>();
 
@@ -122,6 +131,9 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingCartVi
                 goodsListBean.setSkuName(list.get(i).getCarGoodsList().get(j).getSkuName());
                 goodsListBean.setGoodsNum(list.get(i).getCarGoodsList().get(j).getGoodsNum());
                 goodsListBean.setId(list.get(i).getCarGoodsList().get(j).getId());
+                goodsListBean.setGoodsId(list.get(i).getCarGoodsList().get(j).getGoodsId());
+                goodsListBean.setShopName(list.get(i).getShopName());
+                goodsListBean.setGoodsMarketPrice(list.get(i).getCarGoodsList().get(j).getGoodsMarketPrice());
                 goodsListBean.setFlag(i);
                 data.add(goodsListBean);
 
@@ -135,6 +147,19 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingCartVi
         }
 
         adapter = new ShoppingCartAdapter(data);
+
+
+
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (adapter.getItemViewType(position)==2) {
+                    Intent i = new Intent(ShoppingCartActivity.this, GoodsDetailActivity.class);
+                    i.putExtra("id", ((ShoppingCartBean.CarGoodsListBean) adapter.getData().get(position)).getGoodsId());
+                    ActivityUtils.startActivity(i);
+                }
+            }
+        });
 
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
@@ -182,6 +207,10 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingCartVi
                                 }
 
                             }
+
+                            is = true;
+                            activityShoppingCartCheckAll.setChecked(false);
+
                         } else {
                             int flag = carGoodsListBean.getFlag();
                             for (int i = 0; i < adapterData.size(); i++) {
@@ -202,6 +231,17 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingCartVi
                         ShoppingCartBean.CarGoodsListBean carGoodsListBean1 = (ShoppingCartBean.CarGoodsListBean) adapter.getData().get(position);
                         if (carGoodsListBean1.isChecked()) {
                             carGoodsListBean1.setChecked(false);
+
+                            for (int i = 0; i < adapter.getData().size(); i++) {
+                                if (carGoodsListBean1.getFlag()== ((ShoppingCartBean.CarGoodsListBean) adapter.getData().get(i)).getFlag()) {
+                                    ((ShoppingCartBean.CarGoodsListBean) adapter.getData().get(i)).setChecked(false);
+                                    adapter.notifyItemChanged(i);
+                                    break;
+                                }
+                            }
+                            is = true;
+                            activityShoppingCartCheckAll.setChecked(false);
+
                         } else {
                             carGoodsListBean1.setChecked(true);
                         }
@@ -257,8 +297,7 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingCartVi
                 }
             }
         }
-
-        activityShoppingCartTotalPrice.setText(String.valueOf(total));
+        activityShoppingCartTotalPrice.setText("¥ "+String.valueOf(total));
 
     }
 
@@ -314,7 +353,7 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingCartVi
                 break;
             case R.id.activity_shopping_cart_settlement:
                 buyGoods.clear();
-                List<ShoppingCartBean.CarGoodsListBean> data = adapter.getData();
+                List<ShoppingCartBean.CarGoodsListBean> data =adapter.getData();
                 //只能同时提交一个flag的数据。不能跨店铺提交
                 for (int i = 0; i < data.size(); i++) {
                     if (data.get(i).getItemType() == 2 && data.get(i).isChecked() == true) {
@@ -334,13 +373,20 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingCartVi
                     }
                 }
 
+                Intent intent = new Intent(this,OrderConfirmationActivity.class);
+                intent.putExtra("data",buyGoods);
+                intent.putExtra("shopName",buyGoods.get(0).getShopName());
+                intent.putExtra("goodsTotalPrice",activityShoppingCartTotalPrice.getText().toString());
+
+                ActivityUtils.startActivity(intent);
+
                 break;
         }
     }
 
     //勾选的需要购买的商品列表
-    List<ShoppingCartBean.CarGoodsListBean> buyGoods = new ArrayList<>();
-    List<ShoppingCartBean.CarGoodsListBean> deleteGoods = new ArrayList<>();
+    ArrayList<ShoppingCartBean.CarGoodsListBean> buyGoods = new ArrayList<>();
+    ArrayList<ShoppingCartBean.CarGoodsListBean> deleteGoods = new ArrayList<>();
 
     @Override
     public void changShoppingCarNum(boolean isAdd, int id, int goodsNum, ShoppingCartBean.CarGoodsListBean bean, TextView num) {
