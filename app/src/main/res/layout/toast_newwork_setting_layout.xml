@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="15dp"
+    android:layout_marginStart="15dp"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/toast_newwork_setting_bg_shape">
+
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="18dp"
+            android:drawablePadding="10dp"
+            android:drawableStart="@mipmap/arrow_right"
+            android:text="网络请求失败，请检查您的网络设置"
+            android:textColor="@color/white"
+            android:layout_marginLeft="18dp"
+            android:drawableLeft="@mipmap/arrow_right" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="24dp"
+            android:src="@mipmap/good_order_down"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="24dp" />
+
+    </RelativeLayout>
+</LinearLayout>

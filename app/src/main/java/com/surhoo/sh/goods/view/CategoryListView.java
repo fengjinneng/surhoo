@@ -8,4 +8,7 @@ import java.util.List;
 public interface CategoryListView extends NoPageListBaseView<CategoryBean> {
 
 
+    void showLevelTwoCategory(List<CategoryBean> list,int positon);
+
+
 }

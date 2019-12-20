@@ -47,6 +47,11 @@
     </style>
 
 
+    <style name="loading_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:backgroundDimEnabled">false</item><!--activity不变暗-->
+    </style>
+
+
 
     <style name="common" parent="@style/Widget.AppCompat.Button">
 

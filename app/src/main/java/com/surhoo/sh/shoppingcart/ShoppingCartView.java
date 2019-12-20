@@ -12,4 +12,5 @@ public interface ShoppingCartView extends NoPageListBaseView<ShoppingCartBean> {
 
    void deleteShoppingCart();
 
+
 }

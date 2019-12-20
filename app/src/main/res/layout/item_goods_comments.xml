@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -65,7 +65,7 @@
         app:layout_constraintStart_toStartOf="@+id/item_goods_comments_time"
         app:layout_constraintTop_toBottomOf="@+id/item_goods_comments_time" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_goods_comments_layout"
         android:layout_width="0dp"
         android:layout_height="60dp"
@@ -142,7 +142,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/placeholder_img" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

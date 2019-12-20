@@ -108,4 +108,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
         KeyboardUtils.hideSoftInput(this);
         finish();
     }
+
+    @Override
+    public void showData(Object o) {
+
+    }
 }

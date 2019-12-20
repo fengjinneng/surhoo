@@ -1,25 +1,19 @@
 package com.surhoo.sh.search.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.surhoo.sh.R;
 import com.surhoo.sh.common.util.EmptyUtil;
 import com.surhoo.sh.common.util.GlideUtil;
-import com.surhoo.sh.designer.adapter.DesingerListMaterialAdapter;
 import com.surhoo.sh.designer.bean.DesignerListBean;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -27,7 +21,6 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class SearchDesignerAdapter extends BaseQuickAdapter<DesignerListBean
         , BaseViewHolder> {

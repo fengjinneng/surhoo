@@ -1,23 +1,17 @@
 package com.surhoo.sh.home.vlayout;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
-import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
-import com.bumptech.glide.Glide;
 import com.surhoo.sh.R;
-import com.surhoo.sh.home.bean.HomePageBean;
-
-import java.util.List;
 
 public class TitleLayoutAdapter extends DelegateAdapter.Adapter<TitleLayoutAdapter.TitleLayoutViewHolder> {
 

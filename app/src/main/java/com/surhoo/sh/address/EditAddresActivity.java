@@ -1,21 +1,37 @@
 package com.surhoo.sh.address;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.ObjectUtils;
+import com.blankj.utilcode.util.RegexUtils;
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.surhoo.sh.R;
+import com.surhoo.sh.address.bean.AddressBean;
+import com.surhoo.sh.address.present.EditAddressPresent;
+import com.surhoo.sh.address.present.EditAddressPresentImpl;
+import com.surhoo.sh.address.view.EditAddressView;
 import com.surhoo.sh.base.BaseActivity;
+import com.surhoo.sh.common.eventBus.EventBusMessageBean;
+import com.surhoo.sh.common.picker.AddressPickTask;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.qqtheme.framework.entity.City;
+import cn.qqtheme.framework.entity.County;
+import cn.qqtheme.framework.entity.Province;
 
-public class EditAddresActivity extends BaseActivity {
+public class EditAddresActivity extends BaseActivity implements EditAddressView {
 
     @BindView(R.id.toolbar_layout_back)
     ImageView toolbarLayoutBack;
@@ -25,14 +41,22 @@ public class EditAddresActivity extends BaseActivity {
     EditText activityEditAddressName;
     @BindView(R.id.activity_edit_address_phone)
     EditText activityEditAddressPhone;
-    @BindView(R.id.activity_edit_address_distric)
-    TextView activityEditAddressDistric;
+    @BindView(R.id.activity_edit_address_province_city_district)
+    TextView activityEditAddressProvinceCityDistrict;
     @BindView(R.id.activity_edit_address_detail)
     EditText activityEditAddressDetail;
     @BindView(R.id.activity_edit_address_default)
     Switch activityEditAddressDefault;
     @BindView(R.id.activity_edit_address_save)
     Button activityEditAddressSave;
+
+
+    private EditAddressPresent editAddressPresent;
+
+    private int isDefaultAddress = 1;
+
+    //回显的bean
+    private AddressBean addressBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +81,39 @@ public class EditAddresActivity extends BaseActivity {
     @Override
     public void initData() {
 
+        editAddressPresent = new EditAddressPresentImpl();
+        editAddressPresent.bindView(this, this);
+
+        activityEditAddressDefault.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    isDefaultAddress = 1;
+                } else {
+                    isDefaultAddress = 0;
+                }
+            }
+        });
+
+        addressBean = getIntent().getParcelableExtra("addressBean");
+
+        if (!ObjectUtils.isEmpty(addressBean)) {
+            activityEditAddressName.setText(addressBean.getName());
+            activityEditAddressPhone.setText(addressBean.getPhone());
+            activityEditAddressProvinceCityDistrict.setText(addressBean.getProvinceName() + " " +
+                    addressBean.getCityName() + " " + addressBean.getDistrictName());
+            activityEditAddressDetail.setText(addressBean.getAddress());
+
+            uploadProvice = addressBean.getProvinceName();
+            uploadCity = addressBean.getCityName();
+            uploadDistrict = addressBean.getDistrictName();
+
+            if (addressBean.getDefaultStatus() == 1) {
+                activityEditAddressDefault.setChecked(true);
+            } else {
+                activityEditAddressDefault.setChecked(false);
+            }
+        }
     }
 
     @Override
@@ -64,15 +121,118 @@ public class EditAddresActivity extends BaseActivity {
 
     }
 
-    @OnClick(R.id.toolbar_layout_back)
-    public void onViewClicked() {
-        KeyboardUtils.hideSoftInput(this);
+
+    @OnClick({R.id.toolbar_layout_back, R.id.activity_edit_address_save, R.id.activity_edit_address_province_city_district})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.toolbar_layout_back:
+                KeyboardUtils.hideSoftInput(this);
+                finish();
+                break;
+            case R.id.activity_edit_address_save:
+
+                saveAddressInfo();
+
+                break;
+            case R.id.activity_edit_address_province_city_district:
+
+                AddressPickTask task = new AddressPickTask(this);
+
+                task.setCallback(new AddressPickTask.Callback() {
+                    @Override
+                    public void onAddressInitFailed() {
+                        ToastUtils.showShort("初始化失败！");
+                    }
+
+                    @Override
+                    public void onAddressPicked(Province province, City city, County county) {
+                        activityEditAddressProvinceCityDistrict.setText(province.getAreaName() + " " + city.getAreaName() + " " + county.getAreaName());
+                        uploadProvice = province.getAreaName();
+                        uploadCity = city.getAreaName();
+                        uploadDistrict = county.getAreaName();
+                    }
+                });
+                task.execute();
+
+                break;
+        }
+    }
+
+    private String uploadProvice;
+    private String uploadCity;
+    private String uploadDistrict;
+
+
+    private void saveAddressInfo() {
+        if (checkNull()) {
+            AddressBean address = new AddressBean();
+            address.setName(activityEditAddressName.getText().toString());
+            address.setPhone(activityEditAddressPhone.getText().toString());
+            address.setDefaultStatus(isDefaultAddress);
+            address.setProvinceName(uploadProvice);
+            address.setCityName(uploadCity);
+            address.setDistrictName(uploadDistrict);
+            address.setAddress(activityEditAddressDetail.getText().toString());
+
+            if (ObjectUtils.isEmpty(address)) {
+                //保存地址
+                editAddressPresent.addAddress(address);
+            } else {
+                //修改地址
+                address.setId(addressBean.getId());
+                editAddressPresent.updateAddress(address);
+            }
+        }
+    }
+
+
+    private boolean checkNull() {
+
+        if (StringUtils.isEmpty(activityEditAddressName.getText().toString())) {
+            ToastUtils.showShort("请填写收件人");
+            return false;
+        }
+
+        if (StringUtils.isEmpty(activityEditAddressPhone.getText().toString())) {
+            ToastUtils.showShort("请填写联系电话");
+            return false;
+        }
+
+        if (!RegexUtils.isMobileSimple(activityEditAddressPhone.getText().toString())) {
+            ToastUtils.showShort("请填写正确的手机号码");
+            return false;
+        }
+
+        if (StringUtils.isEmpty(activityEditAddressProvinceCityDistrict.getText().toString())) {
+            ToastUtils.showShort("请选择省市区信息");
+            return false;
+        }
+
+        if (StringUtils.isEmpty(activityEditAddressDetail.getText().toString())) {
+            ToastUtils.showShort("请填写您的详细地址");
+            return false;
+        }
+
+        return true;
+
+    }
+
+    @Override
+    public void getAddResult() {
+        EventBus.getDefault().post(new EventBusMessageBean(EventBusMessageBean.Address.addAddressSuccess));
         finish();
     }
 
-    @OnClick(R.id.activity_edit_address_save)
-    public void onSaveClicked() {
+    @Override
+    public void getUpdateResult() {
+        EventBus.getDefault().post(new EventBusMessageBean(EventBusMessageBean.Address.updateAddressSuccess));
+        finish();
+    }
 
+    @Override
+    public void showToastMsg(String msg) {
+        ToastUtils.showShort(msg);
 
     }
+
 }

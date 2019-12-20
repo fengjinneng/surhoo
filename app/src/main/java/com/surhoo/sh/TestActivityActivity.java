@@ -2,7 +2,7 @@ package com.surhoo.sh;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -10,7 +10,9 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.goyourfly.multi_picture.ImageLoader;
 import com.goyourfly.multi_picture.MultiPictureView;
-import com.surhoo.sh.common.util.GlideUtil;
+import com.surhoo.sh.order.OrderEvaluationActivity;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.runtime.Permission;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -59,7 +61,7 @@ public class TestActivityActivity extends AppCompatActivity {
         multiImageView.setAddClickCallback(new MultiPictureView.AddClickCallback() {
             @Override
             public void onAddClick(@NotNull View view) {
-                multiImageView.addItem(Uri.parse(img));
+
             }
         });
 

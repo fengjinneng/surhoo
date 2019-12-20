@@ -26,8 +26,6 @@ public class CommonUtil {
     }
 
 
-
-
     public static GoodDetailBean.SkuListBean  getSku(List<GoodDetailBean.SkuListBean> skuListBeans,String... spec){
 
         int length = 0;
@@ -43,7 +41,6 @@ public class CommonUtil {
                 if (strings.contains(spec[j])) {
                     length++;
                 }
-
             }
 
             if(length==spec.length){

@@ -1,14 +1,13 @@
 package com.surhoo.sh.search.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ObjectUtils;
-import com.blankj.utilcode.util.StringUtils;
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.surhoo.sh.R;
@@ -41,27 +40,21 @@ public class SearchMaterialAdapter extends BaseQuickAdapter<MaterialBean
 
         ImageView img = (ImageView) helper.getView(R.id.item_material_img);
 
-        GlideUtil.loadDefaultImg(mContext,item.getLogo() + "?x-oss-process=image/resize,w_320",img);
+        GlideUtil.loadDefaultImg(mContext, item.getLogo() + "?x-oss-process=image/resize,w_320", img);
 
         TagFlowLayout flowLayout = (TagFlowLayout) helper.getView(R.id.item_material_tag);
 
         List<String> strings = new ArrayList<>();
 
         if (!ObjectUtils.isEmpty(item.getLabelInfoList())) {
-
             flowLayout.setVisibility(View.VISIBLE);
-
             for (int i = 0; i < item.getLabelInfoList().size(); i++) {
                 strings.add(item.getLabelInfoList().get(i).getName());
             }
-
             if (item.isHasTagAdapter()) {
-
                 TagAdapter tagAdapter = item.getTagAdapter();
                 flowLayout.setAdapter(tagAdapter);
-
             } else {
-
                 TagAdapter<String> tagAdapter = new TagAdapter<String>(strings) {
                     @Override
                     public View getView(FlowLayout parent, int position, String s) {
@@ -70,17 +63,15 @@ public class SearchMaterialAdapter extends BaseQuickAdapter<MaterialBean
                         return tv;
                     }
                 };
-
                 flowLayout.setAdapter(tagAdapter);
                 item.setHasTagAdapter(true);
                 item.setTagAdapter(tagAdapter);
-
             }
 
         } else {
-
             flowLayout.setVisibility(View.GONE);
         }
+
 
 
     }

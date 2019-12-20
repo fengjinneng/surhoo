@@ -19,20 +19,9 @@ public class DesignerLabelBean {
     private String name;
     private Integer type;
     private Integer sort;
-    private Object isDelete;
-    private Object gmtGreate;
-    private Object gmtModified;
-    private Object selected;
-    private Object value;
-    private Boolean checked;
+    private boolean checked;
 
-    public Boolean getChecked() {
-        return checked;
-    }
 
-    public void setChecked(Boolean checked) {
-        this.checked = checked;
-    }
 
     public Integer getId() {
         return id;
@@ -66,43 +55,11 @@ public class DesignerLabelBean {
         this.sort = sort;
     }
 
-    public Object getIsDelete() {
-        return isDelete;
+    public boolean isChecked() {
+        return checked;
     }
 
-    public void setIsDelete(Object isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public Object getGmtGreate() {
-        return gmtGreate;
-    }
-
-    public void setGmtGreate(Object gmtGreate) {
-        this.gmtGreate = gmtGreate;
-    }
-
-    public Object getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Object gmtModified) {
-        this.gmtModified = gmtModified;
-    }
-
-    public Object getSelected() {
-        return selected;
-    }
-
-    public void setSelected(Object selected) {
-        this.selected = selected;
-    }
-
-    public Object getValue() {
-        return value;
-    }
-
-    public void setValue(Object value) {
-        this.value = value;
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 }

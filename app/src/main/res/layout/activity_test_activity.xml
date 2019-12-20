@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,12 +10,15 @@
         android:id="@+id/multi_image_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:editable="true"
-        app:deleteDrawable="@mipmap/goods_close"
         app:addDrawable="@mipmap/goods_add"
-        app:imageLayoutMode="DYNAMIC"
+        app:deleteDrawable="@mipmap/goods_close"
+        app:editable="true"
+        app:imageLayoutMode="STATIC"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:max="12"
         app:space="6dp"
         app:span="4" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

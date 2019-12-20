@@ -1,7 +1,6 @@
 package com.surhoo.sh;
 
 import android.app.Application;
-
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -10,7 +9,6 @@ import com.lzy.okgo.cookie.store.DBCookieStore;
 import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
-
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
@@ -18,14 +16,18 @@ import okhttp3.OkHttpClient;
 
 public class App extends Application {
 
+
+
+
     @Override
     public void onCreate() {
         super.onCreate();
 
         initOkGo();
 
-    }
 
+
+    }
 
     /**
      * 初始化OKGO

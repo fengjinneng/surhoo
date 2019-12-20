@@ -1,8 +1,8 @@
 package com.surhoo.sh.home.vlayout;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,17 +44,16 @@ public class BannerLayoutAdapter extends DelegateAdapter.Adapter<BannerLayoutAda
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BannerLayoutViewHolder scenarioLayoutViewHolder, int i) {
+    public void onBindViewHolder(@NonNull BannerLayoutViewHolder viewHolder, int i) {
 
         ArrayList<String> bannerDatas = new ArrayList<>();
         for (int j = 0; j < datas.size(); j++) {
             bannerDatas.add(datas.get(i).getBanner());
         }
 
+        CommonUtil.setBannerInfo(viewHolder.convenientBanner,bannerDatas);
 
-        CommonUtil.setBannerInfo(scenarioLayoutViewHolder.convenientBanner,bannerDatas);
-
-        scenarioLayoutViewHolder.convenientBanner.setOnItemClickListener(new OnItemClickListener() {
+        viewHolder.convenientBanner.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
 

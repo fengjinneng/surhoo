@@ -1,23 +1,25 @@
 package com.surhoo.sh.shoppingcart;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.surhoo.sh.R;
 import com.surhoo.sh.base.BaseActivity;
-import com.surhoo.sh.goods.bean.GoodsBean;
 import com.surhoo.sh.goods.view.impl.GoodsDetailActivity;
 import com.surhoo.sh.order.OrderConfirmationActivity;
 
@@ -25,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ShoppingCartActivity extends BaseActivity implements ShoppingCartView {
@@ -87,15 +88,15 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingCartVi
                     adapter.notifyDataSetChanged();
                     totalPrice(data);
                 }
-
             }
         });
-
 
     }
 
     @Override
     public void initData() {
+
+        adapter = new ShoppingCartAdapter(null);
 
     }
 
@@ -103,7 +104,6 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingCartVi
     public void requestData() {
         shoppingCartPresent.requestData();
     }
-
 
 
     private boolean is;
@@ -134,6 +134,7 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingCartVi
                 goodsListBean.setGoodsId(list.get(i).getCarGoodsList().get(j).getGoodsId());
                 goodsListBean.setShopName(list.get(i).getShopName());
                 goodsListBean.setGoodsMarketPrice(list.get(i).getCarGoodsList().get(j).getGoodsMarketPrice());
+                goodsListBean.setSkuId(list.get(i).getCarGoodsList().get(j).getSkuId());
                 goodsListBean.setFlag(i);
                 data.add(goodsListBean);
 
@@ -146,8 +147,7 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingCartVi
             data.add(carGoodsListBean3);
         }
 
-        adapter = new ShoppingCartAdapter(data);
-
+        adapter.setNewData(data);
 
 
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -297,9 +297,12 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingCartVi
                 }
             }
         }
+        totalPrice = total;
         activityShoppingCartTotalPrice.setText("¥ "+String.valueOf(total));
 
     }
+
+    private double totalPrice;
 
     @Override
     public void showToastMsg(String msg) {
@@ -376,7 +379,7 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingCartVi
                 Intent intent = new Intent(this,OrderConfirmationActivity.class);
                 intent.putExtra("data",buyGoods);
                 intent.putExtra("shopName",buyGoods.get(0).getShopName());
-                intent.putExtra("goodsTotalPrice",activityShoppingCartTotalPrice.getText().toString());
+                intent.putExtra("goodsTotalPrice",totalPrice);
 
                 ActivityUtils.startActivity(intent);
 
@@ -413,4 +416,5 @@ public class ShoppingCartActivity extends BaseActivity implements ShoppingCartVi
 
         adapter.notifyDataSetChanged();
     }
+
 }

@@ -1,7 +1,9 @@
 package com.surhoo.sh.invoice.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.ObjectUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -35,6 +37,13 @@ public class InvoiceListAdapter extends BaseQuickAdapter<InvoiceBean, BaseViewHo
 
         helper.setText(R.id.item_invoice_content,item.getContent());
 
+        helper.addOnClickListener(R.id.item_invoice_delete,R.id.item_invoice_edit);
 
+
+        if(item.getDefaultStatus()){
+            helper.getView(R.id.item_invoice_default).setVisibility(View.VISIBLE);
+        }else {
+            helper.getView(R.id.item_invoice_default).setVisibility(View.GONE);
+        }
     }
 }

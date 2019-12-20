@@ -2,6 +2,7 @@ package com.surhoo.sh.invoice.present;
 
 import android.app.Activity;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -13,6 +14,7 @@ import com.lzy.okgo.request.PutRequest;
 import com.surhoo.sh.R;
 import com.surhoo.sh.base.BasePresenter;
 import com.surhoo.sh.common.Api;
+import com.surhoo.sh.invoice.bean.RequestSaveInvocieBean;
 import com.surhoo.sh.invoice.view.EditInvoiceView;
 
 import okhttp3.MediaType;
@@ -41,9 +43,12 @@ public class EditInvoicePresentImpl implements IEditInvoicePresent {
     }
 
     @Override
-    public void saveInvocieInfo(String s) {
+    public void saveInvocieInfo(RequestSaveInvocieBean bean) {
 
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+        String s = JSONObject.toJSONString(bean);
+
         RequestBody requestBody = RequestBody.create(JSON,s);
 
         PostRequest<String> request = OkGo.<String>post(Api.SAVEINVOICEINFO)

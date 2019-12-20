@@ -25,7 +25,7 @@ public class NetworkImageHolderView implements Holder<String> {
 
 //        Glide.with(context).load(data).into(imageView);
 
-        GlideUtil.loadDefaultImg(context,data,imageView);
+        GlideUtil.loadBannerImage(context,data,imageView);
     }
 }
 

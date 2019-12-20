@@ -1,6 +1,6 @@
 package com.surhoo.sh.shoppingcart;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;

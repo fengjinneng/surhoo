@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bgColor"
     tools:context=".invoice.EditInvoiceActivity">
 
 
@@ -14,18 +15,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/activity_edit_invoice_common_invoice_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/activity_edit_invoice_save"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_edit_invoice_common_invoice">
+        app:layout_constraintTop_toBottomOf="@+id/textView46"
+        app:layout_constraintVertical_bias="0.0">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout16"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -47,34 +49,23 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/imageView26"
+
+            <TextView
+                android:id="@+id/activity_edit_invoice_common_invoice_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginBottom="8dp"
+                android:drawableRight="@mipmap/arrow_right"
+                android:drawablePadding="10dp"
+                android:text="个人"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/arrow_right" />
+                app:layout_constraintVertical_bias="0.466" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/textView46"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="个人"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView26"
-                app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout17"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -106,13 +97,13 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:background="@null"
-                android:hint="默认个人(可修改)"
+                android:hint="默认个人 (可修改)"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView47"
                 app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/view14"
@@ -123,7 +114,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout17" />
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout18"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -145,7 +136,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
+            <TextView
                 android:id="@+id/activity_edit_invoice_common_invoice_content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -155,14 +146,13 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
-                android:hint="商品明细（不可修改)"
+                android:text="商品明细（不可修改)"
                 android:textSize="14sp"
-                android:background="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView48"
                 app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/view15"
@@ -173,7 +163,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout18" />
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout19"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -207,30 +197,25 @@
                 android:layout_marginBottom="8dp"
                 android:background="@null"
                 android:hint="请填写手机号"
-                android:textSize="14sp"
                 android:inputType="phone"
+                android:textSize="14sp"
+                android:maxLength="11"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView50"
                 app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
-            android:id="@+id/view16"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/dividerLine"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout19" />
 
-        <android.support.constraint.ConstraintLayout
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view16">
+            app:layout_constraintTop_toBottomOf="@+id/textView80">
 
             <TextView
                 android:id="@+id/textView52"
@@ -253,22 +238,83 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="8dp"
+                android:checked="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/activity_edit_invoice_common_invoice_taxCode_layout"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout19">
+
+            <View
+                android:id="@+id/view16"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/dividerLine"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView79"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="纳税人识别码"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/activity_edit_invoice_common_invoice_taxCode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@null"
+                android:hint="纳税人识别号或统一社会信用代码"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView79"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/textView80"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/dividerLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_edit_invoice_common_invoice_taxCode_layout" />
 
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/activity_edit_invoice_common_invoice"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="普通发票(电子)"
         android:textColor="@color/pageTitle"
         android:textSize="14sp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         app:layout_constraintEnd_toStartOf="@+id/activity_edit_invoice_special_vat_invoice"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -276,11 +322,14 @@
 
     <TextView
         android:id="@+id/activity_edit_invoice_special_vat_invoice"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="增值税专用发票"
         android:textSize="14sp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/activity_edit_invoice_common_invoice"
@@ -311,18 +360,17 @@
         app:layout_constraintBottom_toTopOf="@+id/activity_edit_invoice_save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_edit_invoice_common_invoice">
+        app:layout_constraintTop_toBottomOf="@+id/textView46">
 
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout20"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="8dp"
                 android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -339,7 +387,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
+                <TextView
                     android:id="@+id/activity_edit_invoice_special_vat_invoice_content"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -348,23 +396,28 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:background="@null"
-                    android:hint="商品明细(不可修改)"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="8dp"
+                    android:text="商品明细(不可修改)"
                     android:textSize="14sp"
+                    android:textColor="@color/saleColor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView43"
                     app:layout_constraintTop_toTopOf="parent" />
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView53">
+                app:layout_constraintTop_toBottomOf="@+id/textView53"
+                app:layout_constraintVertical_bias="1.0">
 
                 <TextView
                     android:id="@+id/textView54"
@@ -373,12 +426,12 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
                     android:text="单位名称"
-                    app:layout_constraintBottom_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_company"
+                    app:layout_constraintBottom_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_companyName"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/activity_edit_invoice_special_vat_invoice_company" />
+                    app:layout_constraintTop_toTopOf="@+id/activity_edit_invoice_special_vat_invoice_companyName" />
 
                 <EditText
-                    android:id="@+id/activity_edit_invoice_special_vat_invoice_company"
+                    android:id="@+id/activity_edit_invoice_special_vat_invoice_companyName"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_marginEnd="8dp"
@@ -387,7 +440,7 @@
                     android:hint="请填写单位名称"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/activity_edit_invoice_special_vat_invoice_tax_code"
+                    app:layout_constraintStart_toStartOf="@+id/activity_edit_invoice_special_vat_invoice_taxCode"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <View
@@ -397,7 +450,7 @@
                     android:background="@color/dividerLine"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_company" />
+                    app:layout_constraintTop_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_companyName" />
 
                 <TextView
                     android:id="@+id/textView55"
@@ -406,12 +459,12 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
                     android:text="纳税人识别码"
-                    app:layout_constraintBottom_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_tax_code"
+                    app:layout_constraintBottom_toTopOf="@+id/activity_edit_invoice_special_vat_invoice_taxCode"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/activity_edit_invoice_special_vat_invoice_tax_code" />
+                    app:layout_constraintTop_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_taxCode" />
 
                 <EditText
-                    android:id="@+id/activity_edit_invoice_special_vat_invoice_tax_code"
+                    android:id="@+id/activity_edit_invoice_special_vat_invoice_taxCode"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="8dp"
@@ -432,7 +485,7 @@
                     android:background="@color/dividerLine"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_tax_code" />
+                    app:layout_constraintTop_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_taxCode" />
 
                 <TextView
                     android:id="@+id/textView56"
@@ -456,7 +509,7 @@
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/activity_edit_invoice_special_vat_invoice_tax_code"
+                    app:layout_constraintStart_toStartOf="@+id/activity_edit_invoice_special_vat_invoice_taxCode"
                     app:layout_constraintTop_toBottomOf="@+id/view18" />
 
                 <View
@@ -485,9 +538,11 @@
                     android:layout_height="50dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:hint="请填写注册电话"
-                    android:textSize="14sp"
                     android:background="@null"
+                    android:hint="请填写注册电话"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/activity_edit_invoice_special_vat_invoice_company_address"
                     app:layout_constraintTop_toBottomOf="@+id/view19" />
@@ -508,19 +563,19 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
                     android:text="开户银行"
-                    app:layout_constraintBottom_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_bank"
+                    app:layout_constraintBottom_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_bankName"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/activity_edit_invoice_special_vat_invoice_bank" />
+                    app:layout_constraintTop_toTopOf="@+id/activity_edit_invoice_special_vat_invoice_bankName" />
 
                 <EditText
-                    android:id="@+id/activity_edit_invoice_special_vat_invoice_bank"
+                    android:id="@+id/activity_edit_invoice_special_vat_invoice_bankName"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
+                    android:background="@null"
                     android:hint="请填写开户银行"
                     android:textSize="14sp"
-                    android:background="@null"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/activity_edit_invoice_special_vat_invoice_phone"
                     app:layout_constraintTop_toBottomOf="@+id/view20" />
@@ -532,7 +587,7 @@
                     android:background="@color/dividerLine"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_bank" />
+                    app:layout_constraintTop_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_bankName" />
 
                 <TextView
                     android:id="@+id/textView59"
@@ -551,28 +606,33 @@
                     android:layout_height="50dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:hint="请填写银行账户"
                     android:background="@null"
+                    android:hint="请填写银行账户"
                     android:textSize="14sp"
+                    android:inputType="number"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/activity_edit_invoice_special_vat_invoice_bank"
+                    app:layout_constraintStart_toStartOf="@+id/activity_edit_invoice_special_vat_invoice_bankName"
                     app:layout_constraintTop_toBottomOf="@+id/view21" />
 
                 <TextView
                     android:id="@+id/textView60"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="16dp"
-                    android:text="收票人信息"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_bank_account" />
-
-                <android.support.constraint.ConstraintLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:paddingTop="18dp"
+                    android:paddingBottom="10dp"
+                    android:text="收票人信息"
+                    android:paddingLeft="8dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/saleColor"
+                    android:background="@color/bgColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_bank_account" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView60">
@@ -629,9 +689,9 @@
                         android:layout_height="50dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginRight="8dp"
+                        android:background="@null"
                         android:hint="请填写地址"
                         android:textSize="14sp"
-                        android:background="@null"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/activity_edit_invoice_special_vat_invoice_nickname"
                         app:layout_constraintTop_toBottomOf="@+id/view23" />
@@ -662,12 +722,13 @@
                         android:layout_height="50dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginRight="8dp"
+                        android:checked="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/view24" />
 
 
-                </android.support.constraint.ConstraintLayout>
-            </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/textView53"
@@ -675,14 +736,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="18dp"
                 android:text="公司信息"
+                android:textColor="@color/saleColor"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout20"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout20" />
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
+    <View
+        android:id="@+id/textView46"
+        android:layout_width="0dp"
+        android:background="@color/bgColor"
+        android:layout_height="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_edit_invoice_common_invoice" />
 
-</android.support.constraint.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

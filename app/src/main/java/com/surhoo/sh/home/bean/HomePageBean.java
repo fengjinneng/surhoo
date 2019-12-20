@@ -11,6 +11,15 @@ public class HomePageBean {
     private List<GOODSBean> GOODS;
     private List<SCENEBean> SCENE;
     private List<BARGAINGOODSBean> BARGAINGOODS;
+    private List<MATERIALBean> MATERIAL;
+
+    public List<MATERIALBean> getMATERIAL() {
+        return MATERIAL;
+    }
+
+    public void setMATERIAL(List<MATERIALBean> MATERIAL) {
+        this.MATERIAL = MATERIAL;
+    }
 
     public List<DESIGNERBean> getDESIGNER() {
         return DESIGNER;
@@ -58,6 +67,128 @@ public class HomePageBean {
 
     public void setBARGAINGOODS(List<BARGAINGOODSBean> BARGAINGOODS) {
         this.BARGAINGOODS = BARGAINGOODS;
+    }
+
+    public static class MATERIALBean {
+        /**
+         * materialId : 4
+         * logo : https://essilor.oss-cn-shanghai.aliyuncs.com/images/JEnm2GPaKQDCQHp5Wc6imk4ZM4jCctpz.gif
+         * name : 素材名称
+         * detail : 素材介绍
+         * labelIds : #13#,#12#
+         * labelName : follower,color
+         * labelInfoList : [{"labelId":13,"name":"follower"},{"labelId":12,"name":"color"}]
+         * price : 200
+         * isCollect : false
+         */
+
+        private Integer materialId;
+        private String logo;
+        private String name;
+        private String detail;
+        private String labelIds;
+        private String labelName;
+        private Integer price;
+        private boolean isCollect;
+        private List<MATERIALBean.LabelInfoListBean> labelInfoList;
+
+        public Integer getMaterialId() {
+            return materialId;
+        }
+
+        public void setMaterialId(Integer materialId) {
+            this.materialId = materialId;
+        }
+
+        public String getLogo() {
+            return logo;
+        }
+
+        public void setLogo(String logo) {
+            this.logo = logo;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getDetail() {
+            return detail;
+        }
+
+        public void setDetail(String detail) {
+            this.detail = detail;
+        }
+
+        public String getLabelIds() {
+            return labelIds;
+        }
+
+        public void setLabelIds(String labelIds) {
+            this.labelIds = labelIds;
+        }
+
+        public String getLabelName() {
+            return labelName;
+        }
+
+        public void setLabelName(String labelName) {
+            this.labelName = labelName;
+        }
+
+        public Integer getPrice() {
+            return price;
+        }
+
+        public void setPrice(Integer price) {
+            this.price = price;
+        }
+
+        public boolean isIsCollect() {
+            return isCollect;
+        }
+
+        public void setIsCollect(boolean isCollect) {
+            this.isCollect = isCollect;
+        }
+
+        public List<MATERIALBean.LabelInfoListBean> getLabelInfoList() {
+            return labelInfoList;
+        }
+
+        public void setLabelInfoList(List<MATERIALBean.LabelInfoListBean> labelInfoList) {
+            this.labelInfoList = labelInfoList;
+        }
+
+        public static class LabelInfoListBean {
+            /**
+             * labelId : 13
+             * name : follower
+             */
+
+            private Integer labelId;
+            private String name;
+
+            public Integer getLabelId() {
+                return labelId;
+            }
+
+            public void setLabelId(Integer labelId) {
+                this.labelId = labelId;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+        }
     }
 
     public static class DESIGNERBean  {

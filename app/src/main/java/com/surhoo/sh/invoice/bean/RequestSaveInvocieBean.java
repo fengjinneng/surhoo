@@ -2,7 +2,6 @@ package com.surhoo.sh.invoice.bean;
 
 public class RequestSaveInvocieBean {
 
-
     private Integer normalType;
     private Integer invoiceType;
     private String title;
@@ -17,45 +16,6 @@ public class RequestSaveInvocieBean {
     private String nickname;
     private String loginAddress;
 
-
-    public String beCommonPersonal() {
-        return "{" +
-                "\"normalType\":" + normalType +
-                ", \"invoiceType\":" + invoiceType +
-                ", \"title\":" +"\""+ title +"\"" +
-                ", \"content\":" +"\""+ content +"\""  +
-                ", \"mobile\":" + mobile  +
-                ", \"defaultStatus\":" + defaultStatus +
-                '}';
-    }
-
-    public String beCommonCompany() {
-        return "{" +
-                "\"normalType\":" + normalType +
-                ", \"invoiceType\":" + invoiceType +
-                ", \"title\":"+"\"" + title +"\"" +
-                ", \"content\":"+"\"" + content +"\"" +
-                ", \"mobile\":" +"\""+ mobile +"\"" +
-                ", \"taxCode\":" +"\""+ taxCode +"\"" +
-                ", \"defaultStatus\":" + defaultStatus +
-                '}';
-    }
-
-    public String beSpecialVatInvoice() {
-        return "{" +
-                ", \"invoiceType\":" + invoiceType +
-                ", \"content\":"+"\"" + content +"\"" +
-                ", \"enterpriseName\":" +"\""+ enterpriseName+"\""  +
-                ", \"mobile\":"+"\"" + mobile+"\""  +
-                ", \"defaultStatus\":" + defaultStatus +
-                ", \"taxCode\":"+"\"" + taxCode +"\""+
-                ", \"address\":"+"\"" + address +"\"" +
-                ", \"bankName\":"+"\"" + bankName +"\""+
-                ", \"account\":" +"\""+ account+"\"" +
-                ", \"nickname\":" +"\""+ nickname +"\""+
-                ", \"loginAddress\":"+"\"" + loginAddress +"\""+
-                '}';
-    }
 
     public Integer getNormalType() {
         return normalType;

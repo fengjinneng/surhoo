@@ -1,13 +1,17 @@
 package com.surhoo.sh.search.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.ConvertUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.StringUtils;
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.surhoo.sh.R;
 import com.surhoo.sh.common.util.GlideUtil;
 import com.surhoo.sh.goods.bean.GoodsBean;
@@ -38,7 +42,12 @@ public class SearchGoodsAdapter extends BaseQuickAdapter<GoodsBean
             helper.setText(R.id.item_goods_list_sales, String.valueOf(item.getSaleCount()));
         }
 
-        ImageView goodsImg = (ImageView) helper.getView(R.id.item_goods_list_img);
-        GlideUtil.loadGoodsImage(mContext,item.getLogo() ,goodsImg);
+        RoundedImageView goodsImg = (RoundedImageView) helper.getView(R.id.item_goods_list_img);
+
+        goodsImg.setLayoutParams(new ConstraintLayout.LayoutParams((int) (ScreenUtils.getScreenWidth() * 0.44),(int) (ScreenUtils.getScreenWidth() * 0.44)));
+
+        goodsImg.setPadding(ConvertUtils.dp2px(1),0,ConvertUtils.dp2px(1),0);
+
+        GlideUtil.loadDefaultImg(mContext,item.getLogo() ,goodsImg);
     }
 }

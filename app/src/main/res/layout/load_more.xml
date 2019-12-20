@@ -48,7 +48,7 @@
 
     </FrameLayout>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/load_more_load_end_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -90,5 +90,5 @@
             app:layout_constraintBottom_toBottomOf="@+id/textView169"
             app:layout_constraintStart_toEndOf="@+id/textView169"
             app:layout_constraintTop_toTopOf="@+id/textView169" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

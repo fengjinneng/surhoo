@@ -2,11 +2,10 @@ package com.surhoo.sh.home.fragment;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,8 +16,10 @@ import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.Glide;
 import com.surhoo.sh.R;
 import com.surhoo.sh.base.BaseFragment;
+import com.surhoo.sh.common.recyclerview.GridDivider;
 import com.surhoo.sh.goods.view.impl.CategoryActivity;
 import com.surhoo.sh.home.bean.HomePageBean;
 import com.surhoo.sh.home.presenter.HomePresenter;
@@ -29,14 +30,16 @@ import com.surhoo.sh.home.vlayout.CutPriceLayoutAdapter;
 import com.surhoo.sh.home.vlayout.DesignerLayoutAdapter;
 import com.surhoo.sh.home.vlayout.GoodsLayoutAdapter;
 import com.surhoo.sh.home.vlayout.LevelOneScenarioLayoutAdapter;
+import com.surhoo.sh.home.vlayout.ScenarioExpandLayoutAdapter;
 import com.surhoo.sh.home.vlayout.ScenarioLayoutAdapter;
 import com.surhoo.sh.home.vlayout.TitleLayoutAdapter;
 import com.surhoo.sh.search.SearchActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -94,9 +97,13 @@ public class HomeFragment extends BaseFragment implements HomeView {
         delegateAdapter = new DelegateAdapter(layoutManager);
         recyclerView.setAdapter(delegateAdapter);
 
+
         homePresenter = new HomePresenterImpl();
 
         homePresenter.bindView(getActivity(), this);
+
+
+
     }
 
     @Override
@@ -113,6 +120,15 @@ public class HomeFragment extends BaseFragment implements HomeView {
     DelegateAdapter delegateAdapter;
     HomePresenter homePresenter;
 
+    //八个以内的集合
+    private List<HomePageBean.FIRSTSCENEBean> temp;
+
+    //总的场景个数
+    private List<HomePageBean.FIRSTSCENEBean> allScenario;
+
+    private  LevelOneScenarioLayoutAdapter levelOneScenarioLayoutAdapter;
+    //是否展示全部的场景
+    private boolean isShowAll ;
 
     @Override
     public void showData(HomePageBean homePageBean) {
@@ -123,8 +139,46 @@ public class HomeFragment extends BaseFragment implements HomeView {
         }
 
         if (!ObjectUtils.isEmpty(homePageBean.getFIRSTSCENE())) {
-            LevelOneScenarioLayoutAdapter levelOneScenarioLayoutAdapter = new LevelOneScenarioLayoutAdapter(getContext(), homePageBean.getFIRSTSCENE());
+
+            allScenario  =  new ArrayList<>();
+
+            List<HomePageBean.FIRSTSCENEBean> firstscene = homePageBean.getFIRSTSCENE();
+
+            temp = new ArrayList<>();
+
+            for (int i = 0; i < firstscene.size(); i++) {
+                if(i>7){
+                }else {
+                    temp.add(firstscene.get(i));
+                }
+                allScenario.add(firstscene.get(i));
+            }
+
+            levelOneScenarioLayoutAdapter = new LevelOneScenarioLayoutAdapter(getContext(), temp);
             delegateAdapter.addAdapter(levelOneScenarioLayoutAdapter);
+
+        }
+
+
+        if(!ObjectUtils.isEmpty(homePageBean.getFIRSTSCENE())&&homePageBean.getFIRSTSCENE().size()>8){
+            ScenarioExpandLayoutAdapter adapter = new ScenarioExpandLayoutAdapter(getContext());
+
+            adapter.setOnScenarioExpandClickListener(new ScenarioExpandLayoutAdapter.OnScenarioExpandClickListener() {
+                @Override
+                public void onScenarioExpandClick() {
+                    if(isShowAll){
+                        levelOneScenarioLayoutAdapter.setDatas(temp);
+                        levelOneScenarioLayoutAdapter.notifyDataSetChanged();
+                        isShowAll=false;
+                    }else {
+                        levelOneScenarioLayoutAdapter.setDatas(allScenario);
+                        levelOneScenarioLayoutAdapter.notifyDataSetChanged();
+                        isShowAll=true;
+                    }
+                }
+            });
+
+            delegateAdapter.addAdapter(adapter);
         }
 
         if (!ObjectUtils.isEmpty(homePageBean.getSCENE())) {
@@ -134,19 +188,21 @@ public class HomeFragment extends BaseFragment implements HomeView {
             delegateAdapter.addAdapter(scenarioLayoutAdapter);
         }
 
-        if (!ObjectUtils.isEmpty(homePageBean.getDESIGNER())) {
-            TitleLayoutAdapter titleLayoutAdapter = new TitleLayoutAdapter(getContext(), "设计师榜");
-            delegateAdapter.addAdapter(titleLayoutAdapter);
-            DesignerLayoutAdapter designerLayoutAdapter = new DesignerLayoutAdapter(getContext(), homePageBean.getDESIGNER());
-            delegateAdapter.addAdapter(designerLayoutAdapter);
-        }
 
-        if (!ObjectUtils.isEmpty(homePageBean.getGOODS())) {
-            TitleLayoutAdapter titleLayoutAdapter = new TitleLayoutAdapter(getContext(), "砍价活动");
-            delegateAdapter.addAdapter(titleLayoutAdapter);
-            CutPriceLayoutAdapter cutPriceLayoutAdapter = new CutPriceLayoutAdapter(getContext(), homePageBean.getBARGAINGOODS());
-            delegateAdapter.addAdapter(cutPriceLayoutAdapter);
-        }
+
+//        if (!ObjectUtils.isEmpty(homePageBean.getDESIGNER())) {
+//            TitleLayoutAdapter titleLayoutAdapter = new TitleLayoutAdapter(getContext(), "设计师榜");
+//            delegateAdapter.addAdapter(titleLayoutAdapter);
+//            DesignerLayoutAdapter designerLayoutAdapter = new DesignerLayoutAdapter(getContext(), homePageBean.getDESIGNER());
+//            delegateAdapter.addAdapter(designerLayoutAdapter);
+//        }
+//
+//        if (!ObjectUtils.isEmpty(homePageBean.getGOODS())) {
+//            TitleLayoutAdapter titleLayoutAdapter = new TitleLayoutAdapter(getContext(), "砍价活动");
+//            delegateAdapter.addAdapter(titleLayoutAdapter);
+//            CutPriceLayoutAdapter cutPriceLayoutAdapter = new CutPriceLayoutAdapter(getContext(), homePageBean.getBARGAINGOODS());
+//            delegateAdapter.addAdapter(cutPriceLayoutAdapter);
+//        }
 
         if (!ObjectUtils.isEmpty(homePageBean.getGOODS())) {
             TitleLayoutAdapter titleLayoutAdapter = new TitleLayoutAdapter(getContext(), "热门商品");

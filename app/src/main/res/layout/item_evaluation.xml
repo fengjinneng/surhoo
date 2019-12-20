@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".order.OrderEvaluationActivity">
+
+    <ImageView
+        android:id="@+id/item_evaluation_img"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/placeholder_head_img" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="描述相符:"
+        app:layout_constraintBottom_toBottomOf="@+id/item_evaluation_img"
+        app:layout_constraintStart_toEndOf="@+id/item_evaluation_img"
+        app:layout_constraintTop_toTopOf="@+id/item_evaluation_img" />
+
+    <ImageView
+        android:id="@+id/item_evaluation_rating_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView22"
+        app:layout_constraintStart_toEndOf="@+id/textView22"
+        app:layout_constraintTop_toTopOf="@+id/textView22"
+        app:srcCompat="@mipmap/evalution_star_unchecked" />
+
+    <ImageView
+        android:id="@+id/item_evaluation_rating_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_evaluation_rating_1"
+        app:layout_constraintStart_toEndOf="@+id/item_evaluation_rating_1"
+        app:layout_constraintTop_toTopOf="@+id/item_evaluation_rating_1"
+        app:srcCompat="@mipmap/evalution_star_unchecked" />
+
+    <ImageView
+        android:id="@+id/item_evaluation_rating_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_evaluation_rating_2"
+        app:layout_constraintStart_toEndOf="@+id/item_evaluation_rating_2"
+        app:layout_constraintTop_toTopOf="@+id/item_evaluation_rating_2"
+        app:srcCompat="@mipmap/evalution_star_unchecked" />
+
+    <ImageView
+        android:id="@+id/item_evaluation_rating_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_evaluation_rating_3"
+        app:layout_constraintStart_toEndOf="@+id/item_evaluation_rating_3"
+        app:layout_constraintTop_toTopOf="@+id/item_evaluation_rating_3"
+        app:srcCompat="@mipmap/evalution_star_unchecked" />
+
+    <ImageView
+        android:id="@+id/item_evaluation_rating_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_evaluation_rating_4"
+        app:layout_constraintStart_toEndOf="@+id/item_evaluation_rating_4"
+        app:layout_constraintTop_toTopOf="@+id/item_evaluation_rating_4"
+        app:srcCompat="@mipmap/evalution_star_unchecked" />
+
+    <View
+        android:id="@+id/view42"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/bgColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_evaluation_img" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@null"
+        android:hint="商品满足您的期待？说说您的使用心得吧。"
+        android:textColor="@color/saleColor"
+        android:textSize="13sp"
+        android:minLines="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view42" />
+
+    <com.goyourfly.multi_picture.MultiPictureView
+        android:id="@+id/item_evaluation_multiPictureView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        app:max="5"
+        app:space="5dp"
+        app:span="4"
+        app:editable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+    <View
+        android:id="@+id/view43"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/bgColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_evaluation_multiPictureView" />
+
+    <RadioButton
+        android:id="@+id/radioButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="匿名发布"
+        android:textColor="@color/a4a4a4"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view43" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="你写的评价能帮助其他小伙伴哟"
+        android:textColor="@color/saleColor"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/radioButton2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/radioButton2" />
+
+    <View
+        android:id="@+id/view44"
+        android:layout_width="0dp"
+        android:layout_height="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/bgColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioButton2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

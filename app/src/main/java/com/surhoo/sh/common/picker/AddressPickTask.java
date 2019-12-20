@@ -1,0 +1,122 @@
+package com.surhoo.sh.common.picker;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
+
+import com.alibaba.fastjson.JSON;
+import com.surhoo.sh.R;
+
+import java.util.ArrayList;
+
+import cn.qqtheme.framework.entity.Province;
+import cn.qqtheme.framework.picker.AddressPicker;
+import cn.qqtheme.framework.util.ConvertUtils;
+
+
+/**
+ * 获取地址数据并显示地址选择器
+ * @author matt
+ * blog: addapp.cn
+ */
+public class AddressPickTask extends AsyncTask<String, Void, ArrayList<Province>> {
+    private Activity activity;
+    private ProgressDialog dialog;
+    private Callback callback;
+    private String selectedProvince = "", selectedCity = "", selectedCounty = "";
+    private boolean hideProvince = false;
+    private boolean hideCounty = false;
+
+    public AddressPickTask(Activity activity) {
+        this.activity = activity;
+    }
+
+    public void setHideProvince(boolean hideProvince) {
+        this.hideProvince = hideProvince;
+    }
+
+    public void setHideCounty(boolean hideCounty) {
+        this.hideCounty = hideCounty;
+    }
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        dialog = ProgressDialog.show(activity, null, "正在初始化数据...", true, true);
+    }
+
+    @Override
+    protected ArrayList<Province> doInBackground(String... params) {
+        if (params != null) {
+            switch (params.length) {
+                case 1:
+                    selectedProvince = params[0];
+                    break;
+                case 2:
+                    selectedProvince = params[0];
+                    selectedCity = params[1];
+                    break;
+                case 3:
+                    selectedProvince = params[0];
+                    selectedCity = params[1];
+                    selectedCounty = params[2];
+                    break;
+                default:
+                    break;
+            }
+        }
+        ArrayList<Province> data = new ArrayList<>();
+        try {
+            String json = ConvertUtils.toString(activity.getAssets().open("city.json"));
+            data.addAll(JSON.parseArray(json, Province.class));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    @Override
+    protected void onPostExecute(ArrayList<Province> result) {
+        dialog.dismiss();
+        if (result.size() > 0) {
+            AddressPicker picker = new AddressPicker(activity, result);
+            picker.setCycleDisable(true);
+            picker.setHideProvince(hideProvince);
+            picker.setHideCounty(hideCounty);
+            if (hideCounty) {
+                picker.setColumnWeight(1 / 3.0f, 2 / 3.0f);//将屏幕分为3份，省级和地级的比例为1:2
+            } else {
+                picker.setColumnWeight(2 / 8.0f, 3 / 8.0f, 3 / 8.0f);//省级、地级和县级的比例为2:3:3
+            }
+            picker.setSelectedItem(selectedProvince, selectedCity, selectedCounty);
+            picker.setOnAddressPickListener(callback);
+
+
+            picker.setCancelTextColor(activity.getResources().getColor(R.color.themeColor));
+            picker.setSubmitTextColor(activity.getResources().getColor(R.color.themeColor));
+
+            /**  标题与列表的分割线 **/
+            picker.setTopLineColor(activity.getResources().getColor(R.color.themeColor));
+
+            picker.setTextColor(activity.getResources().getColor(R.color.themeColor));//设置省市县字体滚动颜色
+            picker.setDividerColor(activity.getResources().getColor(R.color.themeColor));//设置分割线的颜色
+
+//            picker.setSelectedItem(selectedProvince, selectedCity, selectedCounty);//设置默认
+
+            picker.show();
+        } else {
+            callback.onAddressInitFailed();
+        }
+    }
+
+
+    public interface Callback extends AddressPicker.OnAddressPickListener {
+
+        void onAddressInitFailed();
+
+    }
+
+}

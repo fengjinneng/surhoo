@@ -1,6 +1,9 @@
 package com.surhoo.sh.invoice.bean;
 
-public class InvoiceBean {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class InvoiceBean implements Parcelable {
 
 
     /**
@@ -38,8 +41,9 @@ public class InvoiceBean {
     private String loginAddress;
     private String account;
     private String gmtCreate;
-    private Object gmtModified;
     private Boolean defaultStatus;
+
+
 
     public Integer getId() {
         return id;
@@ -161,13 +165,6 @@ public class InvoiceBean {
         this.gmtCreate = gmtCreate;
     }
 
-    public Object getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Object gmtModified) {
-        this.gmtModified = gmtModified;
-    }
 
     public Boolean getDefaultStatus() {
         return defaultStatus;
@@ -176,4 +173,63 @@ public class InvoiceBean {
     public void setDefaultStatus(Boolean defaultStatus) {
         this.defaultStatus = defaultStatus;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.id);
+        dest.writeValue(this.normalType);
+        dest.writeValue(this.invoiceType);
+        dest.writeString(this.title);
+        dest.writeString(this.content);
+        dest.writeString(this.nickname);
+        dest.writeValue(this.userId);
+        dest.writeString(this.enterpriseName);
+        dest.writeString(this.taxCode);
+        dest.writeString(this.address);
+        dest.writeString(this.mobile);
+        dest.writeString(this.bankName);
+        dest.writeString(this.loginAddress);
+        dest.writeString(this.account);
+        dest.writeString(this.gmtCreate);
+        dest.writeValue(this.defaultStatus);
+    }
+
+    public InvoiceBean() {
+    }
+
+    protected InvoiceBean(Parcel in) {
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.normalType = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.invoiceType = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.title = in.readString();
+        this.content = in.readString();
+        this.nickname = in.readString();
+        this.userId = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.enterpriseName = in.readString();
+        this.taxCode = in.readString();
+        this.address = in.readString();
+        this.mobile = in.readString();
+        this.bankName = in.readString();
+        this.loginAddress = in.readString();
+        this.account = in.readString();
+        this.gmtCreate = in.readString();
+        this.defaultStatus = (Boolean) in.readValue(Boolean.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<InvoiceBean> CREATOR = new Parcelable.Creator<InvoiceBean>() {
+        @Override
+        public InvoiceBean createFromParcel(Parcel source) {
+            return new InvoiceBean(source);
+        }
+
+        @Override
+        public InvoiceBean[] newArray(int size) {
+            return new InvoiceBean[size];
+        }
+    };
 }

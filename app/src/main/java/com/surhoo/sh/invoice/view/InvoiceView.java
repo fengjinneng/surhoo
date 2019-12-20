@@ -4,4 +4,7 @@ import com.surhoo.sh.base.NoPageListBaseView;
 import com.surhoo.sh.invoice.bean.InvoiceBean;
 
 public interface InvoiceView extends NoPageListBaseView<InvoiceBean> {
+
+    void getDeleteResult(int position);
+
 }

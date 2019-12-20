@@ -6,9 +6,10 @@ import com.surhoo.sh.search.view.SearchCategoryView;
 public interface SearchCategoryPresenter extends BasePresenter<SearchCategoryView> {
 
     void requestData(int type, String searchName,
-                     int pageSize, int pageIndex, int sortType, String idList);
+                     int pageSize, int pageIndex, String idList);
 
 
-    void requestDesignerLable(int type);
+    void requestDesignerLabel();
+    void requestMaterialLabel();
 
 }

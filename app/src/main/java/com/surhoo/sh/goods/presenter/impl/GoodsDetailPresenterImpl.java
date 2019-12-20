@@ -2,6 +2,7 @@ package com.surhoo.sh.goods.presenter.impl;
 
 import android.app.Activity;
 
+import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.lzy.okgo.OkGo;
@@ -14,8 +15,12 @@ import com.surhoo.sh.R;
 import com.surhoo.sh.common.Api;
 import com.surhoo.sh.common.util.NetworkReturnUtil;
 import com.surhoo.sh.goods.bean.GoodDetailBean;
+import com.surhoo.sh.goods.bean.RequestAddToCarBean;
 import com.surhoo.sh.goods.presenter.GoodsDetailPresenter;
 import com.surhoo.sh.goods.view.GoodsDetailView;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 public class GoodsDetailPresenterImpl implements GoodsDetailPresenter {
 
@@ -49,19 +54,19 @@ public class GoodsDetailPresenterImpl implements GoodsDetailPresenter {
     }
 
     @Override
-    public void addToCar(int goodsId, int skuId, int goodsNum) {
+    public void addToCar(RequestAddToCarBean bean) {
 
-        HttpParams httpParams = new HttpParams();
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+        String s = JSONObject.toJSONString(bean);
+        RequestBody requestBody = RequestBody.create(JSON,s );
 
         String url = Api.ADDTOCART;
-        httpParams.put("goodsId", goodsId);
-        httpParams.put("skuId", skuId);
-        httpParams.put("goodsNum", goodsNum);
 
         PostRequest<String> request = OkGo.<String>post(url)
                 .tag(activity)
                 .headers("Authorization", activity.getResources().getString(R.string.Auth))
-                .params(httpParams);
+                .upRequestBody(requestBody);
 
         StringCallback stringCallback = new StringCallback() {
 

@@ -1,18 +1,15 @@
 package com.surhoo.sh.designer.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.surhoo.sh.R;
 import com.surhoo.sh.designer.bean.DesignerLabelBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DesignerGridViewAdapter extends BaseAdapter {
@@ -54,11 +51,11 @@ public class DesignerGridViewAdapter extends BaseAdapter {
         DesignerGridViewViewHolder holder;
 
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.item_designer_label, null);
+            convertView = layoutInflater.inflate(R.layout.item_label, null);
 
             holder = new DesignerGridViewViewHolder();
 
-            holder.tv = convertView.findViewById(R.id.item_designer_label_name);
+            holder.tv = convertView.findViewById(R.id.item_label_name);
             convertView.setTag(holder);
 
         } else {

@@ -6,18 +6,18 @@ import com.lzy.okgo.model.HttpParams;
 import com.surhoo.sh.common.Api;
 import com.surhoo.sh.common.util.NetworkReturnUtil;
 import com.surhoo.sh.goods.bean.GoodsBean;
-import com.surhoo.sh.goods.presenter.GoodsPresenter;
-import com.surhoo.sh.goods.view.GoodsView;
+import com.surhoo.sh.goods.presenter.GoodsListPresenter;
+import com.surhoo.sh.goods.view.GoodsListView;
 
-public class GoodsPresenterImpl implements GoodsPresenter {
+public class GoodsPresenterImpl implements GoodsListPresenter {
 
     private static final String TAG = "GoodsPresenterImpl";
 
-    GoodsView goodsView;
+    GoodsListView goodsView;
     Activity activity;
 
     @Override
-    public void bindView(Activity activity, GoodsView view) {
+    public void bindView(Activity activity, GoodsListView view) {
         this.activity = activity;
         this.goodsView = view;
     }
@@ -27,36 +27,30 @@ public class GoodsPresenterImpl implements GoodsPresenter {
         goodsView = null;
     }
 
-    /**
+    /**@param from 1来自搜索，增加searchName  2为普通列表
      * @param classifyld 一级分类或者二级分类id
      * @param pageSize
      * @param pageIndex
-     * @param sortType   1 综合 2销量 3 价格
+     * @param sortType   1 综合 2销量 3 价格从高到低 4从低到高
      */
     @Override
-    public void requestData(int from, int classifyld, int pageSize, int pageIndex, int sortType) {
+    public void requestData(int from,int classifyld, int pageSize, int pageIndex, int sortType,String searchName) {
         HttpParams httpParams = new HttpParams();
         httpParams.put("pageSize", pageSize);
         httpParams.put("pageIndex", pageIndex);
+        httpParams.put("classifyId", classifyld);
+        httpParams.put("sortType", sortType);
 
-        switch (from) {
+        switch (from){
             case 1:
-                httpParams.put("classifyId", classifyld);
-                httpParams.put("sortType", sortType);
-                NetworkReturnUtil.requestPage(goodsView, activity, Api.GOODSLIST, httpParams, GoodsBean.class, pageIndex);
+                httpParams.put("type", 1);
+                httpParams.put("searchName", searchName);
+                NetworkReturnUtil.requestPage(goodsView, activity, Api.SEARCHCATEGORY, httpParams, GoodsBean.class, pageIndex);
                 break;
             case 2:
-                httpParams.put("classifyId", classifyld);
-                httpParams.put("sortType", sortType);
-                NetworkReturnUtil.requestPage(goodsView, activity, Api.SHOPGOODS, httpParams, GoodsBean.class, pageIndex);
-                break;
-            case 3:
-                break;
-
-            case 4:
-                httpParams.put("type", 1);
-                NetworkReturnUtil.requestPage(goodsView, activity, Api.COLLECT, httpParams, GoodsBean.class, pageIndex);
+                NetworkReturnUtil.requestPage(goodsView, activity, Api.GOODSLIST, httpParams, GoodsBean.class, pageIndex);
                 break;
         }
+
     }
 }

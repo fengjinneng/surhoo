@@ -2,11 +2,11 @@ package com.surhoo.sh.goods.fragment;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,26 +15,24 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.surhoo.sh.R;
 import com.surhoo.sh.base.BaseFragment;
+import com.surhoo.sh.common.recyclerview.GridDivider;
 import com.surhoo.sh.goods.adapter.GoodsListAdapter;
-import com.surhoo.sh.goods.bean.GoodsBean;
-import com.surhoo.sh.goods.presenter.GoodsPresenter;
+import com.surhoo.sh.goods.presenter.GoodsListPresenter;
 import com.surhoo.sh.goods.presenter.impl.GoodsPresenterImpl;
 import com.surhoo.sh.goods.view.impl.GoodsDetailActivity;
-import com.surhoo.sh.goods.view.GoodsView;
+import com.surhoo.sh.goods.view.GoodsListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 import butterknife.BindView;
-import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link GoodsListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GoodsListFragment extends BaseFragment implements GoodsView {
+public class GoodsListFragment extends BaseFragment implements GoodsListView {
     private static final String FROM = "from";
     private static final String CATEGORYID = "categoryId";
     private static final String SORTTYPE = "sortType";
@@ -47,11 +45,10 @@ public class GoodsListFragment extends BaseFragment implements GoodsView {
     private int categoryId;
     private int sortType;
 
-    GoodsPresenter goodsPresenter;
+    GoodsListPresenter goodsPresenter;
 
     GoodsListAdapter goodsListAdapter;
 
-    List<GoodsBean> datas;
     private int pageSize = 20;
     private int pageIndex = 1;
 
@@ -91,24 +88,27 @@ public class GoodsListFragment extends BaseFragment implements GoodsView {
         goodsPresenter = new GoodsPresenterImpl();
         goodsPresenter.bindView(getActivity(),this);
 
-        goodsListAdapter = new GoodsListAdapter(R.layout.item_goods_list,new ArrayList<>());
+        goodsListAdapter = new GoodsListAdapter(R.layout.item_goods_list,null);
     }
 
     @Override
     public boolean isFirstInLoadData() {
-        return false;
+        return true;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        datas = goodsListAdapter.getData();
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
 
-        fragmentGoodsListRecyclerview.setLayoutManager(new GridLayoutManager(getActivity(),2));
+
+        fragmentGoodsListRecyclerview.setLayoutManager(gridLayoutManager);
 
         fragmentGoodsListRecyclerview.setAdapter(goodsListAdapter);
 
+
+        fragmentGoodsListRecyclerview.addItemDecoration(new GridDivider());
 
         goodsPresenter.bindView(getActivity(),this);
         requestData();
@@ -117,7 +117,8 @@ public class GoodsListFragment extends BaseFragment implements GoodsView {
         goodsListAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-
+                pageIndex++;
+//                goodsPresenter.requestData(from,categoryId,pageSize,pageIndex,sortType);
             }
         },fragmentGoodsListRecyclerview);
 
@@ -131,7 +132,7 @@ public class GoodsListFragment extends BaseFragment implements GoodsView {
 
     @Override
     public void requestData() {
-        goodsPresenter.requestData(from,categoryId,pageSize,pageIndex,sortType);
+//        goodsPresenter.requestData(from,categoryId,pageSize,pageIndex,sortType);
     }
 
 
@@ -143,7 +144,6 @@ public class GoodsListFragment extends BaseFragment implements GoodsView {
 
     @Override
     public void firstInEmpty() {
-        datas.clear();
         goodsListAdapter.notifyDataSetChanged();
     }
 
@@ -154,15 +154,13 @@ public class GoodsListFragment extends BaseFragment implements GoodsView {
 
     @Override
     public void refresh(List list) {
-        datas.addAll(list);
         goodsListAdapter.setNewData(list);
         goodsListAdapter.loadMoreComplete();
     }
 
     @Override
     public void loadData(List list) {
-        datas.addAll(list);
-        goodsListAdapter.setNewData(list);
+        goodsListAdapter.addData(list);
         goodsListAdapter.loadMoreComplete();
     }
 

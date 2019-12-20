@@ -1,6 +1,7 @@
 package com.surhoo.sh;
 
-import java.util.Stack;
+import com.alibaba.fastjson.JSONArray;
+import com.surhoo.sh.common.util.MyJsonUtil;
 
 public class Test {
 
@@ -8,9 +9,27 @@ public class Test {
     public static void main(String[] args) {
 
 
-        Permutation(new char[]{'你','好','吗'},1);
+//        Permutation(new char[]{'你','好','吗'},1);
+
+
+//        Class s = Abc.class;
+//
+//        String simpleName = s.getSimpleName();
+//
+//        s.getDeclaringClass();
+
+        String s = "";
+
+        JSONArray jsonArray = JSONArray.parseArray(s);
+
+        System.out.println(jsonArray.size());
+
+
 
     }
+
+
+    class Abc{}
 
     public static void Permutation(char chs[],int start )
       {

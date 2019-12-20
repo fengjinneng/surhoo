@@ -7,5 +7,6 @@ public interface InvoicePresenter extends BasePresenter<InvoiceView> {
 
 
     void requestData();
+    void deleteInvoice(int id,int position);
 
 }

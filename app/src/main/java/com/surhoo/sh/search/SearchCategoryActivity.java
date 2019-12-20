@@ -2,35 +2,45 @@ package com.surhoo.sh.search;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ObjectUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.surhoo.sh.base.BaseActivity;
 import com.surhoo.sh.R;
-import com.surhoo.sh.common.util.GridDivider;
+import com.surhoo.sh.common.recyclerview.GridDivider;
 import com.surhoo.sh.designer.adapter.DesignerLabelAdapter;
 import com.surhoo.sh.designer.bean.DesignerLabelBean;
 import com.surhoo.sh.designer.bean.DesignerListBean;
 import com.surhoo.sh.designer.view.DesignerActivity;
 import com.surhoo.sh.goods.bean.GoodsBean;
 import com.surhoo.sh.goods.view.impl.GoodsDetailActivity;
+import com.surhoo.sh.home.vlayout.MaterialLayoutAdapter;
+import com.surhoo.sh.material.adapter.MaterialLabelAdapter;
 import com.surhoo.sh.material.bean.MaterialBean;
 import com.surhoo.sh.material.MaterialDetailActivity;
+import com.surhoo.sh.material.bean.MaterialLabelBean;
 import com.surhoo.sh.scenario.bean.ScenarioBean;
 import com.surhoo.sh.scenario.view.ScenarioActivity;
 import com.surhoo.sh.search.adapter.SearchDesignerAdapter;
@@ -41,7 +51,6 @@ import com.surhoo.sh.search.adapter.SearchShopAdapter;
 import com.surhoo.sh.search.presenter.SearchCategoryPresenter;
 import com.surhoo.sh.search.presenter.SearchCategoryPresenterImpl;
 import com.surhoo.sh.search.view.SearchCategoryView;
-import com.surhoo.sh.shop.ShopListBean;
 import com.zyyoona7.popup.EasyPopup;
 
 import java.util.ArrayList;
@@ -68,9 +77,9 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
     @BindView(R.id.search_layout_img)
     ImageView searchLayoutImg;
 
-    private List datas;
-
     private int type;//1 商品 2 场景 3 店铺 4 设计师 5素材
+
+    private String searchName;
 
     @Override
     public int getContentView() {
@@ -86,6 +95,8 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
     public void initView() {
 
         type = getIntent().getIntExtra("type", 0);
+
+        searchName  = getIntent().getStringExtra("searchName");
 
         setPageTitle();
 
@@ -105,6 +116,12 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
             }
         });
 
+        if(!StringUtils.isEmpty(searchName)){
+            searchLayoutContent.setText(searchName);
+            searchLayoutContent.setSelection(searchName.length());
+            requestData();
+
+        }
     }
 
     @Override
@@ -119,40 +136,21 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
                 break;
             case 1:
                 searchLayoutContent.setHint("搜索商品");
-                activitySearchCategoryRecyclerview.setLayoutManager(new GridLayoutManager(this, 2));
-                datas = new ArrayList<GoodsBean>();
-                searchGoodsAdapter = new SearchGoodsAdapter(R.layout.item_goods_list, datas);
-                activitySearchCategoryRecyclerview.setAdapter(searchGoodsAdapter);
-                searchGoodsAdapter.setOnLoadMoreListener(this, activitySearchCategoryRecyclerview);
-                searchGoodsAdapter.setOnItemClickListener(this);
-                activitySearchCategoryRecyclerview.addItemDecoration(new GridDivider(20));
-
-
                 break;
             case 2:
                 searchLayoutContent.setHint("搜索场景");
 
                 activitySearchCategoryRecyclerview.setLayoutManager(new LinearLayoutManager(this));
-                datas = new ArrayList<ScenarioBean>();
-                searchScenarioAdapter = new SearchScenarioAdapter(R.layout.item_scenario, datas);
+                searchScenarioAdapter = new SearchScenarioAdapter(R.layout.item_scenario, null);
                 activitySearchCategoryRecyclerview.setAdapter(searchScenarioAdapter);
                 searchScenarioAdapter.setOnLoadMoreListener(this, activitySearchCategoryRecyclerview);
-                searchScenarioAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        ScenarioBean scenarioBean = (ScenarioBean) adapter.getData().get(position);
-                        Intent intent = new Intent(SearchCategoryActivity.this, ScenarioActivity.class);
-                        intent.putExtra("id", scenarioBean.getSceneId());
-                        ActivityUtils.startActivity(intent);
-                    }
-                });
+                searchScenarioAdapter.setOnItemClickListener(this);
                 break;
             case 3:
                 searchLayoutContent.setHint("搜索店铺");
 
                 activitySearchCategoryRecyclerview.setLayoutManager(new LinearLayoutManager(this));
-                datas = new ArrayList<ShopListBean>();
-                searchShopAdapter = new SearchShopAdapter(R.layout.item_shop_list, datas);
+                searchShopAdapter = new SearchShopAdapter(R.layout.item_shop_list, null);
                 activitySearchCategoryRecyclerview.setAdapter(searchShopAdapter);
                 searchShopAdapter.setOnLoadMoreListener(this, activitySearchCategoryRecyclerview);
                 break;
@@ -160,8 +158,7 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
                 searchLayoutContent.setHint("搜索设计师");
                 searchLayoutImg.setVisibility(View.VISIBLE);
                 activitySearchCategoryRecyclerview.setLayoutManager(new LinearLayoutManager(this));
-                datas = new ArrayList<DesignerListBean>();
-                searchDesignerAdapter = new SearchDesignerAdapter(R.layout.item_designer_list, datas);
+                searchDesignerAdapter = new SearchDesignerAdapter(R.layout.item_designer_list, null);
                 activitySearchCategoryRecyclerview.setAdapter(searchDesignerAdapter);
                 searchDesignerAdapter.setOnItemClickListener(this);
                 searchDesignerAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -170,7 +167,7 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
                         DesignerListBean designerListBean = (DesignerListBean) adapter.getData().get(position);
                         switch (view.getId()) {
                             case R.id.item_designer_list_material_1:
-                                ActivityUtils.startActivity(MaterialDetailActivity.class);
+//                                ActivityUtils.startActivity(MaterialDetailActivity.class);
                                 break;
                             case R.id.item_designer_list_material_2:
                                 break;
@@ -190,20 +187,11 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
                 break;
             case 5:
                 searchLayoutContent.setHint("搜索素材");
-
+                searchLayoutImg.setVisibility(View.VISIBLE);
                 activitySearchCategoryRecyclerview.setLayoutManager(new LinearLayoutManager(this));
-                datas = new ArrayList<MaterialBean>();
-                searchMaterialAdapter = new SearchMaterialAdapter(R.layout.item_material_list, datas);
+                searchMaterialAdapter = new SearchMaterialAdapter(R.layout.item_material_list, null);
                 activitySearchCategoryRecyclerview.setAdapter(searchMaterialAdapter);
-                searchMaterialAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        MaterialBean materialBean = (MaterialBean) adapter.getData().get(position);
-                        Intent i = new Intent(SearchCategoryActivity.this, MaterialDetailActivity.class);
-                        i.putExtra("id", materialBean.getMaterialId());
-                        ActivityUtils.startActivity(i);
-                    }
-                });
+                searchMaterialAdapter.setOnItemClickListener(this);
                 searchMaterialAdapter.setOnLoadMoreListener(this, activitySearchCategoryRecyclerview);
                 break;
         }
@@ -211,10 +199,23 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
 
     private int pageIndex = 1;
 
+    //选择的标签.
+    private ArrayList<Integer> idList;
+
     @Override
     public void requestData() {
+        StringBuffer tempIdList = new StringBuffer();
+        if (!ObjectUtils.isEmpty(idList)) {
+            for (int i = 0; i < idList.size(); i++) {
+                if (i == idList.size() - 1) {
+                    tempIdList.append(idList.get(i));
+                } else {
+                    tempIdList.append(idList.get(i) + ",");
+                }
+            }
+        }
         searchCategoryPresenter.requestData(type, searchLayoutContent.getText().toString().trim(),
-                20, pageIndex, 1, "");
+                20, pageIndex, tempIdList.toString());
     }
 
     @Override
@@ -224,49 +225,43 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
 
     @Override
     public void firstInEmpty() {
-//        datas.clear();
-//        switch (type) {
-//            case 1:
-//                searchGoodsAdapter.notifyDataSetChanged();
-//                break;
-//            case 2:
-//                searchScenarioAdapter.notifyDataSetChanged();
-//                break;
-//
-//            case 3:
-//                searchShopAdapter.notifyDataSetChanged();
-//                break;
-//
-//            case 4:
-//                searchDesignerAdapter.notifyDataSetChanged();
-//                break;
-//
-//            case 5:
-//                searchMaterialAdapter.notifyDataSetChanged();
-//                break;
-    }
-//    }
-
-    @Override
-    public void loadEnd() {
-
         switch (type) {
-            case 1:
-                searchGoodsAdapter.loadMoreEnd();
-                break;
-            case 2:
-                searchScenarioAdapter.loadMoreEnd();
 
+            case 2:
+                searchScenarioAdapter.setNewData(null);
+                searchScenarioAdapter.setEmptyView(LayoutInflater.from(this).inflate(R.layout.search_empty_view,null));
                 break;
 
             case 3:
-                searchShopAdapter.loadMoreEnd();
+                searchShopAdapter.setNewData(null);
+                searchShopAdapter.setEmptyView(LayoutInflater.from(this).inflate(R.layout.search_empty_view,null));
                 break;
 
             case 4:
-                searchDesignerAdapter.loadMoreEnd();
+                searchDesignerAdapter.setNewData(null);
+                searchDesignerAdapter.setEmptyView(LayoutInflater.from(this).inflate(R.layout.search_empty_view,null));
                 break;
 
+            case 5:
+                searchMaterialAdapter.setNewData(null);
+                searchMaterialAdapter.setEmptyView(LayoutInflater.from(this).inflate(R.layout.search_empty_view,null));
+                break;
+        }
+    }
+
+    @Override
+    public void loadEnd() {
+        switch (type) {
+
+            case 2:
+                searchScenarioAdapter.loadMoreEnd();
+                break;
+            case 3:
+                searchShopAdapter.loadMoreEnd();
+                break;
+            case 4:
+                searchDesignerAdapter.loadMoreEnd();
+                break;
             case 5:
                 searchMaterialAdapter.loadMoreEnd();
                 break;
@@ -278,10 +273,6 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
 
         //1 商品 2 场景 3 店铺 4 设计师 5素材
         switch (type) {
-            case 1:
-                searchGoodsAdapter.setNewData(list);
-                searchGoodsAdapter.loadMoreComplete();
-                break;
 
             case 2:
                 searchScenarioAdapter.setNewData(list);
@@ -311,10 +302,6 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
 
         //1 商品 2 场景 3 店铺 4 设计师 5素材
         switch (type) {
-            case 1:
-                searchGoodsAdapter.addData(list);
-                searchGoodsAdapter.loadMoreComplete();
-                break;
 
             case 2:
                 searchScenarioAdapter.addData(list);
@@ -347,16 +334,13 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         switch (type) {
-            case 1:
-                GoodsBean goodsBean = (GoodsBean) adapter.getData().get(position);
-                Intent i = new Intent(this, GoodsDetailActivity.class);
-                i.putExtra("id", goodsBean.getGoodsId());
-                ActivityUtils.startActivity(i);
-                break;
 
             case 2:
+                ScenarioBean scenarioBean = (ScenarioBean) adapter.getData().get(position);
+                Intent intent = new Intent(SearchCategoryActivity.this, ScenarioActivity.class);
+                intent.putExtra("id", scenarioBean.getSceneId());
+                ActivityUtils.startActivity(intent);
                 break;
-
             case 3:
                 break;
             case 4:
@@ -365,14 +349,15 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
                 designerIntent.putExtra("id", designerBean.getDesignerId());
                 ActivityUtils.startActivity(designerIntent);
                 break;
-
             case 5:
+                MaterialBean materialBean = (MaterialBean) adapter.getData().get(position);
+                Intent materialIntent = new Intent(SearchCategoryActivity.this, MaterialDetailActivity.class);
+                materialIntent.putExtra("id", materialBean.getMaterialId());
+                ActivityUtils.startActivity(materialIntent);
                 break;
         }
     }
 
-
-    EasyPopup designerLabelPop;
 
     @OnClick({R.id.search_layout_back, R.id.search_layout_img})
     public void onViewClicked(View view) {
@@ -384,11 +369,20 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
             case R.id.search_layout_img:
 
                 switch (type) {
+
                     case 4:
-                        if (ObjectUtils.isEmpty(designerLabelPop)) {
-                            searchCategoryPresenter.requestDesignerLable(4);
+                        if (ObjectUtils.isEmpty(labelPop)) {
+                            searchCategoryPresenter.requestDesignerLabel();
                         } else {
-                            designerLabelPop.showAtLocation(searchLayoutContent, Gravity.TOP, 0, 0);
+                            labelPop.showAtLocation(searchLayoutContent, Gravity.TOP, 0, 0);
+                        }
+                        break;
+
+                    case 5:
+                        if (ObjectUtils.isEmpty(labelPop)) {
+                            searchCategoryPresenter.requestMaterialLabel();
+                        } else {
+                            labelPop.showAtLocation(searchLayoutContent, Gravity.TOP, 0, 0);
                         }
                         break;
                 }
@@ -397,97 +391,181 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
         }
     }
 
-    @Override
-    public void showList(List list) {
-        switch (type) {
-            case 1:
-                break;
+    EasyPopup labelPop;
 
-            case 4:
-
-                setDesignerPopInfo(list);
-
-                break;
-        }
-    }
-
-    //搜索设计师时的点击上一个标签
-    private DesignerLabelBean lastDesignerLabelBean;
-    private int lastDesignerLabelPosition;
 
     private void setDesignerPopInfo(List list) {
-        if (ObjectUtils.isEmpty(designerLabelPop)) {
-            designerLabelPop = EasyPopup.create()
-                    .setContentView(this, R.layout.pop_designer_label)
+        if (ObjectUtils.isEmpty(labelPop)) {
+            creatLabelPop();
+
+            setDesignLabel(list);
+        }
+        labelPop.showAtLocation(searchLayoutContent, Gravity.TOP, 0, 0);
+    }
+
+    private void setDesignLabel(List list) {
+        Button cancle = labelPop.findViewById(R.id.pop_label_cancle);
+        Button confirm = labelPop.findViewById(R.id.pop_label_confirm);
+        RecyclerView recyclerView = labelPop.findViewById(R.id.pop_label_recyclerview);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+
+        DesignerLabelAdapter adapter = new DesignerLabelAdapter(R.layout.item_label, list);
+
+        recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                TextView labelName = (TextView) adapter.getViewByPosition(recyclerView, position, R.id.item_label_name);
+
+                DesignerLabelBean designerLabelBean = (DesignerLabelBean) adapter.getData().get(position);
+
+                if (designerLabelBean.isChecked()) {
+                    designerLabelBean.setChecked(false);
+                    labelName.setTextColor(getResources().getColor(R.color.a4a4a4));
+                    labelName.setBackground(getResources().getDrawable(R.drawable.bg_goods_spec_item_uncheck));
+                    idList.remove(designerLabelBean.getId());
+                } else {
+                    idList.add(designerLabelBean.getId());
+                    designerLabelBean.setChecked(true);
+                    labelName.setTextColor(getResources().getColor(R.color.themeColor));
+                    labelName.setBackground(getResources().getDrawable(R.drawable.bg_goods_spec_item_check));
+                }
+
+            }
+        });
+
+        cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                for (int i = 0; i < adapter.getData().size(); i++) {
+                    adapter.getData().get(i).setChecked(false);
+                }
+                adapter.notifyDataSetChanged();
+                idList.clear();
+
+            }
+        });
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                labelPop.dismiss();
+            }
+        });
+
+        labelPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                pageIndex=1;
+                requestData();
+            }
+        });
+    }
+
+
+    private void setMaterialLabel(List list) {
+        Button cancle = labelPop.findViewById(R.id.pop_label_cancle);
+        Button confirm = labelPop.findViewById(R.id.pop_label_confirm);
+        RecyclerView recyclerView = labelPop.findViewById(R.id.pop_label_recyclerview);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+
+        MaterialLabelAdapter adapter = new MaterialLabelAdapter(R.layout.item_label, list);
+
+        recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                TextView labelName = (TextView) adapter.getViewByPosition(recyclerView, position, R.id.item_label_name);
+
+                MaterialLabelBean materialLabelBean = (MaterialLabelBean) adapter.getData().get(position);
+
+                if (materialLabelBean.isChecked()) {
+                    materialLabelBean.setChecked(false);
+                    labelName.setTextColor(getResources().getColor(R.color.a4a4a4));
+                    labelName.setBackground(getResources().getDrawable(R.drawable.bg_goods_spec_item_uncheck));
+                    idList.remove(materialLabelBean.getId());
+                } else {
+                    idList.add(materialLabelBean.getId());
+                    materialLabelBean.setChecked(true);
+                    labelName.setTextColor(getResources().getColor(R.color.themeColor));
+                    labelName.setBackground(getResources().getDrawable(R.drawable.bg_goods_spec_item_check));
+                }
+
+            }
+        });
+
+        cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                for (int i = 0; i < adapter.getData().size(); i++) {
+                    adapter.getData().get(i).setChecked(false);
+                }
+                adapter.notifyDataSetChanged();
+                idList.clear();
+
+            }
+        });
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                labelPop.dismiss();
+            }
+        });
+
+        labelPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                pageIndex=1;
+                requestData();
+            }
+        });
+    }
+
+
+    private void creatLabelPop() {
+        labelPop = EasyPopup.create()
+                .setContentView(this, R.layout.pop_designer_label)
 //                .setAnimationStyle(R.style.RightPopAnim)
-                    //是否允许点击PopupWindow之外的地方消失
-                    .setFocusAndOutsideEnable(true)
-                    .setBackgroundDimEnable(true)
-                    //变暗的透明度(0-1)，0为完全透明
-                    .setDimValue(0.4f)
+                //是否允许点击PopupWindow之外的地方消失
+                .setFocusAndOutsideEnable(true)
+                .setBackgroundDimEnable(true)
+                //变暗的透明度(0-1)，0为完全透明
+                .setDimValue(0.4f)
 //                变暗的背景颜色
-                    .setDimColor(Color.BLACK)
-                    //指定任意 ViewGroup 背景变暗
+                .setDimColor(Color.BLACK)
+                //指定任意 ViewGroup 背景变暗
 //                .setDimView(viewGroup)
 
-                    .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
+                .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
 
-                    .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                    .apply();
+                .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .apply();
+        idList = new ArrayList<>();
 
-            Button cancle = designerLabelPop.findViewById(R.id.pop_designer_label_cancle);
-            Button confirm = designerLabelPop.findViewById(R.id.pop_designer_label_confirm);
-            RecyclerView recyclerView = designerLabelPop.findViewById(R.id.pop_designer_label_recyclerview);
+    }
 
-            recyclerView.setLayoutManager(new GridLayoutManager(this,3));
-            DesignerLabelAdapter adapter = new DesignerLabelAdapter(R.layout.item_designer_label, list);
+    @Override
+    public void showDesignerCategory(List<DesignerLabelBean> labelBeans) {
+        setDesignerPopInfo(labelBeans);
+    }
 
-            recyclerView.setAdapter(adapter);
+    @Override
+    public void showMaterialLabel(List<MaterialLabelBean> labelBeans) {
+        setMaterialPopInfo(labelBeans);
+    }
 
-            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
-                    if(!ObjectUtils.isEmpty(lastDesignerLabelBean)){
-                        if(lastDesignerLabelPosition==position){
-                            return;
-                        }
-                    }
-
-                    DesignerLabelBean designerLabelBean = (DesignerLabelBean) adapter.getData().get(position);
-                    designerLabelBean.setChecked(true);
-
-                    if (ObjectUtils.isEmpty(lastDesignerLabelBean)) {
-
-                    } else {
-                        lastDesignerLabelBean.setChecked(false);
-                        adapter.notifyItemChanged(lastDesignerLabelPosition);
-
-                    }
-                    lastDesignerLabelBean = designerLabelBean;
-                    lastDesignerLabelPosition = position;
-//
-                    adapter.notifyItemChanged(position);
-
-
-                }
-            });
-
-
-            cancle.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    designerLabelPop.dismiss();
-                }
-            });
-
-            confirm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    designerLabelPop.dismiss();
-                }
-            });
+    private void setMaterialPopInfo(List<MaterialLabelBean> labelBeans) {
+        if (ObjectUtils.isEmpty(labelPop)) {
+            creatLabelPop();
+            setMaterialLabel(labelBeans);
         }
-        designerLabelPop.showAtLocation(searchLayoutContent, Gravity.TOP, 0, 0);
+        labelPop.showAtLocation(searchLayoutContent, Gravity.TOP, 0, 0);
     }
 }

@@ -2,8 +2,8 @@ package com.surhoo.sh.home.vlayout;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +16,9 @@ import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.surhoo.sh.R;
+import com.surhoo.sh.common.util.GlideUtil;
 import com.surhoo.sh.home.bean.HomePageBean;
 import com.surhoo.sh.scenario.view.ScenarioActivity;
-import com.surhoo.sh.search.SearchCategoryActivity;
 
 import java.util.List;
 
@@ -32,6 +32,15 @@ public class LevelOneScenarioLayoutAdapter extends DelegateAdapter.Adapter<Level
 
     public LevelOneScenarioLayoutAdapter(Context context, List<HomePageBean.FIRSTSCENEBean> datas) {
         this.context = context;
+        this.datas = datas;
+    }
+
+
+    public List<HomePageBean.FIRSTSCENEBean> getDatas() {
+        return datas;
+    }
+
+    public void setDatas(List<HomePageBean.FIRSTSCENEBean> datas) {
         this.datas = datas;
     }
 
@@ -54,17 +63,16 @@ public class LevelOneScenarioLayoutAdapter extends DelegateAdapter.Adapter<Level
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LevelOneGoodsLayoutViewHolder scenarioLayoutViewHolder, int i) {
+    public void onBindViewHolder(@NonNull LevelOneGoodsLayoutViewHolder viewHolder, int i) {
 
         HomePageBean.FIRSTSCENEBean item = datas.get(i);
 
-        scenarioLayoutViewHolder.name.setText(item.getName());
+        viewHolder.name.setText(item.getName());
 
-        Glide.with(context).load(item.getIcon()).into(scenarioLayoutViewHolder.img);
+        GlideUtil.loadCircleImage(context,item.getIcon(),viewHolder.img);
 
 
-
-        scenarioLayoutViewHolder.img.setOnClickListener(new View.OnClickListener() {
+        viewHolder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

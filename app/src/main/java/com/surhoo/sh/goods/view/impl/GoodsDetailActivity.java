@@ -2,12 +2,12 @@ package com.surhoo.sh.goods.view.impl;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.viewpager.widget.ViewPager;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +31,7 @@ import com.surhoo.sh.common.util.NetworkImageHolderView;
 import com.surhoo.sh.goods.adapter.CommentsAdapter;
 import com.surhoo.sh.goods.adapter.GoodsSpecPopAdapter;
 import com.surhoo.sh.goods.bean.GoodDetailBean;
+import com.surhoo.sh.goods.bean.RequestAddToCarBean;
 import com.surhoo.sh.goods.presenter.impl.GoodsDetailPresenterImpl;
 import com.surhoo.sh.goods.view.GoodsDetailView;
 import com.surhoo.sh.shoppingcart.ShoppingCartActivity;
@@ -290,7 +291,13 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailView
             addToCar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    goodsDetailPresenter.addToCar(id,skuId,Integer.parseInt(num.getText().toString()));
+
+                    RequestAddToCarBean bean = new RequestAddToCarBean();
+                    bean.setGoodsId(id);
+                    bean.setGoodsNum(Integer.parseInt(num.getText().toString()));
+                    bean.setSkuId(skuId);
+
+                    goodsDetailPresenter.addToCar(bean);
                 }
             });
 

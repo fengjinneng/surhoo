@@ -1,20 +1,19 @@
 package com.surhoo.sh.home.view;
 
-import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.githang.statusbar.StatusBarCompat;
 import com.surhoo.sh.R;
 import com.surhoo.sh.base.BaseActivity;
 import com.surhoo.sh.home.fragment.HomeFragment;
 import com.surhoo.sh.home.fragment.MineFragment;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
@@ -38,12 +37,17 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public int getContentView() {
+
+        if (android.os.Build.VERSION.SDK_INT > 19) {
+            StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.topColor), false);
+        }
+
         return R.layout.activity_main;
     }
 
     @Override
     public boolean isFirstInLoadData() {
-        return false;
+        return true;
     }
 
     FragmentManager fragmentManager ;

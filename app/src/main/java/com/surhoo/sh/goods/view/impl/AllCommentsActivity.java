@@ -1,8 +1,7 @@
 package com.surhoo.sh.goods.view.impl;
 
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,7 +9,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.surhoo.sh.base.BaseActivity;
 import com.surhoo.sh.R;
-import com.surhoo.sh.common.util.LinnearLayoutItemDecoration;
+import com.surhoo.sh.common.recyclerview.LinnearLayoutItemDecoration;
 import com.surhoo.sh.goods.adapter.AllCommentsAdapter;
 import com.surhoo.sh.goods.bean.CommentBean;
 import com.surhoo.sh.goods.presenter.AllCommentsPresenter;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AllCommentsActivity extends BaseActivity implements AllCommentsView {

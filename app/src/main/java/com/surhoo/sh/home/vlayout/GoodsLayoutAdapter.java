@@ -2,8 +2,9 @@ package com.surhoo.sh.home.vlayout;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,13 @@ import android.widget.TextView;
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
-import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ConvertUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.bumptech.glide.Glide;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.surhoo.sh.R;
+import com.surhoo.sh.common.util.GlideUtil;
 import com.surhoo.sh.goods.view.impl.GoodsDetailActivity;
 import com.surhoo.sh.home.bean.HomePageBean;
 
@@ -35,9 +39,18 @@ public class GoodsLayoutAdapter extends DelegateAdapter.Adapter<GoodsLayoutAdapt
 
     @Override
     public LayoutHelper onCreateLayoutHelper() {
-        GridLayoutHelper gridLayoutHelper = new GridLayoutHelper(2);
-        gridLayoutHelper.setAutoExpand(false);
-        return gridLayoutHelper;
+        GridLayoutHelper gridHelper = new GridLayoutHelper(2);
+//        gridHelper.setGap(ConvertUtils.dp2px(12));
+
+        //设置垂直方向条目的间隔
+
+        gridHelper.setGap(ConvertUtils.dp2px(12));
+
+        gridHelper.setMarginLeft(ConvertUtils.dp2px(16));
+        gridHelper.setMarginRight(ConvertUtils.dp2px(16));
+
+        gridHelper.setAutoExpand(false);
+        return gridHelper;
     }
 
     @NonNull
@@ -55,9 +68,14 @@ public class GoodsLayoutAdapter extends DelegateAdapter.Adapter<GoodsLayoutAdapt
         scenarioLayoutViewHolder.price.setText( item.getGoodsPrice());
         scenarioLayoutViewHolder.sales.setText(String.valueOf(item.getSaleCount()));
 
-        Glide.with(context).load(item.getLogo()).into(scenarioLayoutViewHolder.goodsImg);
 
-        scenarioLayoutViewHolder.goodsImg.setOnClickListener(new View.OnClickListener() {
+        scenarioLayoutViewHolder.goodsImg.setLayoutParams(new ConstraintLayout.LayoutParams((int) (ScreenUtils.getScreenWidth() * 0.44),(int) (ScreenUtils.getScreenWidth() * 0.44)));
+
+        scenarioLayoutViewHolder.goodsImg.setPadding(ConvertUtils.dp2px(1),0,ConvertUtils.dp2px(1),0);
+
+        GlideUtil.loadDefaultImg(context,item.getLogo() ,scenarioLayoutViewHolder.goodsImg);
+
+        scenarioLayoutViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context,GoodsDetailActivity.class);
@@ -75,7 +93,7 @@ public class GoodsLayoutAdapter extends DelegateAdapter.Adapter<GoodsLayoutAdapt
     static class GoodsLayoutViewHolder extends RecyclerView.ViewHolder {
 
         TextView goodsName, price, sales;
-        ImageView goodsImg;
+        RoundedImageView goodsImg;
 
         public GoodsLayoutViewHolder(View root) {
             super(root);

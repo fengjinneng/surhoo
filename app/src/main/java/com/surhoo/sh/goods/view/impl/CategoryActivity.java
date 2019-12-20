@@ -2,18 +2,16 @@ package com.surhoo.sh.goods.view.impl;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.surhoo.sh.base.BaseActivity;
 import com.surhoo.sh.R;
+import com.surhoo.sh.base.BaseActivity;
 import com.surhoo.sh.goods.adapter.LevelOneCategoryAdapter;
 import com.surhoo.sh.goods.adapter.LevelTwoCategoryAdapter;
 import com.surhoo.sh.goods.bean.CategoryBean;
@@ -24,8 +22,10 @@ import com.surhoo.sh.goods.view.GoodsListActivity;
 
 import java.util.List;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class CategoryActivity extends BaseActivity implements CategoryListView {
@@ -40,11 +40,11 @@ public class CategoryActivity extends BaseActivity implements CategoryListView {
     RecyclerView leverTwoRecyclerview;
 
     CategoryPresenter categoryPresenter;
+    @BindView(R.id.activity_category_level_one_name)
+    TextView activityCategoryLevelOneName;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    private LevelTwoCategoryAdapter levelTwoCategoryAdapter;
+
 
     @Override
     public int getContentView() {
@@ -65,6 +65,22 @@ public class CategoryActivity extends BaseActivity implements CategoryListView {
 
         leverOneRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         leverTwoRecyclerview.setLayoutManager(new GridLayoutManager(this, 3));
+
+        levelTwoCategoryAdapter = new LevelTwoCategoryAdapter(R.layout.item_level_two_category, null);
+
+        leverTwoRecyclerview.setAdapter(levelTwoCategoryAdapter);
+
+        levelTwoCategoryAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                CategoryBean categoryBean = (CategoryBean) adapter.getData().get(position);
+
+                Intent intent = new Intent(CategoryActivity.this, GoodsListActivity.class);
+                intent.putExtra("from",2);
+                intent.putExtra("id", categoryBean.getId());
+                ActivityUtils.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -90,44 +106,46 @@ public class CategoryActivity extends BaseActivity implements CategoryListView {
     }
 
 
-    public void showLevelTwoCategory(List<CategoryBean> levelOneCategorys) {
-
-    }
-
-
-    private boolean firstIn =true;
+    LevelOneCategoryAdapter levelOneCategoryAdapter;
 
     @Override
     public void showList(List<CategoryBean> list) {
 
-        if (!firstIn) {
-            LevelTwoCategoryAdapter levelTwoCategoryAdapter = new LevelTwoCategoryAdapter(R.layout.item_level_two_category, list);
-            leverTwoRecyclerview.setAdapter(levelTwoCategoryAdapter);
+        list.get(0).setChecked(true);
+        activityCategoryLevelOneName.setText(list.get(0).getName());
+        levelOneCategoryAdapter = new LevelOneCategoryAdapter(R.layout.item_level_one_category, list);
+        leverOneRecyclerview.setAdapter(levelOneCategoryAdapter);
+        levelOneCategoryAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                CategoryBean categoryBean = (CategoryBean) adapter.getData().get(position);
 
-            levelTwoCategoryAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                activityCategoryLevelOneName.setText(categoryBean.getName());
 
-                    Intent intent = new Intent(CategoryActivity.this, GoodsListActivity.class);
-
-                    intent.putExtra("id", ((CategoryBean) adapter.getData().get(position)).getId());
-
-                    ActivityUtils.startActivity(intent);
-
+                for (int i = 0; i < adapter.getData().size(); i++) {
+                    ((CategoryBean) adapter.getData().get(i)).setChecked(false);
                 }
-            });
-        } else {
-            firstIn =false;
-            LevelOneCategoryAdapter levelOneCategoryAdapter = new LevelOneCategoryAdapter(R.layout.item_level_one_category, list);
-            leverOneRecyclerview.setAdapter(levelOneCategoryAdapter);
-            levelOneCategoryAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    CategoryBean categoryBean = (CategoryBean) adapter.getData().get(position);
-                    categoryPresenter.requestLevelTwoCategory(categoryBean.getId());
-                }
-            });
 
-        }
+                categoryBean.setChecked(true);
+
+                levelOneCategoryAdapter.notifyDataSetChanged();
+
+                if (ObjectUtils.isEmpty(categoryBean.getCategoryBeans())) {
+                    categoryPresenter.requestLevelTwoCategory(categoryBean.getId(), position);
+                } else {
+                    levelTwoCategoryAdapter.setNewData(categoryBean.getCategoryBeans());
+                }
+            }
+        });
+
+        categoryPresenter.requestLevelTwoCategory(list.get(0).getId(), 0);
+
+    }
+
+    @Override
+    public void showLevelTwoCategory(List<CategoryBean> list, int positon) {
+
+        ((CategoryBean) levelOneCategoryAdapter.getData().get(positon)).setCategoryBeans(list);
+        levelTwoCategoryAdapter.setNewData(list);
     }
 }

@@ -2,6 +2,6 @@
 <resources>
 
 
-    <dimen name="dp_1">1dp</dimen>
+    <dimen name="dp_1">0.5dp</dimen>
 
 </resources>

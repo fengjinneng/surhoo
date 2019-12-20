@@ -1,8 +1,14 @@
 package com.surhoo.sh.common.util;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
+import android.view.Gravity;
+import android.view.View;
+import android.view.Window;
+import android.widget.LinearLayout;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -14,11 +20,14 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
+import com.surhoo.sh.App;
 import com.surhoo.sh.R;
+import com.surhoo.sh.base.BaseActivity;
 import com.surhoo.sh.base.NoPageBaseView;
 import com.surhoo.sh.base.NoPageListBaseView;
 import com.surhoo.sh.base.PagerBaseView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NetworkReturnUtil {
@@ -26,7 +35,8 @@ public class NetworkReturnUtil {
     public static final String TAG = "NetworkReturnUtil";
 
     //请求需要分页的数据
-    public static void requestPage(PagerBaseView baseView, Activity activity, String url, HttpParams params, Class clz, int pageIndex) {
+    public static void requestPage(PagerBaseView baseView, Activity activity, String url,
+                                   HttpParams params, Class clz, int pageIndex) {
 
         GetRequest<String> request = OkGo.<String>get(url)
                 .tag(activity)
@@ -46,9 +56,10 @@ public class NetworkReturnUtil {
                             return;
                         }
                         if (jsonObject.getIntValue("total") == 0) {
+                            baseView.firstInEmpty();
                             return;
                         }
-                        List beans = JSONObject.parseArray(jsonObject.getString("list"), clz);
+                         List beans = JSONObject.parseArray(jsonObject.getString("list"), clz);
 
                         boolean hasNextPage = jsonObject.getBooleanValue("hasNextPage");
                         if (pageIndex == 1) {
@@ -85,6 +96,8 @@ public class NetworkReturnUtil {
 
     //请求没有分页的数据，如详情页，展示数据时封装成一个对象
     public static void requestOne(NoPageBaseView baseView, Activity activity, String url, HttpParams params, Class clz) {
+
+
         GetRequest<String> request = OkGo.<String>get(url)
                 .tag(activity)
                 .headers("Authorization", activity.getResources().getString(R.string.Auth))
@@ -106,7 +119,6 @@ public class NetworkReturnUtil {
                         baseView.showData(JSON.parseObject(jsonObject.toString(), clz));
 
 //                        JSON.parseObject(JSON.toJSONString(jsonObject.toString()), clz);
-
                         //属性值为大写的时候拿不到
 //                       jsonObject.toJavaObject(clz);
 
@@ -132,6 +144,8 @@ public class NetworkReturnUtil {
 
     //请求没有分页的集合
     public static void requestList(NoPageListBaseView baseView, Activity activity, String url, HttpParams params, Class clz) {
+
+
         GetRequest<String> request = OkGo.<String>get(url)
                 .tag(activity)
                 .headers("Authorization", activity.getResources().getString(R.string.Auth))

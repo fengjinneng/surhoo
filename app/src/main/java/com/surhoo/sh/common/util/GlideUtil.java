@@ -45,6 +45,28 @@ public class GlideUtil {
     /**
      * 加载上边是有圆角的图片，商品列表的
      */
+    public static void loadBannerImage(Context context, String url, ImageView imageView) {
+
+
+        RequestOptions options = new RequestOptions()
+
+                .placeholder(R.mipmap.placeholder_img)
+                .error(R.mipmap.placeholder_img)
+
+                //.priority(Priority.HIGH)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+
+//                .bitmapTransform(new CropSquareTransformation());
+                .bitmapTransform(new RoundedCornersTransformation( 10, 0));
+
+        Glide.with(context).load(url).thumbnail(0.1f).apply(options).into(imageView);
+
+    }
+
+
+    /**
+     * 加载上边是有圆角的图片，商品列表的
+     */
     public static void loadGoodsImage(Context context, String url, ImageView imageView) {
 
 
@@ -59,7 +81,7 @@ public class GlideUtil {
 //                .bitmapTransform(new CropSquareTransformation());
                 .bitmapTransform(new RoundedCornersTransformation( 10, 0, RoundedCornersTransformation.CornerType.TOP));
 
-        Glide.with(context).load(url+"?x-oss-process=image/resize,w_320").thumbnail(0.1f).apply(options).into(imageView);
+        Glide.with(context).load(url).thumbnail(0.1f).apply(options).into(imageView);
 
     }
 
