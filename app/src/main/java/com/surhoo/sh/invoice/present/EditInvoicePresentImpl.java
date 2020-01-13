@@ -14,6 +14,7 @@ import com.lzy.okgo.request.PutRequest;
 import com.surhoo.sh.R;
 import com.surhoo.sh.base.BasePresenter;
 import com.surhoo.sh.common.Api;
+import com.surhoo.sh.common.util.NetworkReturnUtil;
 import com.surhoo.sh.invoice.bean.RequestSaveInvocieBean;
 import com.surhoo.sh.invoice.view.EditInvoiceView;
 
@@ -38,49 +39,14 @@ public class EditInvoicePresentImpl implements IEditInvoicePresent {
 
     @Override
     public void unBindView() {
-
         editInvoiceView = null;
     }
 
     @Override
-    public void saveInvocieInfo(RequestSaveInvocieBean bean) {
-
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
+    public void addInvoice(String requestTag,RequestSaveInvocieBean bean) {
         String s = JSONObject.toJSONString(bean);
+        NetworkReturnUtil.requestStringResultUsePost(requestTag,editInvoiceView,activity,Api.SAVEINVOICEINFO,s);
 
-        RequestBody requestBody = RequestBody.create(JSON,s);
-
-        PostRequest<String> request = OkGo.<String>post(Api.SAVEINVOICEINFO)
-                .tag(activity)
-                .upRequestBody(requestBody)
-                .headers("Authorization", activity.getResources().getString(R.string.Auth));
-
-        StringCallback stringCallback = new StringCallback() {
-
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtils.v("SAVEINVOICEINFO", response.body());
-                try {
-                    if (response.code() == 200) {
-
-                        editInvoiceView.getResult();
-
-                    } else {
-                        ToastUtils.showShort("啊哦，出现错误了！");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-            }
-        };
-
-        request.execute(stringCallback);
 
     }
 }

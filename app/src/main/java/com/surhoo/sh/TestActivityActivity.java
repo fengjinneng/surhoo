@@ -54,7 +54,6 @@ public class TestActivityActivity extends AppCompatActivity {
         multiImageView.setItemClickCallback(new MultiPictureView.ItemClickCallback() {
             @Override
             public void onItemClicked(@NotNull View view, int i, @NotNull ArrayList<Uri> arrayList) {
-                ToastUtils.showShort("点击了第"+i+"----");
             }
         });
 

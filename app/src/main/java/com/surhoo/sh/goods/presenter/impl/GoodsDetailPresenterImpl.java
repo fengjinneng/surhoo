@@ -47,90 +47,35 @@ public class GoodsDetailPresenterImpl implements GoodsDetailPresenter {
 
         HttpParams httpParams = new HttpParams();
 
-        String url = Api.GOODSDETAIL + "/" + id;
+        httpParams.put("goodsId",id);
 
-        NetworkReturnUtil.requestOne(goodsDetailView, activity, url, httpParams, GoodDetailBean.class);
+        NetworkReturnUtil.requestBeanResultUseGet(goodsDetailView, activity, Api.GOODSDETAIL, httpParams, GoodDetailBean.class);
 
     }
 
     @Override
-    public void addToCar(RequestAddToCarBean bean) {
-
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    public void addToCar(String requestTag,RequestAddToCarBean bean) {
 
         String s = JSONObject.toJSONString(bean);
-        RequestBody requestBody = RequestBody.create(JSON,s );
 
-        String url = Api.ADDTOCART;
-
-        PostRequest<String> request = OkGo.<String>post(url)
-                .tag(activity)
-                .headers("Authorization", activity.getResources().getString(R.string.Auth))
-                .upRequestBody(requestBody);
-
-        StringCallback stringCallback = new StringCallback() {
-
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtils.v(TAG, response.body());
-                try {
-                    if (response.code() == 200) {
-
-                        if (!StringUtils.isEmpty(response.body())) {
-                            goodsDetailView.addToCarResult(Integer.parseInt(response.body()));
-                        }
-
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                goodsDetailView.showToastMsg(response.body());
-            }
-        };
-
-        request.execute(stringCallback);
+        NetworkReturnUtil.requestStringResultUsePost(requestTag,goodsDetailView,activity,Api.ADDTOCART,s);
 
     }
 
     @Override
-    public void getShoopingCartNumber() {
-
-        GetRequest<String> request = OkGo.<String>get(Api.SHOPPINGCARTNUMBER)
-                .tag(activity)
-                .headers("Authorization", activity.getResources().getString(R.string.Auth));
-
-        StringCallback stringCallback = new StringCallback() {
-
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtils.v(TAG, response.body());
-                try {
-                    if (response.code() == 200) {
-
-                        if (!StringUtils.isEmpty(response.body())) {
-                            goodsDetailView.showCarNumber(Integer.parseInt(response.body()));
-                        }
-
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                goodsDetailView.showToastMsg(response.body());
-            }
-        };
-
-        request.execute(stringCallback);
-
+    public void getShoopingCartNumber(String requestTag) {
+        NetworkReturnUtil.requestStringResultUseGet(requestTag,goodsDetailView,activity,Api.SHOPPINGCARTNUMBER,null);
     }
 
+    @Override
+    public void addCollect(String requestTag,int type, int typeId) {
+        String s = "{\"type\":"+type+",\"typeId\":"+typeId+"}";
+        NetworkReturnUtil.requestStringResultUsePost(requestTag,goodsDetailView,activity,Api.collect,s);
+    }
+
+    @Override
+    public void cancelCollect(String requestTag, int type, int typeId) {
+        String s = "{\"type\":"+type+",\"typeId\":"+typeId+"}";
+        NetworkReturnUtil.requestStringResultUsePut(requestTag,goodsDetailView,activity,Api.collect,s);
+    }
 }

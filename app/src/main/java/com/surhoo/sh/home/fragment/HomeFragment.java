@@ -2,10 +2,6 @@ package com.surhoo.sh.home.fragment;
 
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,20 +10,19 @@ import android.widget.TextView;
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.bumptech.glide.Glide;
 import com.surhoo.sh.R;
 import com.surhoo.sh.base.BaseFragment;
-import com.surhoo.sh.common.recyclerview.GridDivider;
+import com.surhoo.sh.common.util.ClickUtil;
 import com.surhoo.sh.goods.view.impl.CategoryActivity;
 import com.surhoo.sh.home.bean.HomePageBean;
 import com.surhoo.sh.home.presenter.HomePresenter;
 import com.surhoo.sh.home.presenter.HomePresenterImpl;
 import com.surhoo.sh.home.view.HomeView;
 import com.surhoo.sh.home.vlayout.BannerLayoutAdapter;
-import com.surhoo.sh.home.vlayout.CutPriceLayoutAdapter;
-import com.surhoo.sh.home.vlayout.DesignerLayoutAdapter;
+import com.surhoo.sh.home.vlayout.FootLayoutAdapter;
 import com.surhoo.sh.home.vlayout.GoodsLayoutAdapter;
 import com.surhoo.sh.home.vlayout.LevelOneScenarioLayoutAdapter;
 import com.surhoo.sh.home.vlayout.ScenarioExpandLayoutAdapter;
@@ -38,6 +33,9 @@ import com.surhoo.sh.search.SearchActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -55,6 +53,8 @@ public class HomeFragment extends BaseFragment implements HomeView {
     ImageView fragmentHomeCategory;
     @BindView(R.id.fragment_home_search)
     TextView fragmentHomeSearch;
+    @BindView(R.id.fragment_home_swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -89,6 +89,8 @@ public class HomeFragment extends BaseFragment implements HomeView {
         return getLayoutInflater().inflate(R.layout.fragment_home, container, false);
     }
 
+    private SwipeRefreshLayout.OnRefreshListener refreshListener;
+
     @Override
     public void init() {
         layoutManager = new VirtualLayoutManager(getActivity());
@@ -97,14 +99,37 @@ public class HomeFragment extends BaseFragment implements HomeView {
         delegateAdapter = new DelegateAdapter(layoutManager);
         recyclerView.setAdapter(delegateAdapter);
 
-
         homePresenter = new HomePresenterImpl();
 
         homePresenter.bindView(getActivity(), this);
 
+        RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
+        recyclerView.setRecycledViewPool(viewPool);
+        viewPool.setMaxRecycledViews(0, 20);
+
+
+        refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //下拉业务
+                swipeRefreshLayout.setRefreshing(true);
+                requestData();
+            }
+        };
+        swipeRefreshLayout.setOnRefreshListener(refreshListener);
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                refreshListener.onRefresh();
+            }
+        });
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_red_light,
+                android.R.color.holo_green_light, android.R.color.holo_blue_light);
+
 
 
     }
+
 
     @Override
     public boolean isFirstInLoadData() {
@@ -113,6 +138,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
 
     @Override
     public void requestData() {
+
         homePresenter.requestData();
     }
 
@@ -120,74 +146,109 @@ public class HomeFragment extends BaseFragment implements HomeView {
     DelegateAdapter delegateAdapter;
     HomePresenter homePresenter;
 
-    //八个以内的集合
-    private List<HomePageBean.FIRSTSCENEBean> temp;
 
-    //总的场景个数
-    private List<HomePageBean.FIRSTSCENEBean> allScenario;
+    private BannerLayoutAdapter bannerLayoutAdapter;
+    private List<HomePageBean.BANNERBean> allBanner = new ArrayList<>();
 
-    private  LevelOneScenarioLayoutAdapter levelOneScenarioLayoutAdapter;
-    //是否展示全部的场景
-    private boolean isShowAll ;
+    private LevelOneScenarioLayoutAdapter levelOneScenarioLayoutAdapter;
+    private List<HomePageBean.FIRSTSCENEBean> allFirstScenario = new ArrayList<>();
+
+    private ScenarioLayoutAdapter scenarioLayoutAdapter;
+    private List<HomePageBean.SCENEBean> allScenario = new ArrayList<>();
+
+    private GoodsLayoutAdapter goodsLayoutAdapter;
+    private List<HomePageBean.GOODSBean> allGoods = new ArrayList<>();
+
+    private boolean loadDataSuccess;
+
+    private boolean isShowAllFirstScenario;
 
     @Override
-    public void showData(HomePageBean homePageBean) {
+    public void showBeanData(HomePageBean homePageBean) {
+
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+
+        if (!loadDataSuccess) {
+            bannerLayoutAdapter = new BannerLayoutAdapter(getActivity(), allBanner);
+            delegateAdapter.addAdapter(bannerLayoutAdapter);
+
+            levelOneScenarioLayoutAdapter = new LevelOneScenarioLayoutAdapter(getActivity(), allFirstScenario);
+            delegateAdapter.addAdapter(levelOneScenarioLayoutAdapter);
+
+            if (!ObjectUtils.isEmpty(homePageBean.getFIRSTSCENE()) && homePageBean.getFIRSTSCENE().size() > 8) {
+                ScenarioExpandLayoutAdapter adapter = new ScenarioExpandLayoutAdapter(getContext());
+                adapter.setOnScenarioExpandClickListener(new ScenarioExpandLayoutAdapter.OnScenarioExpandClickListener() {
+                    @Override
+                    public void onScenarioExpandClick() {
+                        allFirstScenario.clear();
+                        if(isShowAllFirstScenario){
+                            List<HomePageBean.FIRSTSCENEBean> temp = new ArrayList<>();
+                            for (int i = 0; i < homePageBean.getFIRSTSCENE().size(); i++) {
+                                if(i>7){
+                                    break;
+                                }
+                                temp.add(homePageBean.getFIRSTSCENE().get(i));
+                            }
+                            allFirstScenario.addAll(temp);
+                            levelOneScenarioLayoutAdapter.notifyDataSetChanged();
+                            isShowAllFirstScenario =false;
+                        }else {
+                            allFirstScenario.addAll(homePageBean.getFIRSTSCENE());
+                            levelOneScenarioLayoutAdapter.notifyDataSetChanged();
+                            isShowAllFirstScenario =true;
+                        }
+                    }
+                });
+                delegateAdapter.addAdapter(adapter);
+            }
+
+            TitleLayoutAdapter titleLayoutAdapter = new TitleLayoutAdapter(getActivity(), "热门场景");
+            delegateAdapter.addAdapter(titleLayoutAdapter);
+
+            scenarioLayoutAdapter = new ScenarioLayoutAdapter(getActivity(), allScenario);
+            delegateAdapter.addAdapter(scenarioLayoutAdapter);
+
+            TitleLayoutAdapter titleLayoutAdapter2 = new TitleLayoutAdapter(getActivity(), "热门商品");
+            delegateAdapter.addAdapter(titleLayoutAdapter2);
+
+            goodsLayoutAdapter = new GoodsLayoutAdapter(getActivity(), allGoods);
+            delegateAdapter.addAdapter(goodsLayoutAdapter);
+
+
+            delegateAdapter.addAdapter(new FootLayoutAdapter(getActivity()));
+
+        }
+
+        loadDataSuccess = true;
+
 
         if (!ObjectUtils.isEmpty(homePageBean.getBANNER())) {
-            BannerLayoutAdapter bannerLayoutAdapter = new BannerLayoutAdapter(getContext(), homePageBean.getBANNER());
-            delegateAdapter.addAdapter(bannerLayoutAdapter);
+            allBanner.clear();
+            allBanner.addAll(homePageBean.getBANNER());
+            bannerLayoutAdapter.notifyDataSetChanged();
         }
 
         if (!ObjectUtils.isEmpty(homePageBean.getFIRSTSCENE())) {
+            allFirstScenario.clear();
+            List<HomePageBean.FIRSTSCENEBean> temp = new ArrayList<>();
 
-            allScenario  =  new ArrayList<>();
-
-            List<HomePageBean.FIRSTSCENEBean> firstscene = homePageBean.getFIRSTSCENE();
-
-            temp = new ArrayList<>();
-
-            for (int i = 0; i < firstscene.size(); i++) {
+            for (int i = 0; i < homePageBean.getFIRSTSCENE().size(); i++) {
                 if(i>7){
-                }else {
-                    temp.add(firstscene.get(i));
+                    break;
                 }
-                allScenario.add(firstscene.get(i));
+                temp.add(homePageBean.getFIRSTSCENE().get(i));
             }
-
-            levelOneScenarioLayoutAdapter = new LevelOneScenarioLayoutAdapter(getContext(), temp);
-            delegateAdapter.addAdapter(levelOneScenarioLayoutAdapter);
-
-        }
-
-
-        if(!ObjectUtils.isEmpty(homePageBean.getFIRSTSCENE())&&homePageBean.getFIRSTSCENE().size()>8){
-            ScenarioExpandLayoutAdapter adapter = new ScenarioExpandLayoutAdapter(getContext());
-
-            adapter.setOnScenarioExpandClickListener(new ScenarioExpandLayoutAdapter.OnScenarioExpandClickListener() {
-                @Override
-                public void onScenarioExpandClick() {
-                    if(isShowAll){
-                        levelOneScenarioLayoutAdapter.setDatas(temp);
-                        levelOneScenarioLayoutAdapter.notifyDataSetChanged();
-                        isShowAll=false;
-                    }else {
-                        levelOneScenarioLayoutAdapter.setDatas(allScenario);
-                        levelOneScenarioLayoutAdapter.notifyDataSetChanged();
-                        isShowAll=true;
-                    }
-                }
-            });
-
-            delegateAdapter.addAdapter(adapter);
+            allFirstScenario.addAll(temp);
+            levelOneScenarioLayoutAdapter.notifyDataSetChanged();
         }
 
         if (!ObjectUtils.isEmpty(homePageBean.getSCENE())) {
-            TitleLayoutAdapter titleLayoutAdapter = new TitleLayoutAdapter(getContext(), "热门场景");
-            delegateAdapter.addAdapter(titleLayoutAdapter);
-            ScenarioLayoutAdapter scenarioLayoutAdapter = new ScenarioLayoutAdapter(getContext(), homePageBean.getSCENE());
-            delegateAdapter.addAdapter(scenarioLayoutAdapter);
+            allScenario.clear();
+            allScenario.addAll(homePageBean.getSCENE());
+            scenarioLayoutAdapter.notifyDataSetChanged();
         }
-
 
 
 //        if (!ObjectUtils.isEmpty(homePageBean.getDESIGNER())) {
@@ -205,13 +266,11 @@ public class HomeFragment extends BaseFragment implements HomeView {
 //        }
 
         if (!ObjectUtils.isEmpty(homePageBean.getGOODS())) {
-            TitleLayoutAdapter titleLayoutAdapter = new TitleLayoutAdapter(getContext(), "热门商品");
-            delegateAdapter.addAdapter(titleLayoutAdapter);
-            GoodsLayoutAdapter goodsLayoutAdapter = new GoodsLayoutAdapter(getContext(), homePageBean.getGOODS());
-            delegateAdapter.addAdapter(goodsLayoutAdapter);
+            allGoods.clear();
+            allGoods.addAll(homePageBean.getGOODS());
+            goodsLayoutAdapter.notifyDataSetChanged();
 
         }
-
     }
 
     @Override
@@ -221,11 +280,15 @@ public class HomeFragment extends BaseFragment implements HomeView {
 
     @OnClick(R.id.fragment_home_category)
     public void onViewClicked() {
-        ActivityUtils.startActivity(CategoryActivity.class);
+        if (ClickUtil.isFastClick()) {
+            ActivityUtils.startActivity(CategoryActivity.class);
+        }
     }
 
     @OnClick(R.id.fragment_home_search)
     public void onSearchClicked() {
-        ActivityUtils.startActivity(SearchActivity.class);
+        if (ClickUtil.isFastClick()) {
+            ActivityUtils.startActivity(SearchActivity.class);
+        }
     }
 }

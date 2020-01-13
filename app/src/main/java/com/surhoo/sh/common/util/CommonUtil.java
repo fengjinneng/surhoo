@@ -2,6 +2,7 @@ package com.surhoo.sh.common.util;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.surhoo.sh.R;
 import com.surhoo.sh.goods.bean.GoodDetailBean;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class CommonUtil {
                 return new NetworkImageHolderView();
             }
         }, bannerDatas);
-//        scenarioLayoutViewHolder.convenientBanner.setPageIndicator(new int[]{R.mipmap.banner_unchoiced, R.mipmap.banner_choiced});
+//        convenientBanner.setPageIndicator(new int[]{R.mipmap.banner_unchoiced, R.mipmap.banner_choiced});
         convenientBanner.setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
         //设置如果只有一组数据时不能滑动
         convenientBanner.setPointViewVisible(bannerDatas.size() == 1 ? false : true); // 指示器
@@ -48,10 +49,7 @@ public class CommonUtil {
             }else {
                 length=0;
             }
-
-
         }
         return null;
     }
-
 }

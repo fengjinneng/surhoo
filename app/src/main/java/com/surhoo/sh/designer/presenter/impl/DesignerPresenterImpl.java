@@ -35,7 +35,21 @@ public class DesignerPresenterImpl implements DesignerPresenter {
         HttpParams httpParams = new HttpParams();
         httpParams.put("isSelf",isSelf);
         httpParams.put("designerId",designerId);
-        NetworkReturnUtil.requestOne(designerView,activity,Api.DESIGNERINFO,httpParams,DesignerDetailBean.class);
+        NetworkReturnUtil.requestBeanResultUseGet(designerView,activity,Api.DESIGNERINFO,httpParams,DesignerDetailBean.class);
+
+    }
+
+    @Override
+    public void addCollect(String requestTag,int typeId) {
+        String s = "{\"type\":3,\"typeId\":"+typeId+"}";
+        NetworkReturnUtil.requestStringResultUsePost(requestTag,designerView,activity,Api.collect,s);
+
+    }
+
+    @Override
+    public void cancelCollect(String requestTag,int typeId) {
+        String s = "{\"type\":3,\"typeId\":"+typeId+"}";
+        NetworkReturnUtil.requestStringResultUsePut(requestTag,designerView,activity,Api.collect,s);
 
     }
 }

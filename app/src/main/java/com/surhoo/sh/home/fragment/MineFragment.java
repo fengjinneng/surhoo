@@ -8,23 +8,33 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.surhoo.sh.R;
+import com.surhoo.sh.SettingActivity;
 import com.surhoo.sh.address.AddressActivity;
 import com.surhoo.sh.base.BaseFragment;
 import com.surhoo.sh.collect.CollectActivity;
+import com.surhoo.sh.common.UserUtil;
+import com.surhoo.sh.common.eventBus.EventBusMessageBean;
 import com.surhoo.sh.common.recyclerview.MineItemDecoration;
+import com.surhoo.sh.common.util.ClickUtil;
+import com.surhoo.sh.common.util.GlideUtil;
 import com.surhoo.sh.home.adapter.MineItemAdapter;
 import com.surhoo.sh.home.bean.MineItemBean;
 import com.surhoo.sh.invoice.InvoiceListActivity;
+import com.surhoo.sh.login.view.LoginActivity;
 import com.surhoo.sh.order.MyOrderListActivity;
 import com.surhoo.sh.shoppingcart.ShoppingCartActivity;
+import com.surhoo.sh.user.MineInformationActivity;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,22 +53,21 @@ public class MineFragment extends BaseFragment {
     private static final String ARG_PARAM2 = "param2";
     @BindView(R.id.fragment_mine_recyclerview)
     RecyclerView fragmentMineRecyclerview;
-    @BindView(R.id.fragment_mine_order_img)
-    ImageView fragmentMineOrderImg;
-    @BindView(R.id.fragment_mine_after_sale_img)
-    ImageView fragmentMineAfterSaleImg;
-    @BindView(R.id.fragment_mine_team_order_img)
-    ImageView fragmentMineTeamOrderImg;
-    @BindView(R.id.fragment_mine_bargain_order_img)
-    ImageView fragmentMineBargainOrderImg;
-    @BindView(R.id.fragment_mine_order_text)
-    TextView fragmentMineOrderText;
-    @BindView(R.id.fragment_mine_after_sale_text)
-    TextView fragmentMineAfterSaleText;
-    @BindView(R.id.fragment_mine_team_order_text)
-    TextView fragmentMineTeamOrderText;
-    @BindView(R.id.fragment_mine_bargain_order_text)
-    TextView fragmentMineBargainOrderText;
+    @BindView(R.id.fragment_mine_img)
+    ImageView fragmentMineImg;
+    @BindView(R.id.fragment_mine_nickName)
+    TextView fragmentMineNickName;
+    @BindView(R.id.fragment_mine_setting)
+    ImageView fragmentMineSetting;
+    @BindView(R.id.fragment_mine_order)
+    ConstraintLayout fragmentMineOrder;
+    @BindView(R.id.fragment_mine_afterSale)
+    ConstraintLayout fragmentMineAfterSale;
+    @BindView(R.id.fragment_mine_groupOrder)
+    ConstraintLayout fragmentMineGroupOrder;
+    @BindView(R.id.fragment_mine_cutPriceOrder)
+    ConstraintLayout fragmentMineCutPriceOrder;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -96,7 +105,10 @@ public class MineFragment extends BaseFragment {
 
     @Override
     public void init() {
-
+        if (UserUtil.isLogin()) {
+            fragmentMineNickName.setText(SPUtils.getInstance().getString("nickName"));
+            GlideUtil.loadCircleImage(getActivity(), SPUtils.getInstance().getString("headImg"), fragmentMineImg);
+        }
     }
 
     @Override
@@ -127,9 +139,9 @@ public class MineFragment extends BaseFragment {
         list.add(address);
         list.add(invoce);
         list.add(collect);
-        list.add(beDesigner);
-        list.add(beBusiness);
-        list.add(customerService);
+//        list.add(beDesigner);
+//        list.add(beBusiness);
+//        list.add(customerService);
 
         MineItemAdapter adapter = new MineItemAdapter(R.layout.template_mine_item, list);
 
@@ -143,52 +155,97 @@ public class MineFragment extends BaseFragment {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MineItemBean mineItem = (MineItemBean) adapter.getData().get(position);
-                if (StringUtils.equals("购物车", mineItem.getName())) {
-                    ActivityUtils.startActivity(ShoppingCartActivity.class);
-                }
-
-                if (StringUtils.equals("收货地址", mineItem.getName())) {
-                    ActivityUtils.startActivity(AddressActivity.class);
-                }
-
-                if (StringUtils.equals("我的发票", mineItem.getName())) {
-                    ActivityUtils.startActivity(InvoiceListActivity.class);
-                }
-
-                if (StringUtils.equals("我的收藏", mineItem.getName())) {
-                    ActivityUtils.startActivity(CollectActivity.class);
-
+                if (ClickUtil.isFastClick()) {
+                    MineItemBean mineItem = (MineItemBean) adapter.getData().get(position);
+                    if (StringUtils.equals("购物车", mineItem.getName())) {
+                        if (UserUtil.isLogin()) {
+                            ActivityUtils.startActivity(ShoppingCartActivity.class);
+                        } else {
+                            ActivityUtils.startActivity(LoginActivity.class);
+                        }
+                    }
+                    if (StringUtils.equals("收货地址", mineItem.getName())) {
+                        if (UserUtil.isLogin()) {
+                            ActivityUtils.startActivity(AddressActivity.class);
+                        } else {
+                            ActivityUtils.startActivity(LoginActivity.class);
+                        }
+                    }
+                    if (StringUtils.equals("我的发票", mineItem.getName())) {
+                        if (UserUtil.isLogin()) {
+                            ActivityUtils.startActivity(InvoiceListActivity.class);
+                        } else {
+                            ActivityUtils.startActivity(LoginActivity.class);
+                        }
+                    }
+                    if (StringUtils.equals("我的收藏", mineItem.getName())) {
+                        if (UserUtil.isLogin()) {
+                            ActivityUtils.startActivity(CollectActivity.class);
+                        } else {
+                            ActivityUtils.startActivity(LoginActivity.class);
+                        }
+                    }
                 }
             }
         });
     }
 
+    @Override
+    public void onRecevieMessage(EventBusMessageBean bean) {
+        super.onRecevieMessage(bean);
 
-    @OnClick({R.id.fragment_mine_order_img, R.id.fragment_mine_after_sale_img,
-            R.id.fragment_mine_team_order_img, R.id.fragment_mine_bargain_order_img,
-            R.id.fragment_mine_order_text, R.id.fragment_mine_after_sale_text,
-            R.id.fragment_mine_team_order_text, R.id.fragment_mine_bargain_order_text})
+        switch (bean.getCode()) {
+            case EventBusMessageBean.User.login:
+
+                fragmentMineNickName.setText(SPUtils.getInstance().getString("nickName"));
+                GlideUtil.loadCircleImage(getActivity(), SPUtils.getInstance().getString("headImg"), fragmentMineImg);
+
+                break;
+
+            case EventBusMessageBean.User.updateNickNameSuccess:
+                fragmentMineNickName.setText(SPUtils.getInstance().getString("nickName"));
+                break;
+        }
+    }
+
+    @OnClick({R.id.fragment_mine_order, R.id.fragment_mine_afterSale,
+            R.id.fragment_mine_groupOrder, R.id.fragment_mine_cutPriceOrder,
+            R.id.fragment_mine_img, R.id.fragment_mine_setting, R.id.fragment_mine_nickName})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.fragment_mine_order_img:
-            case R.id.fragment_mine_order_text:
-                ActivityUtils.startActivity(MyOrderListActivity.class);
-                break;
-            case R.id.fragment_mine_after_sale_img:
-            case R.id.fragment_mine_after_sale_text:
-
-                break;
-            case R.id.fragment_mine_team_order_img:
-            case R.id.fragment_mine_team_order_text:
-
-                break;
-            case R.id.fragment_mine_bargain_order_img:
-            case R.id.fragment_mine_bargain_order_text:
-
-                break;
-
-
+        if (ClickUtil.isFastClick()) {
+            switch (view.getId()) {
+                case R.id.fragment_mine_order:
+                    if (UserUtil.isLogin()) {
+                        ActivityUtils.startActivity(MyOrderListActivity.class);
+                    } else {
+                        ActivityUtils.startActivity(LoginActivity.class);
+                    }
+                    break;
+                case R.id.fragment_mine_afterSale:
+                    ToastUtils.showShort("功能暂未上线");
+                    break;
+                case R.id.fragment_mine_groupOrder:
+                    ToastUtils.showShort("功能暂未上线");
+                    break;
+                case R.id.fragment_mine_cutPriceOrder:
+                    ToastUtils.showShort("功能暂未上线");
+                    break;
+                case R.id.fragment_mine_img:
+                    if (UserUtil.isLogin()) {
+                        ActivityUtils.startActivity(MineInformationActivity.class);
+                    }else {
+                        ActivityUtils.startActivity(LoginActivity.class);
+                    }
+                    break;
+                case R.id.fragment_mine_setting:
+                    ActivityUtils.startActivity(SettingActivity.class);
+                    break;
+                case R.id.fragment_mine_nickName:
+                    if (!UserUtil.isLogin()) {
+                        ActivityUtils.startActivity(LoginActivity.class);
+                    }
+                    break;
+            }
         }
     }
 }

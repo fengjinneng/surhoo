@@ -18,8 +18,8 @@ public class GlideUtil {
 
     public static void loadCenterCropImg(Context context, String url, ImageView imageView) {
         RequestOptions options = new RequestOptions()
-                .placeholder(R.mipmap.placeholder_head_img)
-                .error(R.mipmap.placeholder_head_img)
+                .placeholder(R.mipmap.default_img_square)
+                .error(R.mipmap.default_img_square)
                 .centerCrop()
                 //.priority(Priority.HIGH)
                 .diskCacheStrategy(DiskCacheStrategy.ALL);
@@ -32,8 +32,8 @@ public class GlideUtil {
      */
     public static void loadDefaultImg(Context context, String url, ImageView imageView) {
         RequestOptions options = new RequestOptions()
-                .placeholder(R.mipmap.placeholder_head_img)
-                .error(R.mipmap.placeholder_head_img)
+                .placeholder(R.mipmap.default_img_square)
+                .error(R.mipmap.default_img_square)
 
                 //.priority(Priority.HIGH)
                 .diskCacheStrategy(DiskCacheStrategy.ALL);
@@ -50,8 +50,9 @@ public class GlideUtil {
 
         RequestOptions options = new RequestOptions()
 
-                .placeholder(R.mipmap.placeholder_img)
-                .error(R.mipmap.placeholder_img)
+
+                .placeholder(R.mipmap.default_img_rect)
+                .error(R.mipmap.default_img_rect)
 
                 //.priority(Priority.HIGH)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -72,8 +73,8 @@ public class GlideUtil {
 
         RequestOptions options = new RequestOptions()
 
-                .placeholder(R.mipmap.placeholder_img)
-                .error(R.mipmap.placeholder_img)
+                .placeholder(R.mipmap.default_img_square)
+                .error(R.mipmap.default_img_square)
 
                 //.priority(Priority.HIGH)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -91,8 +92,8 @@ public class GlideUtil {
     public static void loadCircleImage(Context context, String url, ImageView imageView) {
         RequestOptions options = new RequestOptions()
                 .circleCrop()//设置圆形
-                .placeholder(R.mipmap.placeholder_head_img)
-                .error(R.mipmap.placeholder_head_img)
+                .placeholder(R.mipmap.default_img_round)
+                .error(R.mipmap.default_img_round)
 
                 //.priority(Priority.HIGH)
                 .diskCacheStrategy(DiskCacheStrategy.ALL);

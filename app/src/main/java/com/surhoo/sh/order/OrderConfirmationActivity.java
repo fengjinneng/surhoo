@@ -5,25 +5,32 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
-import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.surhoo.sh.R;
 import com.surhoo.sh.address.AddressActivity;
 import com.surhoo.sh.address.bean.AddressBean;
 import com.surhoo.sh.base.BaseActivity;
+import com.surhoo.sh.bean.order.request.GetPayInfoBean;
+import com.surhoo.sh.bean.order.request.GetPostageBean;
+import com.surhoo.sh.bean.order.response.OrderInfoBean;
+import com.surhoo.sh.bean.order.response.PayOrderSuccessBean;
 import com.surhoo.sh.common.eventBus.EventBusMessageBean;
+import com.surhoo.sh.common.util.NumberUtil;
 import com.surhoo.sh.invoice.InvoiceListActivity;
 import com.surhoo.sh.order.adapter.ConfirmOrderAdapter;
-import com.surhoo.sh.order.bean.RequestOrderBean;
-import com.surhoo.sh.order.bean.RequestPostageBean;
+import com.surhoo.sh.bean.order.request.PayOrderBean;
 import com.surhoo.sh.order.present.IOrderConfirmPresent;
-import com.surhoo.sh.order.present.OrderConfirmPresentImpl;
+import com.surhoo.sh.order.present.impl.OrderConfirmPresentImpl;
 import com.surhoo.sh.order.view.OrderConfirmView;
 import com.surhoo.sh.shoppingcart.ShoppingCartBean;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -65,20 +72,19 @@ public class OrderConfirmationActivity extends BaseActivity implements OrderConf
     @BindView(R.id.activity_order_confirm_order_pay)
     TextView activityOrderConfirmOrderPay;
 
-    private ArrayList<ShoppingCartBean.CarGoodsListBean> goodsListBeans;
-    private String shopName;
-    private double goodsTotalPrice;
-
     private IOrderConfirmPresent orderConfirmPresent;
 
-
     private ConfirmOrderAdapter adapter;
+
+    private List<GetPayInfoBean> getPayInfoBeans = new ArrayList<>();
+
+    private PayOrderBean payOrderBean = new PayOrderBean();
+
 
     @Override
     public int getContentView() {
         return R.layout.activity_order_confirmation;
     }
-
     @Override
     public boolean isFirstInLoadData() {
         return true;
@@ -89,37 +95,32 @@ public class OrderConfirmationActivity extends BaseActivity implements OrderConf
         toolbarLayoutTitle.setText("确认订单");
         orderConfirmPresent = new OrderConfirmPresentImpl();
         orderConfirmPresent.bindView(this, this);
-
     }
 
     @Override
     public void initData() {
 
-        goodsListBeans = getIntent().getParcelableArrayListExtra("data");
-        shopName = getIntent().getStringExtra("shopName");
-        goodsTotalPrice = getIntent().getDoubleExtra("goodsTotalPrice",0);
+        ArrayList<ShoppingCartBean.CarGoodsListBean> goodsListBeans  = getIntent().getParcelableArrayListExtra("data");
 
-        if (!ObjectUtils.isEmpty(goodsListBeans)) {
-            adapter = new ConfirmOrderAdapter(R.layout.item_order_confirm, goodsListBeans);
+        for (int i = 0; i < goodsListBeans.size(); i++) {
+            GetPayInfoBean getPayInfoBean = new GetPayInfoBean();
+            getPayInfoBean.setGoodsNum(goodsListBeans.get(i).getGoodsNum());
+            getPayInfoBean.setId(goodsListBeans.get(i).getGoodsId());
+            getPayInfoBean.setSkuId(goodsListBeans.get(i).getSkuId());
+            getPayInfoBeans.add(getPayInfoBean);
+        }
+
+            adapter = new ConfirmOrderAdapter(R.layout.item_order_confirm, null);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(adapter);
-        }
-
-        if (!StringUtils.isEmpty(shopName)) {
-            activityOrderConfirmShopName.setText(shopName);
-        }
-
-        if (goodsTotalPrice!=0) {
-            activityOrderConfirmTotalPrice.setText(String.valueOf(goodsTotalPrice));
-        }
-
 
     }
 
     @Override
     public void requestData() {
-        orderConfirmPresent.getAddressInfo();
+        orderConfirmPresent.getOrderInfo(getPayInfoBeans);
     }
+
 
 
     @OnClick({R.id.toolbar_layout_back, R.id.activity_order_confirm_address_layout,
@@ -143,56 +144,47 @@ public class OrderConfirmationActivity extends BaseActivity implements OrderConf
                 break;
             case R.id.activity_order_confirm_order_pay:
 
-                RequestOrderBean bean = new RequestOrderBean();
+                ArrayList<PayOrderBean.OrderDataListBean> orderDataListBeans = new ArrayList<>();
 
-                ArrayList<RequestOrderBean.OrderDataListBean> orderDataListBeans = new ArrayList<>();
-
-                for (int i = 0; i < goodsListBeans.size(); i++) {
-
-                    RequestOrderBean.OrderDataListBean orderDataListBean = new RequestOrderBean.OrderDataListBean();
-                    orderDataListBean.setId(goodsListBeans.get(i).getGoodsId());
-                    orderDataListBean.setGoodsNum(goodsListBeans.get(i).getGoodsNum());
-                    orderDataListBean.setSkuId(goodsListBeans.get(i).getSkuId());
+                for (int i = 0; i < getPayInfoBeans.size(); i++) {
+                    PayOrderBean.OrderDataListBean orderDataListBean = new PayOrderBean.OrderDataListBean();
+                    orderDataListBean.setId(getPayInfoBeans.get(i).getId());
+                    orderDataListBean.setGoodsNum(getPayInfoBeans.get(i).getGoodsNum());
+                    orderDataListBean.setSkuId(getPayInfoBeans.get(i).getSkuId());
                     orderDataListBeans.add(orderDataListBean);
                 }
 
-                bean.setOrderDataList(orderDataListBeans);
+                payOrderBean.setOrderDataList(orderDataListBeans);
 
-                bean.setOrderRemarks(activityOrderConfirmRemarks.getText().toString());
+                payOrderBean.setOrderAmount(activityOrderConfirmOrderPrice.getText().toString());
+
+                payOrderBean.setOrderRemarks(activityOrderConfirmRemarks.getText().toString());
+
                 if(ObjectUtils.isEmpty(upLoadAddressId)){
                     ToastUtils.showShort("请添加地址信息!");
                     return;
                 }else {
-                    bean.setShipId(upLoadAddressId);
+                    payOrderBean.setShipId(upLoadAddressId);
                 }
 
                 if(ObjectUtils.isEmpty(upLoadInvocieId)){
-                    bean.setIsInvoice(0);
+                    payOrderBean.setIsInvoice(0);
                 }else {
-                    bean.setIsInvoice(1);
-                    bean.setInvoiceId(upLoadInvocieId);
+                    payOrderBean.setIsInvoice(1);
+                    payOrderBean.setInvoiceId(upLoadInvocieId);
                 }
 
-                bean.setCarPay(true);
-                bean.setOrderSource(2);
+                payOrderBean.setCarPay(true);
+                payOrderBean.setOrderSource(2);
 
-                if(ObjectUtils.isEmpty(upPostage)){
-                    return;
-                }else {
-                    bean.setOrderFreight(upPostage);
-                    if(goodsTotalPrice==0){
-                        return;
-                    }else {
-                        bean.setOrderAmount(String.valueOf(goodsTotalPrice+Double.valueOf(upPostage)));
-                    }
-                }
+                payOrderBean.setOrderFreight(activityOrderConfirmPostage.getText().toString());
 
-                orderConfirmPresent.payOrder(bean);
-
+                orderConfirmPresent.payOrder(PAYORDER,payOrderBean);
 
                 break;
         }
     }
+
 
 
     private Integer upLoadInvocieId;
@@ -215,6 +207,8 @@ public class OrderConfirmationActivity extends BaseActivity implements OrderConf
                                 getCityName() + " " + addressBean.getDistrictName()
                                 + " " + addressBean.getAddress());
                 upLoadAddressId = addressBean.getId();
+
+                queryPostage(addressBean.getId());
                 break;
         }
     }
@@ -224,53 +218,78 @@ public class OrderConfirmationActivity extends BaseActivity implements OrderConf
         ToastUtils.showShort(msg);
     }
 
-    private ArrayList<RequestPostageBean.GoodsListBean> upLoadGoodsBean;
+
+    private double goodsTatalPrice;
+    private OrderInfoBean orderInfoBean;
 
     @Override
-    public void showList(List<AddressBean> list) {
+    public void showBeanData(OrderInfoBean orderInfoBean) {
+        this.orderInfoBean = orderInfoBean;
 
-        if (ObjectUtils.isEmpty(list)) {
-            return;
+        activityOrderConfirmShopName.setText(orderInfoBean.getGoodsList().get(0).getShopName());
+        adapter.setNewData(orderInfoBean.getGoodsList().get(0).getGoodsList());
+
+        for (int i = 0; i < orderInfoBean.getGoodsList().size(); i++) {
+
+            for (int j = 0; j < orderInfoBean.getGoodsList().get(i).getGoodsList().size(); j++) {
+                goodsTatalPrice += orderInfoBean.getGoodsList().get(i).getGoodsList().get(j).getGoodsPrice()
+                        *orderInfoBean.getGoodsList().get(i).getGoodsList().get(j).getGoodsNum();
+            }
         }
-        activityOrderConfirmAddressName.setText(list.get(0).getName());
-        activityOrderConfirmAddressPhone.setText(list.get(0).getPhone());
+
+        activityOrderConfirmTotalPrice.setText(NumberUtil.getTwoPointString(goodsTatalPrice));
+
+
+        OrderInfoBean.AddressBean address = orderInfoBean.getAddress();
+
+        upLoadAddressId = address.getId();
+
+        activityOrderConfirmAddressName.setText(address.getName());
+        activityOrderConfirmAddressPhone.setText(address.getPhone());
         activityOrderConfirmAddressDetail.setText(
-                list.get(0).getProvinceName() + " " + list.get(0).
-                        getCityName() + " " + list.get(0).getDistrictName()
-                        + " " + list.get(0).getAddress());
+                address.getProvinceName() + " " + address.
+                        getCityName() + " " + address.getDistrictName()
+                        + " " + address.getAddress());
+        queryPostage(orderInfoBean.getAddress().getId());
+    }
 
+    private void queryPostage(int addressId){
+        GetPostageBean getPostageBean = new GetPostageBean();
+        getPostageBean.setShipId(addressId);
 
-        upLoadAddressId =  list.get(0).getId();
-
-        upLoadGoodsBean = new ArrayList<>();
-
-        for (int i = 0; i < goodsListBeans.size(); i++) {
-            RequestPostageBean.GoodsListBean goodsListBean = new RequestPostageBean.GoodsListBean();
-            goodsListBean.setId(goodsListBeans.get(i).getId());
-            goodsListBean.setGoodsNum(goodsListBeans.get(i).getGoodsNum());
-            upLoadGoodsBean.add(goodsListBean);
+        ArrayList<GetPostageBean.GoodsListBean> list = new ArrayList();
+        for (int i = 0; i < orderInfoBean.getGoodsList().get(0).getGoodsList().size(); i++) {
+            GetPostageBean.GoodsListBean goodsListBean = new GetPostageBean.GoodsListBean();
+            goodsListBean.setId(orderInfoBean.getGoodsList().get(0).getGoodsList().get(i).getId());
+            goodsListBean.setGoodsNum(orderInfoBean.getGoodsList().get(0).getGoodsList().get(i).getGoodsNum());
+            list.add(goodsListBean);
         }
 
-        RequestPostageBean postageBean = new RequestPostageBean();
-        postageBean.setGoodsList(upLoadGoodsBean);
-        postageBean.setShipId(list.get(0).getId());
+        getPostageBean.setGoodsList(list);
 
-        orderConfirmPresent.getPostage(postageBean);
-
+        orderConfirmPresent.getPostage(GETPOSTAGE,getPostageBean);
     }
 
-    private String upPostage;
+
+    private static final String GETPOSTAGE = "getPostage";
+    private static final String PAYORDER = "payOrder";
 
     @Override
-    public void showPostage(String postage) {
-        upPostage = postage;
-        activityOrderConfirmPostage.setText("¥" + postage);
+    public void showStringData(String requestTag, String s) {
+        if(StringUtils.equals(GETPOSTAGE,requestTag)){
+            activityOrderConfirmPostage.setText(s);
+            activityOrderConfirmOrderPrice.setText(NumberUtil.getTwoPointString(goodsTatalPrice+Double.valueOf(s)));
 
+        }
+
+        if(StringUtils.equals(PAYORDER,requestTag)){
+            EventBus.getDefault().post(new EventBusMessageBean(EventBusMessageBean.Order.payOrderSuccess));
+            PayOrderSuccessBean payOrderSuccessBean = JSONObject.parseObject(s, PayOrderSuccessBean.class);
+            Intent intent = new Intent(this,CheckStandActivity.class);
+            intent.putExtra("payOrderSuccessBean",payOrderSuccessBean);
+            intent.putExtra("orderTotalPrice",activityOrderConfirmOrderPrice.getText().toString());
+            ActivityUtils.startActivity(intent);
+            finish();
+        }
     }
-
-    @Override
-    public void getPayOrderResult() {
-        ToastUtils.showShort("---------");
-    }
-
 }

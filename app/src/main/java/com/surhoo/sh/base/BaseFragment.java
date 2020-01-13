@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.surhoo.sh.common.eventBus.EventBusMessageBean;
 
 import org.greenrobot.eventbus.EventBus;
@@ -29,6 +30,7 @@ public abstract class BaseFragment extends Fragment {
 
         View view = getView(container);
         unbinder = ButterKnife.bind(this, view);
+
         return view;
 
     }
@@ -62,7 +64,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
         init();
         if (isFirstInLoadData()) {

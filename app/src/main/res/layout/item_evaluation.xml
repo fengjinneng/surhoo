@@ -15,7 +15,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/placeholder_head_img" />
+        app:srcCompat="@mipmap/default_img_square" />
 
     <TextView
         android:id="@+id/textView22"
@@ -94,7 +94,7 @@
         app:layout_constraintTop_toBottomOf="@+id/item_evaluation_img" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/item_evaluation_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -116,13 +116,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
-        app:max="5"
+        app:max="6"
         app:space="5dp"
         app:span="4"
         app:editable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/item_evaluation_content" />
 
     <View
         android:id="@+id/view43"

@@ -27,7 +27,7 @@ public class HomePresenterImpl implements HomePresenter {
     @Override
     public void requestData() {
 
-        NetworkReturnUtil.requestOne(homeView,activity,Api.HOMEPAGE,null,HomePageBean.class);
+        NetworkReturnUtil.requestBeanResultUseGet(homeView,activity,Api.HOMEPAGE,null,HomePageBean.class);
 
     }
 

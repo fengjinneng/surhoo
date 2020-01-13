@@ -14,6 +14,7 @@ import com.surhoo.sh.goods.view.impl.OnDDD;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
+import com.zhy.view.flowlayout.TagView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,15 +50,11 @@ public class GoodsSpecPopAdapter extends BaseQuickAdapter<GoodDetailBean.SpecLis
 
         TagFlowLayout flowLayout = (TagFlowLayout) helper.getView(R.id.item_goods_spec_flowlayout);
 
-
         title.setText(item.getGoodsSpecName());
 
         List<String> strings = new ArrayList<>();
 
-
-
         String[] split = skuListBeans.get(0).getGoodsSkuName().split("_");
-
 
         int checked = 0;
 
@@ -72,7 +69,6 @@ public class GoodsSpecPopAdapter extends BaseQuickAdapter<GoodDetailBean.SpecLis
         for (int i = 0; i < item.getGoodsSkuSpecVals().size(); i++) {
             strings.add(item.getGoodsSkuSpecVals().get(i).getGoodsSkuSpecValName());
         }
-
 
         TagAdapter<String> tagAdapter = new TagAdapter<String>(strings) {
             @Override
@@ -90,12 +86,12 @@ public class GoodsSpecPopAdapter extends BaseQuickAdapter<GoodDetailBean.SpecLis
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
 
+
                 for (int i = 0; i < item.getGoodsSkuSpecVals().size(); i++) {
                     item.getGoodsSkuSpecVals().get(i).setChecked(false);
                 }
 
                 item.getGoodsSkuSpecVals().get(position).setChecked(true);
-
 
                 onDDD.onddd(helper.getLayoutPosition(),item.getGoodsSkuSpecVals().get(position).getGoodsSkuSpecValName());
 

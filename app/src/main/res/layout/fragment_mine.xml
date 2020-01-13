@@ -11,33 +11,34 @@
         android:id="@+id/constraintLayout9"
         android:layout_width="0dp"
         android:layout_height="120dp"
+        android:layout_marginTop="44dp"
         android:background="@color/topColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView20"
+            android:id="@+id/fragment_mine_img"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="26dp"
-            android:src="@mipmap/placeholder_head_img"
+            android:src="@mipmap/default_img_round"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView29"
+            android:id="@+id/fragment_mine_nickName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:text="一叶知秋"
-            android:textSize="20sp"
+            android:text="立即登录"
             android:textColor="@color/white"
-            app:layout_constraintStart_toEndOf="@+id/imageView20"
-            app:layout_constraintTop_toTopOf="@+id/imageView20" />
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/fragment_mine_img"
+            app:layout_constraintTop_toTopOf="@+id/fragment_mine_img" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,94 +55,299 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/constraintLayout9">
 
-        <ImageView
-            android:id="@+id/fragment_mine_order_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:src="@mipmap/mine_order"
-            app:layout_constraintEnd_toStartOf="@+id/fragment_mine_after_sale_img"
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/constraintLayout31"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/constraintLayout28"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toStartOf="parent">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/fragment_mine_order_img"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:src="@mipmap/mine_order"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/fragment_mine_after_sale_img"-->
+<!--                app:layout_constraintHorizontal_bias="0.5"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/fragment_mine_order_text"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="12dp"-->
+<!--                android:text="我的订单"-->
+<!--                android:textColor="@color/pageTitle"-->
+<!--                android:textSize="11sp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/fragment_mine_order_img"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/fragment_mine_order_img" />-->
+
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/constraintLayout32"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/constraintLayout33"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/constraintLayout28"-->
+<!--            tools:layout_editor_absoluteY="25dp">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/fragment_mine_after_sale_img"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@mipmap/mine_after_sales"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/fragment_mine_team_order_img"-->
+<!--                app:layout_constraintHorizontal_bias="0.5"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/fragment_mine_order_img"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/fragment_mine_order_img" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/fragment_mine_after_sale_text"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="12dp"-->
+<!--                android:text="退款/售后"-->
+<!--                android:textColor="@color/pageTitle"-->
+<!--                android:textSize="11sp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/fragment_mine_after_sale_img"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/fragment_mine_after_sale_img" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/constraintLayout33"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/constraintLayout28"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/constraintLayout32"-->
+<!--            tools:layout_editor_absoluteY="27dp">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/fragment_mine_team_order_img"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@mipmap/mine_group_order"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/fragment_mine_bargain_order_img"-->
+<!--                app:layout_constraintHorizontal_bias="0.5"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/fragment_mine_after_sale_img"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/fragment_mine_order_img" />-->
+
+
+<!--            <TextView-->
+<!--                android:id="@+id/fragment_mine_team_order_text"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="12dp"-->
+<!--                android:text="团队订单"-->
+<!--                android:textColor="@color/pageTitle"-->
+<!--                android:textSize="11sp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/fragment_mine_team_order_img"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/fragment_mine_team_order_img" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/constraintLayout28"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/constraintLayout32"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/constraintLayout31">-->
+
+
+<!--            <TextView-->
+<!--                android:id="@+id/fragment_mine_bargain_order_text"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="12dp"-->
+<!--                android:text="砍价订单"-->
+<!--                android:textColor="@color/pageTitle"-->
+<!--                android:textSize="11sp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/fragment_mine_bargain_order_img"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/fragment_mine_bargain_order_img" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/fragment_mine_bargain_order_img"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@mipmap/mine_cut_price_order"-->
+<!--                tools:layout_editor_absoluteX="185dp"-->
+<!--                tools:layout_editor_absoluteY="25dp" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fragment_mine_order"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_mine_afterSale"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/fragment_mine_after_sale_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/mine_after_sales"
-            app:layout_constraintEnd_toStartOf="@+id/fragment_mine_team_order_img"
+
+            <ImageView
+                android:id="@+id/imageView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/mine_order"
+                app:layout_constraintBottom_toTopOf="@+id/textView69"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView69"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的订单"
+                android:textColor="@color/pageTitle"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView15" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fragment_mine_afterSale"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_mine_groupOrder"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/fragment_mine_order_img"
-            app:layout_constraintTop_toTopOf="@+id/fragment_mine_order_img" />
+            app:layout_constraintStart_toEndOf="@+id/fragment_mine_order"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/fragment_mine_team_order_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/mine_group_order"
-            app:layout_constraintEnd_toStartOf="@+id/fragment_mine_bargain_order_img"
+
+            <TextView
+                android:id="@+id/textView99"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="退款/售后"
+                android:textColor="@color/pageTitle"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView16" />
+
+            <ImageView
+                android:id="@+id/imageView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/mine_after_sales"
+                app:layout_constraintBottom_toTopOf="@+id/textView99"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fragment_mine_groupOrder"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_mine_cutPriceOrder"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/fragment_mine_after_sale_img"
-            app:layout_constraintTop_toTopOf="@+id/fragment_mine_order_img" />
+            app:layout_constraintStart_toEndOf="@+id/fragment_mine_afterSale"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/fragment_mine_bargain_order_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/mine_cut_price_order"
+            <ImageView
+                android:id="@+id/imageView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/mine_group_order"
+                app:layout_constraintBottom_toTopOf="@+id/textView100"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView100"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="团队订单"
+                android:textColor="@color/pageTitle"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView18" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fragment_mine_cutPriceOrder"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/fragment_mine_team_order_img"
-            app:layout_constraintTop_toTopOf="@+id/fragment_mine_order_img" />
+            app:layout_constraintStart_toEndOf="@+id/fragment_mine_groupOrder"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/fragment_mine_order_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:text="我的订单"
-            android:textColor="@color/pageTitle"
-            android:textSize="11sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/fragment_mine_order_img"
-            app:layout_constraintStart_toStartOf="@+id/fragment_mine_order_img" />
+            <ImageView
+                android:id="@+id/imageView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/mine_cut_price_order"
+                app:layout_constraintBottom_toTopOf="@+id/textView101"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/fragment_mine_after_sale_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:text="退款/售后"
-            android:textColor="@color/pageTitle"
-            android:textSize="11sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/fragment_mine_after_sale_img"
-            app:layout_constraintStart_toStartOf="@+id/fragment_mine_after_sale_img" />
-
-        <TextView
-            android:id="@+id/fragment_mine_team_order_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:text="团队订单"
-            android:textColor="@color/pageTitle"
-            android:textSize="11sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/fragment_mine_team_order_img"
-            app:layout_constraintStart_toStartOf="@+id/fragment_mine_team_order_img" />
-
-        <TextView
-            android:id="@+id/fragment_mine_bargain_order_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:text="砍价订单"
-            android:textColor="@color/pageTitle"
-            android:textSize="11sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/fragment_mine_bargain_order_img"
-            app:layout_constraintStart_toStartOf="@+id/fragment_mine_bargain_order_img" />
+            <TextView
+                android:id="@+id/textView101"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="砍价订单"
+                android:textColor="@color/pageTitle"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView19" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -154,6 +360,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout10" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:background="@color/topColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/fragment_mine_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:src="@mipmap/setting"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

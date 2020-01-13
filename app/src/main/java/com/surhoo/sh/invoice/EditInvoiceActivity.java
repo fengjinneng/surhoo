@@ -19,6 +19,7 @@ import com.surhoo.sh.R;
 import com.surhoo.sh.base.BaseActivity;
 import com.surhoo.sh.common.eventBus.EventBusMessageBean;
 import com.surhoo.sh.common.picker.SinglePickerUtil;
+import com.surhoo.sh.common.util.ClickUtil;
 import com.surhoo.sh.invoice.bean.InvoiceBean;
 import com.surhoo.sh.invoice.bean.RequestSaveInvocieBean;
 import com.surhoo.sh.invoice.present.EditInvoicePresentImpl;
@@ -36,6 +37,8 @@ import butterknife.OnClick;
 import cn.qqtheme.framework.picker.SinglePicker;
 
 public class EditInvoiceActivity extends BaseActivity implements EditInvoiceView {
+
+    private static final String ADDINVOICE = "addInvoice";
 
     @BindView(R.id.toolbar_layout_back)
     ImageView toolbarLayoutBack;
@@ -116,27 +119,29 @@ public class EditInvoiceActivity extends BaseActivity implements EditInvoiceView
     public void initView() {
         toolbarLayoutTitle.setText("新增/编辑发票");
 
-
-
         activityEditInvoiceCommonInvoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activityEditInvoiceCommonInvoiceLayout.setVisibility(View.VISIBLE);
-                activityEditInvoiceSpecialVatInvoiceLayout.setVisibility(View.GONE);
-                activityEditInvoiceCommonInvoice.setTextColor(getResources().getColor(R.color.pageTitle));
-                activityEditInvoiceSpecialVatInvoice.setTextColor(getResources().getColor(R.color.saleColor));
-                invoiceType = 1;
+                if (ClickUtil.isFastClick()) {
+                    activityEditInvoiceCommonInvoiceLayout.setVisibility(View.VISIBLE);
+                    activityEditInvoiceSpecialVatInvoiceLayout.setVisibility(View.GONE);
+                    activityEditInvoiceCommonInvoice.setTextColor(getResources().getColor(R.color.pageTitle));
+                    activityEditInvoiceSpecialVatInvoice.setTextColor(getResources().getColor(R.color.saleColor));
+                    invoiceType = 1;
+                }
             }
         });
 
         activityEditInvoiceSpecialVatInvoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activityEditInvoiceCommonInvoiceLayout.setVisibility(View.GONE);
-                activityEditInvoiceSpecialVatInvoiceLayout.setVisibility(View.VISIBLE);
-                activityEditInvoiceCommonInvoice.setTextColor(getResources().getColor(R.color.saleColor));
-                activityEditInvoiceSpecialVatInvoice.setTextColor(getResources().getColor(R.color.pageTitle));
-                invoiceType = 2;
+                if (ClickUtil.isFastClick()) {
+                    activityEditInvoiceCommonInvoiceLayout.setVisibility(View.GONE);
+                    activityEditInvoiceSpecialVatInvoiceLayout.setVisibility(View.VISIBLE);
+                    activityEditInvoiceCommonInvoice.setTextColor(getResources().getColor(R.color.saleColor));
+                    activityEditInvoiceSpecialVatInvoice.setTextColor(getResources().getColor(R.color.pageTitle));
+                    invoiceType = 2;
+                }
             }
         });
 
@@ -169,17 +174,20 @@ public class EditInvoiceActivity extends BaseActivity implements EditInvoiceView
             normalType = invoiceBean.getNormalType();
             invoiceType = invoiceBean.getInvoiceType();
 
-            if (invoiceBean.getNormalType() == 1 && invoiceBean.getInvoiceType() == 1) {
-                activityEditInvoiceCommonInvoiceTitle.setText(invoiceBean.getTitle());
-                activityEditInvoiceCommonInvoicePhone.setText(invoiceBean.getMobile());
-                activityEditInvoiceCommonInvoiceDefault.setChecked(invoiceBean.getDefaultStatus());
-            } else if (invoiceBean.getNormalType() == 2 && invoiceBean.getInvoiceType() == 1) {
-                activityEditInvoiceCommonInvoiceType.setText("企业");
-                activityEditInvoiceCommonInvoiceTitle.setText(invoiceBean.getTitle());
-                activityEditInvoiceCommonInvoicePhone.setText(invoiceBean.getMobile());
-                activityEditInvoiceCommonInvoiceDefault.setChecked(invoiceBean.getDefaultStatus());
-                activityEditInvoiceCommonInvoiceTaxCodeLayout.setVisibility(View.VISIBLE);
-                activityEditInvoiceCommonInvoiceTaxCode.setText(invoiceBean.getTaxCode());
+            if (invoiceBean.getInvoiceType() == 1) {
+
+                if(invoiceBean.getNormalType() == 1){
+                    activityEditInvoiceCommonInvoiceTitle.setText(invoiceBean.getTitle());
+                    activityEditInvoiceCommonInvoicePhone.setText(invoiceBean.getMobile());
+                    activityEditInvoiceCommonInvoiceDefault.setChecked(invoiceBean.getDefaultStatus());
+                }else if(invoiceBean.getNormalType() == 2){
+                    activityEditInvoiceCommonInvoiceType.setText("企业");
+                    activityEditInvoiceCommonInvoiceTitle.setText(invoiceBean.getTitle());
+                    activityEditInvoiceCommonInvoicePhone.setText(invoiceBean.getMobile());
+                    activityEditInvoiceCommonInvoiceDefault.setChecked(invoiceBean.getDefaultStatus());
+                    activityEditInvoiceCommonInvoiceTaxCodeLayout.setVisibility(View.VISIBLE);
+                    activityEditInvoiceCommonInvoiceTaxCode.setText(invoiceBean.getTaxCode());
+                }
 
             } else if (invoiceBean.getInvoiceType() == 2) {
                 activityEditInvoiceCommonInvoiceLayout.setVisibility(View.GONE);
@@ -209,7 +217,6 @@ public class EditInvoiceActivity extends BaseActivity implements EditInvoiceView
 
     @Override
     public void requestData() {
-
     }
 
     @OnClick({R.id.toolbar_layout_back, R.id.activity_edit_invoice_save, R.id.activity_edit_invoice_common_invoice_type})
@@ -236,7 +243,7 @@ public class EditInvoiceActivity extends BaseActivity implements EditInvoiceView
                         requestSaveInvocieBean.setNormalType(normalType);
                         requestSaveInvocieBean.setDefaultStatus(isCommonInvoiceDefault);
                         requestSaveInvocieBean.setInvoiceType(invoiceType);
-                        editInvoicePresent.saveInvocieInfo(requestSaveInvocieBean);
+                        editInvoicePresent.addInvoice(ADDINVOICE,requestSaveInvocieBean);
 
                     }
 
@@ -245,18 +252,14 @@ public class EditInvoiceActivity extends BaseActivity implements EditInvoiceView
                     if (checkNormalCompanyInvoceNull()) {
                         RequestSaveInvocieBean requestSaveInvocieBean = new RequestSaveInvocieBean();
 
-                        if (StringUtils.isEmpty(activityEditInvoiceCommonInvoiceTitle.getText().toString())) {
-                            requestSaveInvocieBean.setTitle("个人");
-                        } else {
-                            requestSaveInvocieBean.setTitle(activityEditInvoiceCommonInvoiceTitle.getText().toString());
-                        }
+                        requestSaveInvocieBean.setTitle(activityEditInvoiceCommonInvoiceTitle.getText().toString());
                         requestSaveInvocieBean.setContent("商品明细");
                         requestSaveInvocieBean.setMobile(activityEditInvoiceCommonInvoicePhone.getText().toString());
                         requestSaveInvocieBean.setTaxCode(activityEditInvoiceCommonInvoiceTaxCode.getText().toString());
                         requestSaveInvocieBean.setNormalType(normalType);
                         requestSaveInvocieBean.setDefaultStatus(isCommonInvoiceDefault);
                         requestSaveInvocieBean.setInvoiceType(invoiceType);
-                        editInvoicePresent.saveInvocieInfo(requestSaveInvocieBean);
+                        editInvoicePresent.addInvoice(ADDINVOICE,requestSaveInvocieBean);
 
                     }
 
@@ -277,11 +280,10 @@ public class EditInvoiceActivity extends BaseActivity implements EditInvoiceView
                         requestSaveInvocieBean.setNormalType(normalType);
                         requestSaveInvocieBean.setDefaultStatus(isSpecialInvoiceDefault);
                         requestSaveInvocieBean.setInvoiceType(invoiceType);
-
-                        editInvoicePresent.saveInvocieInfo(requestSaveInvocieBean);
+                        requestSaveInvocieBean.setTitle(activityEditInvoiceSpecialVatInvoiceCompanyName.getText().toString());
+                        editInvoicePresent.addInvoice(ADDINVOICE,requestSaveInvocieBean);
                     }
                 }
-
 
                 break;
             case R.id.activity_edit_invoice_common_invoice_type:
@@ -296,10 +298,12 @@ public class EditInvoiceActivity extends BaseActivity implements EditInvoiceView
                         public void onItemPicked(int index, String item) {
                             if (StringUtils.equals("个人", item)) {
                                 normalType = 1;
+                                activityEditInvoiceCommonInvoiceTitle.setHint("默认个人(可修改)");
                                 activityEditInvoiceCommonInvoiceType.setText("个人");
                                 activityEditInvoiceCommonInvoiceTaxCodeLayout.setVisibility(View.GONE);
                             } else {
                                 normalType = 2;
+                                activityEditInvoiceCommonInvoiceTitle.setHint("填写抬头信息");
                                 activityEditInvoiceCommonInvoiceType.setText("企业");
                                 activityEditInvoiceCommonInvoiceTaxCodeLayout.setVisibility(View.VISIBLE);
                             }
@@ -320,6 +324,11 @@ public class EditInvoiceActivity extends BaseActivity implements EditInvoiceView
     private boolean checkSpecialValNull() {
         if (StringUtils.isEmpty(activityEditInvoiceSpecialVatInvoiceCompanyName.getText().toString())) {
             ToastUtils.showShort("请填写单位名称!");
+            return false;
+        }
+
+        if (StringUtils.isEmpty(activityEditInvoiceSpecialVatInvoiceTaxCode.getText().toString())) {
+            ToastUtils.showShort("请填写纳税人识别码!");
             return false;
         }
 
@@ -358,11 +367,18 @@ public class EditInvoiceActivity extends BaseActivity implements EditInvoiceView
             return false;
         }
 
+
+
         return true;
 
     }
 
     private boolean checkNormalCompanyInvoceNull() {
+
+        if (StringUtils.isEmpty(activityEditInvoiceCommonInvoiceTitle.getText().toString())) {
+            ToastUtils.showShort("请填写企业抬头!");
+            return false;
+        }
 
         if (StringUtils.isEmpty(activityEditInvoiceCommonInvoicePhone.getText().toString())) {
             ToastUtils.showShort("请填写手机号!");
@@ -400,12 +416,17 @@ public class EditInvoiceActivity extends BaseActivity implements EditInvoiceView
 
     private SinglePicker<String> typeSinglePicker;
 
+
     @Override
-    public void getResult() {
+    public void showStringData(String requestTag, String s) {
+
         EventBus.getDefault().post(new EventBusMessageBean(EventBusMessageBean.Invoice.addInvoiceSuccess));
         finish();
 
     }
 
-
+    @Override
+    public void showToastMsg(String msg) {
+        ToastUtils.showShort(msg);
+    }
 }

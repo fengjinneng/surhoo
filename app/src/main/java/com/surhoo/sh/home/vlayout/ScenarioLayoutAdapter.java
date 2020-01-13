@@ -3,6 +3,8 @@ package com.surhoo.sh.home.vlayout;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +14,15 @@ import android.widget.TextView;
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
+import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.surhoo.sh.R;
+import com.surhoo.sh.common.util.ClickUtil;
+import com.surhoo.sh.common.util.GlideUtil;
 import com.surhoo.sh.home.bean.HomePageBean;
+import com.surhoo.sh.scenario.bean.ScenarioBean;
+import com.surhoo.sh.scenario.view.ScenarioActivity;
+import com.surhoo.sh.search.SearchCategoryActivity;
 
 import java.util.List;
 
@@ -47,8 +55,19 @@ public class ScenarioLayoutAdapter extends DelegateAdapter.Adapter<ScenarioLayou
 
         scenarioLayoutViewHolder.content.setText(item.getName());
 
-        Glide.with(context).load(item.getLogo()).into(scenarioLayoutViewHolder.imageView);
+        GlideUtil.loadBannerImage(context,item.getLogo(),scenarioLayoutViewHolder.imageView);
 
+        scenarioLayoutViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(ClickUtil.isFastClick()){
+                    Intent intent = new Intent(context, ScenarioActivity.class);
+                    intent.putExtra("id", item.getSceneId());
+                    intent.putExtra("title", item.getName());
+                    ActivityUtils.startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override

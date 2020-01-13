@@ -7,10 +7,10 @@ public interface CategoryPresenter extends BasePresenter<CategoryListView> {
 
 
 
-     void requestLevelOneCategory();
+     void requestLevelOneCategory(String requestTag);
 
      //一级分类的id  一级分类的positon
-     void requestLevelTwoCategory(int id,int position);
+     void requestLevelTwoCategory(String requestTag,int id);
 
 
 

@@ -39,49 +39,18 @@ public class CategoryPresenterImpl implements CategoryPresenter {
     }
 
     @Override
-    public void requestLevelOneCategory() {
+    public void requestLevelOneCategory(String requestTag) {
 
-        NetworkReturnUtil.requestList(categoryListView, activity, Api.GOODSLEVERONECATEGORY, null, CategoryBean.class);
+        NetworkReturnUtil.requestNoPageList(requestTag,categoryListView, activity, Api.GOODSLEVERONECATEGORY, null, CategoryBean.class);
 
 
     }
 
     @Override
-    public void requestLevelTwoCategory(int id,int positon) {
+    public void requestLevelTwoCategory(String requestTag,int id) {
 
-        GetRequest<String> request = OkGo.<String>get(Api.GOODSLEVERTWOCATEGORY+"/"+id)
-                .tag(activity)
-                .headers("Authorization", activity.getResources().getString(R.string.Auth));
+        NetworkReturnUtil.requestNoPageList(requestTag,categoryListView, activity, Api.GOODSLEVERTWOCATEGORY+"/"+id, null, CategoryBean.class);
 
-        DialogStringCallback stringCallback = new DialogStringCallback(activity) {
 
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtils.v("GOODSLEVERTWOCATEGORY", response.body());
-                try {
-                    if (response.code() == 200) {
-
-                        if(StringUtils.isEmpty(response.body())){
-                            return;
-                        }
-                        List beans = JSONObject.parseArray(response.body(), CategoryBean.class);
-                        categoryListView.showLevelTwoCategory(beans,positon);
-
-                    } else {
-                        ToastUtils.showShort("啊哦，出现错误了！");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                categoryListView.showToastMsg(response.message());
-            }
-        };
-
-        request.execute(stringCallback);
     }
 }

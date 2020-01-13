@@ -5,11 +5,10 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <application
         android:name=".App"
@@ -21,34 +20,75 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".order.OrderEvaluationActivity"></activity>
-        <activity android:name=".order.MyOrderListActivity" /> <!-- <meta-data -->
-        <!-- android:name="design_width_in_dp" -->
-        <!-- android:value="375" /> -->
-        <!-- <meta-data -->
-        <!-- android:name="design_height_in_dp" -->
-        <!-- android:value="668" /> -->
-        <activity android:name=".home.view.MainActivity">
+        <activity android:name=".SchemeFilterActivity">
+
+
+        </activity>
+        <activity android:name=".user.UpdateNickNameActivity" />
+        <activity android:name=".user.UpdateHeadImgActivity" />
+        <activity android:name=".user.MineInformationActivity" />
+        <activity android:name=".invoice.InvoiceDetailActivity" />
+        <activity android:name=".order.ExpressActivity" />
+        <activity android:name=".shoppingcart.shoppingcart2.ShoppingCart2Activity" />
+        <activity android:name=".GuideActivity" />
+        <activity android:name=".WebViewActivity" />
+        <activity android:name=".AboutSurhooActivity" />
+        <activity android:name=".order.PaySuccessActivity" />
+        <activity
+            android:name=".order.OrderDetailActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".order.CheckStandActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".SettingActivity" />
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/startTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.view.LoginActivity" >
+        <activity
+            android:name=".order.OrderEvaluationActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity android:name=".order.MyOrderListActivity" /> <!-- <meta-data -->
+        <!-- android:name="design_width_in_dp" -->
+        <!-- android:value="375" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="design_height_in_dp" -->
+        <!-- android:value="668" /> -->
+        <activity android:name=".home.view.MainActivity" />
+        <activity android:name=".login.view.LoginActivity">
 
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
-
         <activity android:name=".scenario.view.ScenarioActivity" />
         <activity android:name=".base.BaseActivity" />
         <activity android:name=".goods.view.GoodsListActivity" />
         <activity android:name=".goods.view.impl.CategoryActivity" />
-        <activity android:name=".goods.view.impl.GoodsDetailActivity" />
+        <activity
+            android:name=".goods.view.impl.GoodsDetailActivity"
+            android:launchMode="singleTop">
+
+            <intent-filter>
+                <data
+                    android:host="com.surhoo.sh"
+                    android:scheme="surhoo" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+
+        </activity>
         <activity android:name=".search.SearchActivity" />
         <activity android:name=".search.SearchCategoryActivity" />
         <activity android:name=".goods.view.impl.AllCommentsActivity" />
@@ -58,32 +98,41 @@
         <activity android:name=".address.AddressActivity" />
         <activity android:name=".address.EditAddresActivity" />
         <activity android:name=".invoice.InvoiceListActivity" />
-        <activity android:name=".invoice.EditInvoiceActivity" />
+        <activity
+            android:name=".invoice.EditInvoiceActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".collect.CollectActivity" />
         <activity android:name=".material.MaterialDetailActivity" />
-        <activity android:name=".TestActivityActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+        <activity android:name=".ImagePagerActivity" />
+        <activity android:name=".TestActivityActivity" />
         <activity android:name=".order.OrderConfirmationActivity" />
-
-
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.surhoo.sh.fileprovider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
         </provider>
 
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="wxa9974a0f587be201" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

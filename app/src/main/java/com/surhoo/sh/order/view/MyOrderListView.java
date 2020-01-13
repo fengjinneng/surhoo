@@ -1,13 +1,9 @@
 package com.surhoo.sh.order.view;
 
-import com.surhoo.sh.base.BaseView;
-import com.surhoo.sh.base.PagerBaseView;
+import com.surhoo.sh.base.HavePageListBaseView;
+import com.surhoo.sh.base.StringResultBaseView;
 
-public interface MyOrderListView extends PagerBaseView {
+public interface MyOrderListView extends HavePageListBaseView , StringResultBaseView {
 
-
-    void getDeleteOrderResult(int position);
-
-    void getCancelOrderResult(int position);
 
 }

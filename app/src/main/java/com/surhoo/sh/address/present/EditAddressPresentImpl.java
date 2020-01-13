@@ -17,6 +17,7 @@ import com.surhoo.sh.address.view.EditAddressView;
 import com.surhoo.sh.common.Api;
 import com.surhoo.sh.common.util.DialogStringCallback;
 import com.surhoo.sh.common.util.MyJsonUtil;
+import com.surhoo.sh.common.util.NetworkReturnUtil;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -42,88 +43,16 @@ public class EditAddressPresentImpl implements EditAddressPresent {
 
 
     @Override
-    public void addAddress(AddressBean addressBean) {
-
-
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
+    public void addAddress(String requestTag,AddressBean addressBean) {
         String s = JSONObject.toJSONString(addressBean);
-        RequestBody requestBody = RequestBody.create(JSON, s);
-
-        PostRequest<String> request = OkGo.<String>post(Api.ADDADDRESS)
-                .tag(activity)
-                .headers("Authorization", activity.getResources().getString(R.string.Auth))
-                .upRequestBody(requestBody);
-
-        DialogStringCallback stringCallback = new DialogStringCallback(activity) {
-
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtils.v("ADDADDRESS", response.body());
-                try {
-                    if (response.code() == 200) {
-
-                        editAddressView.getAddResult();
-
-                    } else {
-                        ToastUtils.showShort("啊哦，出现错误了！");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-            }
-        };
-
-        request.execute(stringCallback);
-
+        NetworkReturnUtil.requestStringResultUsePost(requestTag,editAddressView,activity,Api.ADDADDRESS,s);
     }
 
     @Override
-    public void updateAddress(AddressBean addressBean) {
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    public void updateAddress(String requestTag,AddressBean addressBean) {
         String s = JSONObject.toJSONString(addressBean);
-        RequestBody requestBody = RequestBody.create(JSON, s);
+        NetworkReturnUtil.requestStringResultUsePut(requestTag,editAddressView,activity,Api.updateAddress,s);
 
-        PutRequest<String> request = OkGo.<String>put(Api.updateAddress)
-                .tag(activity)
-                .headers("Authorization", activity.getResources().getString(R.string.Auth))
-                .upRequestBody(requestBody);
 
-        DialogStringCallback stringCallback = new DialogStringCallback(activity) {
-
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtils.v("updateAddress", response.body());
-                try {
-                    if (response.code() == 200) {
-
-                        if (MyJsonUtil.isJson(response.body())) {
-                            JSONObject jsonObject = JSONObject.parseObject(response.body());
-                            editAddressView.showToastMsg(jsonObject.getString("msg"));
-                            return;
-                        }
-
-                        editAddressView.getUpdateResult();
-
-                    } else {
-                        ToastUtils.showShort("啊哦，出现错误了！");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-            }
-        };
-
-        request.execute(stringCallback);
     }
 }

@@ -3,6 +3,7 @@ package com.surhoo.sh.search.adapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;

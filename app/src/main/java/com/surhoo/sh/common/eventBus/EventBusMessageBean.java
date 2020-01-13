@@ -11,6 +11,7 @@ public class EventBusMessageBean {
 
 
 
+
     public static class Invoice{
 
         public static final int choiceInvoice  = 1001;
@@ -31,9 +32,34 @@ public class EventBusMessageBean {
     public static class Order{
         public static final int cancleOrderSuccess  =3001;
 
+        public static final int payOrderSuccess  =3002;
+
+        public static final int cancelPay  =3003;
+
+        public static final int confirmOrder  =3004;
+
+        public static final int deleteOrder  =3005;
+
     }
 
 
+    public static class Img{
+        public static final int closeImg  =4001;
+
+    }
+
+    public static class User{
+        public static final int login  =5001;
+        public static final int updateNickNameSuccess  =5002;
+
+    }
+
+    public static class Collect{
+        public static final int cancelGoodsCollect  =6001;
+        public static final int cancelMaterialCollect  =6002;
+        public static final int cancelDesignerCollect  =6003;
+
+    }
 
 
 

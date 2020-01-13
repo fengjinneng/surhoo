@@ -2,11 +2,15 @@
 <resources>
 
 
-    <declare-styleable name="MineItem">
 
-        <attr name="text" format="string"></attr>
-        <attr name="img" format="reference"></attr>
 
-    </declare-styleable>
+
+<!--    <declare-styleable name="invoiceItem">-->
+
+<!--        <attr name="key" format="string"></attr>-->
+<!--        <attr name="value" format="string"></attr>-->
+
+<!--    </declare-styleable>-->
+
 
 </resources>

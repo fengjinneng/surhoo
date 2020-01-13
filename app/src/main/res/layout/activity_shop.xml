@@ -37,12 +37,12 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/view10"
-                        android:background="@color/pageTitle"
                         android:layout_width="0dp"
                         android:layout_height="120dp"
+                        android:background="@color/pageTitle"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" >
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
                             android:id="@+id/activity_shop_logo"
@@ -102,26 +102,20 @@
                 android:id="@+id/activity_shop_category_tab"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                app:tl_indicator_bounce_enable="false"
+                app:tl_indicator_color="@color/themeColor"
+                app:tl_indicator_gravity="BOTTOM"
                 app:tl_textSelectColor="@color/themeColor"
-                app:tabIndicatorColor="@color/white"
-                app:tabSelectedTextColor="@color/themeColor"
-                app:tl_textUnselectColor="@color/grey"
-                app:tabTextColor="#A7A7A7" />
-
-            <com.flyco.tablayout.SlidingTabLayout
-                android:id="@+id/activity_shop_sort_tab"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                app:tabIndicatorColor="@color/white"
-                app:tabSelectedTextColor="@color/themeColor"
-                app:tabTextColor="#A7A7A7" />
+                app:tl_textUnselectColor="@color/saleColor"
+                app:tl_textsize="15sp"
+                app:tl_underline_gravity="BOTTOM"
+                app:tl_underline_height="1dp" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/activity_shop_viewPager"
             android:layout_width="match_parent"
-
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 

@@ -2,9 +2,11 @@ package com.surhoo.sh.home.vlayout;
 
 import android.content.Context;
 import android.content.Intent;
+
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import com.blankj.utilcode.util.ScreenUtils;
 import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.surhoo.sh.R;
+import com.surhoo.sh.common.util.ClickUtil;
 import com.surhoo.sh.common.util.GlideUtil;
 import com.surhoo.sh.goods.view.impl.GoodsDetailActivity;
 import com.surhoo.sh.home.bean.HomePageBean;
@@ -43,12 +46,9 @@ public class GoodsLayoutAdapter extends DelegateAdapter.Adapter<GoodsLayoutAdapt
 //        gridHelper.setGap(ConvertUtils.dp2px(12));
 
         //设置垂直方向条目的间隔
-
         gridHelper.setGap(ConvertUtils.dp2px(12));
-
         gridHelper.setMarginLeft(ConvertUtils.dp2px(16));
         gridHelper.setMarginRight(ConvertUtils.dp2px(16));
-
         gridHelper.setAutoExpand(false);
         return gridHelper;
     }
@@ -65,22 +65,23 @@ public class GoodsLayoutAdapter extends DelegateAdapter.Adapter<GoodsLayoutAdapt
         HomePageBean.GOODSBean item = datas.get(i);
 
         scenarioLayoutViewHolder.goodsName.setText(item.getGoodsName());
-        scenarioLayoutViewHolder.price.setText( item.getGoodsPrice());
+        scenarioLayoutViewHolder.price.setText("¥"+item.getGoodsPrice());
         scenarioLayoutViewHolder.sales.setText(String.valueOf(item.getSaleCount()));
 
+        scenarioLayoutViewHolder.goodsImg.setLayoutParams(new ConstraintLayout.LayoutParams((int) (ScreenUtils.getScreenWidth() * 0.44), (int) (ScreenUtils.getScreenWidth() * 0.44)));
 
-        scenarioLayoutViewHolder.goodsImg.setLayoutParams(new ConstraintLayout.LayoutParams((int) (ScreenUtils.getScreenWidth() * 0.44),(int) (ScreenUtils.getScreenWidth() * 0.44)));
+        scenarioLayoutViewHolder.goodsImg.setPadding(ConvertUtils.dp2px(1), 0, ConvertUtils.dp2px(1), 0);
 
-        scenarioLayoutViewHolder.goodsImg.setPadding(ConvertUtils.dp2px(1),0,ConvertUtils.dp2px(1),0);
-
-        GlideUtil.loadDefaultImg(context,item.getLogo() ,scenarioLayoutViewHolder.goodsImg);
+        GlideUtil.loadDefaultImg(context, item.getLogo(), scenarioLayoutViewHolder.goodsImg);
 
         scenarioLayoutViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context,GoodsDetailActivity.class);
-                i.putExtra("id",item.getGoodsId());
-                ActivityUtils.startActivity(i);
+                if (ClickUtil.isFastClick()) {
+                    Intent i = new Intent(context, GoodsDetailActivity.class);
+                    i.putExtra("id", item.getGoodsId());
+                    ActivityUtils.startActivity(i);
+                }
             }
         });
     }

@@ -52,6 +52,7 @@ public class ShoppingCartBean implements Parcelable {
         public static final int foot = 3;
         private int itemType;
         private boolean checked;
+        private int position ;
 
         //标记每三个部分同样的flag 便于操作
         private int flag;
@@ -83,6 +84,14 @@ public class ShoppingCartBean implements Parcelable {
         private Integer status;
         private String goodsMarketPrice;
 
+        public int getPosition() {
+            return position;
+        }
+
+
+        public void setPosition(int position) {
+            this.position = position;
+        }
 
         public int getFlag() {
             return flag;
@@ -220,6 +229,7 @@ public class ShoppingCartBean implements Parcelable {
         public void writeToParcel(Parcel dest, int flags) {
             dest.writeInt(this.itemType);
             dest.writeByte(this.checked ? (byte) 1 : (byte) 0);
+            dest.writeInt(this.position);
             dest.writeInt(this.flag);
             dest.writeValue(this.id);
             dest.writeValue(this.userId);
@@ -239,6 +249,7 @@ public class ShoppingCartBean implements Parcelable {
         protected CarGoodsListBean(Parcel in) {
             this.itemType = in.readInt();
             this.checked = in.readByte() != 0;
+            this.position = in.readInt();
             this.flag = in.readInt();
             this.id = (Integer) in.readValue(Integer.class.getClassLoader());
             this.userId = (Integer) in.readValue(Integer.class.getClassLoader());
@@ -255,7 +266,7 @@ public class ShoppingCartBean implements Parcelable {
             this.goodsMarketPrice = in.readString();
         }
 
-        public static final Parcelable.Creator<CarGoodsListBean> CREATOR = new Parcelable.Creator<CarGoodsListBean>() {
+        public static final Creator<CarGoodsListBean> CREATOR = new Creator<CarGoodsListBean>() {
             @Override
             public CarGoodsListBean createFromParcel(Parcel source) {
                 return new CarGoodsListBean(source);

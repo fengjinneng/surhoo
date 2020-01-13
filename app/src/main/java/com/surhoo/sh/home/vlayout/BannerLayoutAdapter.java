@@ -14,6 +14,7 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.blankj.utilcode.util.ToastUtils;
 import com.surhoo.sh.R;
+import com.surhoo.sh.common.util.ClickUtil;
 import com.surhoo.sh.common.util.CommonUtil;
 import com.surhoo.sh.home.bean.HomePageBean;
 
@@ -56,8 +57,10 @@ public class BannerLayoutAdapter extends DelegateAdapter.Adapter<BannerLayoutAda
         viewHolder.convenientBanner.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                if(ClickUtil.isFastClick()){
+                    ToastUtils.showShort("banner click");
+                }
 
-                ToastUtils.showShort("banner click");
             }
         });
         

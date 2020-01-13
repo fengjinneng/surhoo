@@ -45,12 +45,22 @@ public class GoodsPresenterImpl implements GoodsListPresenter {
             case 1:
                 httpParams.put("type", 1);
                 httpParams.put("searchName", searchName);
-                NetworkReturnUtil.requestPage(goodsView, activity, Api.SEARCHCATEGORY, httpParams, GoodsBean.class, pageIndex);
+                NetworkReturnUtil.requestHavePageList(goodsView, activity, Api.SEARCHCATEGORY, httpParams, GoodsBean.class, pageIndex);
                 break;
             case 2:
-                NetworkReturnUtil.requestPage(goodsView, activity, Api.GOODSLIST, httpParams, GoodsBean.class, pageIndex);
+                NetworkReturnUtil.requestHavePageList(goodsView, activity, Api.GOODSLIST, httpParams, GoodsBean.class, pageIndex);
                 break;
         }
 
+    }
+
+    @Override
+    public void getCollect(int pageSize, int pageIndex, int type) {
+        HttpParams httpParams = new HttpParams();
+        httpParams.put("pageSize", pageSize);
+        httpParams.put("pageIndex", pageIndex);
+        httpParams.put("type", type);
+
+        NetworkReturnUtil.requestHavePageList(goodsView, activity, Api.getCollectList, httpParams, GoodsBean.class, pageIndex);
     }
 }

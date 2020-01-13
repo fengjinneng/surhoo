@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.surhoo.sh.R;
+import com.surhoo.sh.common.util.ClickUtil;
 import com.surhoo.sh.goods.view.GoodsListActivity;
 import com.surhoo.sh.search.SearchCategoryActivity;
 
@@ -54,18 +55,20 @@ public class SearchTitleLayoutAdapter extends DelegateAdapter.Adapter<SearchTitl
         viewHolder.more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(StringUtils.equals("商品",title)){
-                    Intent intent = new Intent(context, GoodsListActivity.class);
-                    intent.putExtra("from",1);
-                    intent.putExtra("searchName",searchName);
-                    ActivityUtils.startActivity(intent);
-                }
+                if (ClickUtil.isFastClick()) {
+                    if (StringUtils.equals("商品", title)) {
+                        Intent intent = new Intent(context, GoodsListActivity.class);
+                        intent.putExtra("from", 1);
+                        intent.putExtra("searchName", searchName);
+                        ActivityUtils.startActivity(intent);
+                    }
 
-                if(StringUtils.equals("素材",title)){
-                    Intent intent = new Intent(context, SearchCategoryActivity.class);
-                    intent.putExtra("type",5);
-                    intent.putExtra("searchName",searchName);
-                    ActivityUtils.startActivity(intent);
+                    if (StringUtils.equals("素材", title)) {
+                        Intent intent = new Intent(context, SearchCategoryActivity.class);
+                        intent.putExtra("type", 5);
+                        intent.putExtra("searchName", searchName);
+                        ActivityUtils.startActivity(intent);
+                    }
                 }
             }
         });

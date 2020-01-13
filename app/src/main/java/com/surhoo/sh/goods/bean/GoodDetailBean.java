@@ -4,45 +4,6 @@ import java.util.List;
 
 public class GoodDetailBean {
 
-
-    /**
-     * id : 1
-     * goodsType : 1
-     * goodsNo : spsad
-     * goodsName : 商品名称
-     * goodsClassifyOneId : null
-     * goodsClassifyTwoId : null
-     * goodsClassifyThreeId : null
-     * goodsMarketPrice : 10
-     * goodsPrice : 100
-     * weight : 1
-     * fakeSaleCount : 0
-     * saleCount : 50
-     * sort : 10
-     * freightTemplateId : 11
-     * logo : https://wx.qlogo.cn/mmopen/vi_32/uGOeNuw7ln7BEUFDaNP5WuVGXoqxDRSeibGs1zCWFcHLcEH6hFY7Wn02k5ibictfOmbKGGMpeznEVfbcbficd058YQ/132
-     * img : https://essilor.oss-cn-shanghai.aliyuncs.com/images/CecjTNxAnisKK5Bim4NHXS3KTsH7eAGP.png
-     * banner : https://essilor.oss-cn-shanghai.aliyuncs.com/images/Ndx27QYjk2RjcCpNeaGywJEcD7NTBbnY.png
-     * richTextId : 1
-     * createdAt : 2019-07-15 08:09:24
-     * updatedAt : null
-     * status : 1
-     * isDelete : false
-     * isFreight : false
-     * platformStatus : true
-     * isPlatform : true
-     * isRecommend : true
-     * shopId : 0
-     * evaluateList : [{"id":1,"orderId":null,"orderDataId":null,"goodsId":null,"materialId":null,"goodsType":null,"goodsName":null,"userId":1001,"mark":5,"userName":"111","skuId":null,"skuName":"黄色_10*10","orderNo":null,"evaluateName":"这是一条评论","img":"https://wx.qlogo.cn/mmopen/vi_32/uGOeNuw7ln7BEUFDaNP5WuVGXoqxDRSeibGs1zCWFcHLcEH6hFY7Wn02k5ibictfOmbKGGMpeznEVfbcbficd058YQ/132","isUsed":null,"isShow":null,"returnDate":null,"returnName":null,"returnDesc":"好的好的","gmtCreate":"2019-07-08 02:28:48","gmtModified":null,"headimgurl":"https://wx.qlogo.cn/mmopen/vi_32/uGOeNuw7ln7BEUFDaNP5WuVGXoqxDRSeibGs1zCWFcHLcEH6hFY7Wn02k5ibictfOmbKGGMpeznEVfbcbficd058YQ/132","mobile":"1313","sysId":null,"shopId":null,"isPlatform":null,"type":1,"isAnonymous":null}]
-     * evaluateCount : 1
-     * skuList : [{"id":112,"goodsId":1,"goodsSkuName":"黄色_10*10","goodsSkuImg":"http://meile.oss-cn-beijing.aliyuncs.com/img/3NaTMnQAbQGrP8NcxWPXmNBY8tdBsBDW.jpg","goodsSkuNo":"sadas","goodsSkuCostPrice":100,"goodsSkuMarketPrices":200,"goodsSkuRetailPrice":20,"goodsSkuWeight":1,"goodsSkuVolume":1,"goodsSkuStockLock":200,"goodsSkuStock":100,"gmtCreate":"2019-07-15 08:15:14","gmtModified":"2019-04-29 03:28:21","disable":true,"goodsSkuFictitiousSales":40},{"id":113,"goodsId":1,"goodsSkuName":"绿色_10*10","goodsSkuImg":"http://meile.oss-cn-beijing.aliyuncs.com/img/3NaTMnQAbQGrP8NcxWPXmNBY8tdBsBDW.jpg","goodsSkuNo":"sadas2","goodsSkuCostPrice":100,"goodsSkuMarketPrices":200,"goodsSkuRetailPrice":20,"goodsSkuWeight":1,"goodsSkuVolume":1,"goodsSkuStockLock":200,"goodsSkuStock":100,"gmtCreate":"2019-07-15 08:15:14","gmtModified":"2019-04-29 03:28:21","disable":true,"goodsSkuFictitiousSales":40}]
-     * skuId : null
-     * goodsNum : null
-     * isCollect : true
-     * specList : [{"id":63,"goodsId":1,"goodsSpecName":"颜色","gmtCreate":1556508501000,"skuNo":null,"goodsSkuSpecVals":[{"id":78,"goodsId":1,"goodsSkuSpecId":63,"goodsSkuSpecValName":"黄色","gmtCreate":1556508501000},{"id":79,"goodsId":1,"goodsSkuSpecId":63,"goodsSkuSpecValName":"绿色","gmtCreate":1556508501000}]},{"id":64,"goodsId":1,"goodsSpecName":"尺寸","gmtCreate":1563178928000,"skuNo":null,"goodsSkuSpecVals":[{"id":80,"goodsId":1,"goodsSkuSpecId":64,"goodsSkuSpecValName":"10*10","gmtCreate":1556508501000}]}]
-     * goodsDetail : 啊啊啊啊啊啊
-     */
-
     private Integer id;
     private Integer goodsType;
     private String goodsNo;
@@ -360,38 +321,8 @@ public class GoodDetailBean {
     }
 
     public static class EvaluateListBean {
-        /**
-         * id : 1
-         * orderId : null
-         * orderDataId : null
-         * goodsId : null
-         * materialId : null
-         * goodsType : null
-         * goodsName : null
-         * userId : 1001
-         * mark : 5
-         * userName : 111
-         * skuId : null
-         * skuName : 黄色_10*10
-         * orderNo : null
-         * evaluateName : 这是一条评论
-         * img : https://wx.qlogo.cn/mmopen/vi_32/uGOeNuw7ln7BEUFDaNP5WuVGXoqxDRSeibGs1zCWFcHLcEH6hFY7Wn02k5ibictfOmbKGGMpeznEVfbcbficd058YQ/132
-         * isUsed : null
-         * isShow : null
-         * returnDate : null
-         * returnName : null
-         * returnDesc : 好的好的
-         * gmtCreate : 2019-07-08 02:28:48
-         * gmtModified : null
-         * headimgurl : https://wx.qlogo.cn/mmopen/vi_32/uGOeNuw7ln7BEUFDaNP5WuVGXoqxDRSeibGs1zCWFcHLcEH6hFY7Wn02k5ibictfOmbKGGMpeznEVfbcbficd058YQ/132
-         * mobile : 1313
-         * sysId : null
-         * shopId : null
-         * isPlatform : null
-         * type : 1
-         * isAnonymous : null
-         */
 
+        private boolean isLoad;
         private Integer id;
         private Object orderId;
         private Object orderDataId;
@@ -421,6 +352,14 @@ public class GoodDetailBean {
         private Object isPlatform;
         private Integer type;
         private Object isAnonymous;
+
+        public boolean isLoad() {
+            return isLoad;
+        }
+
+        public void setLoad(boolean load) {
+            isLoad = load;
+        }
 
         public Integer getId() {
             return id;
@@ -656,24 +595,6 @@ public class GoodDetailBean {
     }
 
     public static class SkuListBean {
-        /**
-         * id : 112
-         * goodsId : 1
-         * goodsSkuName : 黄色_10*10
-         * goodsSkuImg : http://meile.oss-cn-beijing.aliyuncs.com/img/3NaTMnQAbQGrP8NcxWPXmNBY8tdBsBDW.jpg
-         * goodsSkuNo : sadas
-         * goodsSkuCostPrice : 100
-         * goodsSkuMarketPrices : 200
-         * goodsSkuRetailPrice : 20
-         * goodsSkuWeight : 1
-         * goodsSkuVolume : 1
-         * goodsSkuStockLock : 200
-         * goodsSkuStock : 100
-         * gmtCreate : 2019-07-15 08:15:14
-         * gmtModified : 2019-04-29 03:28:21
-         * disable : true
-         * goodsSkuFictitiousSales : 40
-         */
 
         private Integer id;
         private Integer goodsId;
@@ -822,14 +743,6 @@ public class GoodDetailBean {
     }
 
     public static class SpecListBean {
-        /**
-         * id : 63
-         * goodsId : 1
-         * goodsSpecName : 颜色
-         * gmtCreate : 1556508501000
-         * skuNo : null
-         * goodsSkuSpecVals : [{"id":78,"goodsId":1,"goodsSkuSpecId":63,"goodsSkuSpecValName":"黄色","gmtCreate":1556508501000},{"id":79,"goodsId":1,"goodsSkuSpecId":63,"goodsSkuSpecValName":"绿色","gmtCreate":1556508501000}]
-         */
 
         private Integer id;
         private Integer goodsId;
@@ -887,20 +800,21 @@ public class GoodDetailBean {
         }
 
         public static class GoodsSkuSpecValsBean {
-            /**
-             * id : 78
-             * goodsId : 1
-             * goodsSkuSpecId : 63
-             * goodsSkuSpecValName : 黄色
-             * gmtCreate : 1556508501000
-             */
 
             private Integer id;
             private Integer goodsId;
             private Integer goodsSkuSpecId;
             private String goodsSkuSpecValName;
             private long gmtCreate;
-            private Boolean isChecked;
+            private boolean isChecked;
+
+            public boolean isChecked() {
+                return isChecked;
+            }
+
+            public void setChecked(boolean checked) {
+                isChecked = checked;
+            }
 
             public Boolean getChecked() {
                 return isChecked;

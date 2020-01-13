@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.surhoo.sh.R;
 import com.surhoo.sh.base.BaseActivity;
 import com.surhoo.sh.common.recyclerview.GridDivider;
+import com.surhoo.sh.common.util.ClickUtil;
 import com.surhoo.sh.goods.adapter.GoodsListAdapter;
 import com.surhoo.sh.goods.bean.GoodsBean;
 import com.surhoo.sh.goods.presenter.GoodsListPresenter;
@@ -51,6 +52,11 @@ public class GoodsListActivity extends BaseActivity implements GoodsListView {
     private GoodsListPresenter presenter;
     private GoodsListAdapter goodsListAdapter;
 
+    private View loadingView;
+    private View loadingEmptyView;
+    private View loadingErrorView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,12 +89,46 @@ public class GoodsListActivity extends BaseActivity implements GoodsListView {
     @Override
     public void initData() {
 
+        initLoadingView();
+
         presenter =new GoodsPresenterImpl();
         presenter.bindView(this,this);
+
+        initRecyclerViewData();
+
+
+
+    }
+
+    private void initLoadingView() {
+        loadingView = LayoutInflater.from(this).inflate(R.layout.load_data_loading_view, null);
+        loadingEmptyView = LayoutInflater.from(this).inflate(R.layout.load_data_empty_view, null);
+        ImageView emptyImg = (ImageView) loadingEmptyView.findViewById(R.id.load_data_empty_view_img);
+        emptyImg.setImageDrawable(getResources().getDrawable(R.mipmap.search_empty_img));
+        TextView emptyText = (TextView) loadingEmptyView.findViewById(R.id.load_data_empty_view_content);
+        emptyText.setText("抱歉,没有找到相关内容");
+
+        loadingErrorView = LayoutInflater.from(this).inflate(R.layout.load_data_error_view, null);
+
+        TextView errorText = (TextView) loadingErrorView.findViewById(R.id.load_data_error_view_retry);
+        errorText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ClickUtil.isFastClick()) {
+                    goodsListAdapter.setEmptyView(loadingView);
+                    requestData();
+                }
+            }
+        });
+    }
+
+    private void initRecyclerViewData() {
 
         goodsListAdapter = new GoodsListAdapter(R.layout.item_goods_list,null);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+
+        goodsListAdapter.setEmptyView(loadingView);
 
         activityGoodsListRecyclerView.setLayoutManager(gridLayoutManager);
 
@@ -100,7 +140,7 @@ public class GoodsListActivity extends BaseActivity implements GoodsListView {
             @Override
             public void onLoadMoreRequested() {
                 pageIndex++;
-                presenter.requestData(from,id,pageSize,pageIndex,sortType,searchName);
+                requestData();
             }
         },activityGoodsListRecyclerView);
 
@@ -108,13 +148,14 @@ public class GoodsListActivity extends BaseActivity implements GoodsListView {
         goodsListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                GoodsBean goodsBean = (GoodsBean) adapter.getData().get(position);
-                Intent i = new Intent(GoodsListActivity.this, GoodsDetailActivity.class);
-                i.putExtra("id",goodsBean.getGoodsId());
-                ActivityUtils.startActivity(i);
+                if (ClickUtil.isFastClick()) {
+                    GoodsBean goodsBean = (GoodsBean) adapter.getData().get(position);
+                    Intent i = new Intent(GoodsListActivity.this, GoodsDetailActivity.class);
+                    i.putExtra("id", goodsBean.getGoodsId());
+                    ActivityUtils.startActivity(i);
+                }
             }
         });
-
     }
 
     private int sortType = 1;
@@ -150,7 +191,7 @@ public class GoodsListActivity extends BaseActivity implements GoodsListView {
                     pageIndex=1;
                     sortType =1;
                     priceOrder =1;
-                    presenter.requestData(from,id,pageSize,pageIndex,sortType,searchName);
+                    requestData();
                 }
                 break;
             case R.id.activity_goods_list_saleCount:
@@ -163,7 +204,7 @@ public class GoodsListActivity extends BaseActivity implements GoodsListView {
                     pageIndex=1;
                     sortType =2;
                     priceOrder =1;
-                    presenter.requestData(from,id,pageSize,pageIndex,sortType,searchName);
+                    requestData();
                 }
                 break;
             case R.id.activity_goods_list_price_layout:
@@ -181,24 +222,31 @@ public class GoodsListActivity extends BaseActivity implements GoodsListView {
                     sortType = 4;
                     activityGoodsListPriceImg.setImageDrawable(getResources().getDrawable(R.mipmap.good_order_up));
                 }
-                presenter.requestData(from,id,pageSize,pageIndex,sortType,searchName);
+                requestData();
                 break;
         }
     }
 
     @Override
-    public void firstInEmpty() {
-        goodsListAdapter.setEmptyView(LayoutInflater.from(this).inflate(R.layout.search_empty_view,null));
+    public void setHavePageEmptyView() {
+        goodsListAdapter.setNewData(null);
+        goodsListAdapter.setEmptyView(loadingEmptyView);
 
     }
 
     @Override
-    public void loadEnd() {
+    public void setHavePageErrorView() {
+        goodsListAdapter.setNewData(null);
+        goodsListAdapter.setEmptyView(loadingErrorView);
+    }
+
+    @Override
+    public void loadDataEnd() {
         goodsListAdapter.loadMoreEnd();
     }
 
     @Override
-    public void refresh(List list) {
+    public void firstLoadData(List list) {
         goodsListAdapter.setNewData(list);
         goodsListAdapter.loadMoreComplete();
     }

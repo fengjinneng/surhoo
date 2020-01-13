@@ -181,6 +181,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="收票人手机号"
+                android:drawableRight="@mipmap/necessary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -271,6 +272,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:text="纳税人识别码"
+                android:drawableRight="@mipmap/necessary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -286,6 +288,8 @@
                 android:background="@null"
                 android:hint="纳税人识别号或统一社会信用代码"
                 android:textSize="14sp"
+                android:inputType="textVisiblePassword"
+                android:maxLength="20"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView79"
@@ -408,6 +412,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout28"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -425,6 +430,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
+                    android:drawableRight="@mipmap/necessary"
                     android:text="单位名称"
                     app:layout_constraintBottom_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_companyName"
                     app:layout_constraintStart_toStartOf="parent"
@@ -458,6 +464,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
+                    android:drawableRight="@mipmap/necessary"
                     android:text="纳税人识别码"
                     app:layout_constraintBottom_toTopOf="@+id/activity_edit_invoice_special_vat_invoice_taxCode"
                     app:layout_constraintStart_toStartOf="parent"
@@ -473,6 +480,8 @@
                     android:layout_marginRight="8dp"
                     android:background="@null"
                     android:hint="纳税人识别码或统一社会信用代码"
+                    android:inputType="textVisiblePassword"
+                    android:maxLength="20"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView55"
@@ -493,6 +502,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
+                    android:drawableRight="@mipmap/necessary"
                     android:text="注册地址"
                     app:layout_constraintBottom_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_company_address"
                     app:layout_constraintStart_toStartOf="parent"
@@ -527,6 +537,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
+                    android:drawableRight="@mipmap/necessary"
                     android:text="注册电话"
                     app:layout_constraintBottom_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_phone"
                     app:layout_constraintStart_toStartOf="parent"
@@ -562,6 +573,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
+                    android:drawableRight="@mipmap/necessary"
                     android:text="开户银行"
                     app:layout_constraintBottom_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_bankName"
                     app:layout_constraintStart_toStartOf="parent"
@@ -595,7 +607,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:text="开户银行"
+                    android:drawableRight="@mipmap/necessary"
+                    android:text="银行账户"
                     app:layout_constraintBottom_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_bank_account"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/activity_edit_invoice_special_vat_invoice_bank_account" />
@@ -608,8 +621,8 @@
                     android:layout_marginRight="8dp"
                     android:background="@null"
                     android:hint="请填写银行账户"
-                    android:textSize="14sp"
                     android:inputType="number"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/activity_edit_invoice_special_vat_invoice_bankName"
                     app:layout_constraintTop_toBottomOf="@+id/view21" />
@@ -619,13 +632,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:background="@color/bgColor"
+                    android:paddingLeft="8dp"
                     android:paddingTop="18dp"
                     android:paddingBottom="10dp"
                     android:text="收票人信息"
-                    android:paddingLeft="8dp"
-                    android:textSize="14sp"
                     android:textColor="@color/saleColor"
-                    android:background="@color/bgColor"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_bank_account" />
@@ -643,6 +656,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
+                        android:drawableRight="@mipmap/necessary"
                         android:text="昵称"
                         app:layout_constraintBottom_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_nickname"
                         app:layout_constraintStart_toStartOf="parent"
@@ -678,6 +692,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
+                        android:drawableRight="@mipmap/necessary"
                         android:text="地址"
                         app:layout_constraintBottom_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_address"
                         app:layout_constraintStart_toStartOf="parent"
@@ -725,6 +740,15 @@
                         android:checked="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/view24" />
+
+                    <TextView
+                        android:id="@+id/textView102"
+                        android:layout_width="0dp"
+                        android:layout_height="250dp"
+                        android:background="@color/bgColor"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/activity_edit_invoice_special_vat_invoice_default" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

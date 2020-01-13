@@ -78,7 +78,7 @@
         android:id="@+id/textView77"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="@color/dividerLine"
+        android:background="@color/saleColor"
         app:layout_constraintBottom_toBottomOf="@+id/item_order_confirm_market_price"
         app:layout_constraintEnd_toEndOf="@+id/item_order_confirm_market_price"
         app:layout_constraintStart_toStartOf="@+id/item_order_confirm_market_price"

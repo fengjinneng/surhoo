@@ -1,16 +1,15 @@
 package com.surhoo.sh.shoppingcart;
 
-import android.widget.TextView;
-
 import com.surhoo.sh.base.NoPageListBaseView;
+import com.surhoo.sh.base.StringResultBaseView;
 
-public interface ShoppingCartView extends NoPageListBaseView<ShoppingCartBean> {
-
-
-   void changShoppingCarNum(boolean isAdd, int id, int goodsNum, ShoppingCartBean.CarGoodsListBean bean, TextView num);
+public interface ShoppingCartView extends NoPageListBaseView<ShoppingCartBean>, StringResultBaseView {
 
 
-   void deleteShoppingCart();
+//   void changShoppingCarNum(boolean isAdd, int id, int goodsNum, ShoppingCartBean.CarGoodsListBean bean, TextView num);
+//
+//
+//   void deleteShoppingCart();
 
 
 }

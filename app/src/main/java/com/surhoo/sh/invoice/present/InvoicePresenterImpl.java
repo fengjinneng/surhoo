@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
@@ -39,50 +40,16 @@ public class InvoicePresenterImpl implements InvoicePresenter {
     }
 
     @Override
-    public void requestData() {
-        NetworkReturnUtil.requestList(invoiceView,activity,Api.INVOICELIST,null,InvoiceBean.class);
+    public void requestInvoiceList(String requestTag) {
+        NetworkReturnUtil.requestNoPageList(requestTag,invoiceView,activity,Api.INVOICELIST,null,InvoiceBean.class);
     }
 
     @Override
-    public void deleteInvoice(int id,int position) {
-
-
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    public void deleteInvoice(String requestTag,int id) {
 
         String s ="{\"id\":"+id+"}";
 
-        RequestBody requestBody = RequestBody.create(JSON,s );
-
-        PutRequest<String> request = OkGo.<String>put(Api.DELETEINVOICE)
-                .tag(activity)
-                .headers("Authorization", activity.getResources().getString(R.string.Auth))
-                .upRequestBody(requestBody);
-
-        DialogStringCallback stringCallback = new DialogStringCallback(activity) {
-
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtils.v("DELETEINVOICE", response.body());
-                try {
-                    if (response.code() == 200) {
-
-                        invoiceView.getDeleteResult(position);
-
-                    } else {
-                        ToastUtils.showShort("啊哦，出现错误了！");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                invoiceView.showToastMsg(response.message());
-            }
-        };
-
-        request.execute(stringCallback);
+        NetworkReturnUtil.requestStringResultUsePut(requestTag,invoiceView,activity,Api.DELETEINVOICE,s);
     }
+
 }

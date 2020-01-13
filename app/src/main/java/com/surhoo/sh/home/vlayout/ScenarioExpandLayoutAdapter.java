@@ -10,6 +10,7 @@ import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.surhoo.sh.R;
+import com.surhoo.sh.common.util.ClickUtil;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,9 +45,7 @@ public class ScenarioExpandLayoutAdapter extends DelegateAdapter.Adapter<Scenari
         return new ScenarioExpandLayoutViewHolder(LayoutInflater.from(context).inflate(R.layout.item_scenario_expand, viewGroup, false));
     }
 
-
     int rotation = 0;
-
 
     @Override
     public void onBindViewHolder(@NonNull ScenarioExpandLayoutViewHolder viewHolder, int i) {
@@ -55,16 +54,20 @@ public class ScenarioExpandLayoutAdapter extends DelegateAdapter.Adapter<Scenari
         viewHolder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(rotation==0){
-                    rotation=180;
-                    viewHolder.img.setRotation(rotation);
-                }else {
-                    rotation=0;
-                    viewHolder.img.setRotation(rotation);
+
+                if (ClickUtil.isFastClick()) {
+
+                    if (rotation == 0) {
+                        rotation = 180;
+                        viewHolder.img.setRotation(rotation);
+                    } else {
+                        rotation = 0;
+                        viewHolder.img.setRotation(rotation);
+                    }
+
+                    onScenarioExpandClickListener.onScenarioExpandClick();
+
                 }
-
-                onScenarioExpandClickListener.onScenarioExpandClick();
-
             }
         });
     }

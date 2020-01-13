@@ -6,6 +6,6 @@ import com.surhoo.sh.invoice.view.EditInvoiceView;
 
 public interface IEditInvoicePresent extends BasePresenter<EditInvoiceView> {
 
-    void saveInvocieInfo(RequestSaveInvocieBean bean);
+    void addInvoice(String requestTag,RequestSaveInvocieBean bean);
 
 }

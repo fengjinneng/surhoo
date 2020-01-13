@@ -3,15 +3,25 @@ package com.surhoo.sh.home.view;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Notification;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.PermissionUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.githang.statusbar.StatusBarCompat;
 import com.surhoo.sh.R;
 import com.surhoo.sh.base.BaseActivity;
+import com.surhoo.sh.common.UserUtil;
 import com.surhoo.sh.home.fragment.HomeFragment;
 import com.surhoo.sh.home.fragment.MineFragment;
+import com.surhoo.sh.login.view.LoginActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -74,6 +84,12 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    @SuppressLint("MissingSuperCall")
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //super.onSaveInstanceState(outState);
+    }
+
     //隐藏所有的fragment
     private void hideFragment(FragmentTransaction transaction) {
 
@@ -95,13 +111,11 @@ public class MainActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.activity_main_home_layout:
 
-
                 activityMainHomeImg.setImageDrawable(getResources().getDrawable(R.mipmap.home_select));
                 activityMainHomeTv.setTextColor(getResources().getColor(R.color.themeColor));
 
                 activityMainMineImg.setImageDrawable(getResources().getDrawable(R.mipmap.mine_unselect));
                 activityMainMineTv.setTextColor(getResources().getColor(R.color.pageTitle));
-
 
                 if (homeFragment == null) {
 

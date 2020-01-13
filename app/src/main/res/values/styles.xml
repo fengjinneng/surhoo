@@ -47,6 +47,13 @@
     </style>
 
 
+    <style name="startTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/startpage</item>
+        <item name="android:statusBarColor">@color/white</item>
+    </style>
+
+
+
     <style name="loading_dialog" parent="@android:style/Theme.Dialog">
         <item name="android:backgroundDimEnabled">false</item><!--activity不变暗-->
     </style>
@@ -59,6 +66,14 @@
         <!--<item name="style">Widget.AppCompat.Button</item>-->
         <!--<item name="style">@style/Widget.AppCompat.Button</item>-->
 
+    </style>
+
+
+
+    <!--dialog  弹出拍照样式-->
+    <style name="BottomDialog" parent="@style/Base.V7.Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
 

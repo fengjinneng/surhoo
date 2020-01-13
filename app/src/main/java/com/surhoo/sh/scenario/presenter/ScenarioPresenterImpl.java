@@ -35,7 +35,7 @@ public class ScenarioPresenterImpl implements IScenarioPresenter {
     public void requestData(int sceneId) {
         HttpParams httpParams = new HttpParams();
 
-        NetworkReturnUtil.requestOne(scenarioView, activity, Api.SCENARIODETAIL + "/" + sceneId, httpParams, ScenarioBean.class);
+        NetworkReturnUtil.requestBeanResultUseGet(scenarioView, activity, Api.SCENARIODETAIL + "/" + sceneId, httpParams, ScenarioBean.class);
 
     }
 

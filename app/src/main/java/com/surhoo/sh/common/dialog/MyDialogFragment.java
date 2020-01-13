@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.surhoo.sh.R;
+import com.surhoo.sh.common.util.ClickUtil;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -96,8 +97,10 @@ public class MyDialogFragment extends DialogFragment {
         mLayout.findViewById(R.id.common_dialog_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!ObjectUtils.isEmpty(onCancelClickListener)){
-                    onCancelClickListener.onCancelClick();
+                if (ClickUtil.isFastClick()) {
+                    if (!ObjectUtils.isEmpty(onCancelClickListener)) {
+                        onCancelClickListener.onCancelClick();
+                    }
                 }
             }
         });
@@ -105,8 +108,10 @@ public class MyDialogFragment extends DialogFragment {
         mLayout.findViewById(R.id.common_dialog_confirm).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!ObjectUtils.isEmpty(onConfirmClickListener)){
-                    onConfirmClickListener.onConfirmClick();
+                if (ClickUtil.isFastClick()) {
+                    if (!ObjectUtils.isEmpty(onConfirmClickListener)) {
+                        onConfirmClickListener.onConfirmClick();
+                    }
                 }
             }
         });

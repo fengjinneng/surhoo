@@ -1,7 +1,11 @@
 package com.surhoo.sh;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.surhoo.sh.address.bean.AddressBean;
 import com.surhoo.sh.common.util.MyJsonUtil;
+
+import java.util.List;
 
 public class Test {
 
@@ -18,11 +22,13 @@ public class Test {
 //
 //        s.getDeclaringClass();
 
-        String s = "";
+        String s = "[]";
 
-        JSONArray jsonArray = JSONArray.parseArray(s);
+        List beans = JSONObject.parseArray(s, AddressBean.class);
 
-        System.out.println(jsonArray.size());
+//        JSONArray jsonArray = JSONArray.parseArray(s);
+
+        System.out.println(beans.size());
 
 
 

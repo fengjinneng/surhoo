@@ -5,7 +5,7 @@ import android.app.Activity;
 import com.lzy.okgo.model.HttpParams;
 import com.surhoo.sh.common.Api;
 import com.surhoo.sh.common.util.NetworkReturnUtil;
-import com.surhoo.sh.shop.ShopDetailBean;
+import com.surhoo.sh.shop.bean.ShopDetailBean;
 import com.surhoo.sh.shop.presenter.ShopPresenter;
 import com.surhoo.sh.shop.view.ShopView;
 
@@ -27,12 +27,11 @@ public class ShopPresenterImpl implements ShopPresenter {
     }
 
     @Override
-    public void requestData(boolean isSelf, int shopId) {
+    public void requestData(int shopId) {
 
         HttpParams httpParams = new HttpParams();
-        httpParams.put("isSelf",isSelf);
         httpParams.put("shopId",shopId);
 
-        NetworkReturnUtil.requestOne(shopView,activity,Api.SHOPDETAIL,httpParams,ShopDetailBean.class);
+        NetworkReturnUtil.requestBeanResultUseGet(shopView,activity,Api.SHOPDETAIL,httpParams,ShopDetailBean.class);
     }
 }

@@ -8,9 +8,16 @@ public interface GoodsDetailPresenter extends BasePresenter<GoodsDetailView> {
 
     void requestData(int id);
 
-    void addToCar(RequestAddToCarBean bean);
+    void addToCar(String requestTag,RequestAddToCarBean bean);
 
-    void getShoopingCartNumber();
+    void getShoopingCartNumber(String requestTag);
+
+
+    //1 商品 2 素材 3设计师 4店铺
+    void addCollect(String requestTag,int type,int typeId);
+
+
+    void cancelCollect(String requestTag,int type,int typeId);
 
 
 }

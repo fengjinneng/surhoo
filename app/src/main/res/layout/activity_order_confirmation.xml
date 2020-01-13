@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+        android:background="@color/bgColor"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="49dp"
@@ -53,6 +54,7 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="16dp"
                 android:textSize="13sp"
+                android:background="@color/white"
                 android:textColor="@color/pageTitle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textView17" />
@@ -69,7 +71,11 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/activity_order_confirm_address_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
 
                 <ImageView
@@ -138,6 +144,7 @@
                 android:id="@+id/activity_order_confirm_total_price_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view34"
@@ -187,6 +194,7 @@
                 android:id="@+id/activity_order_confirm_postage_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view35">
@@ -237,6 +245,7 @@
                 android:id="@+id/activity_order_confirm_invoice_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view36">
@@ -287,6 +296,7 @@
                 android:id="@+id/activity_order_confirm_remarks_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view37">
@@ -340,6 +350,7 @@
                 android:id="@+id/activity_order_confirm_pay_online_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view38">
@@ -369,16 +380,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <View
-                android:id="@+id/view39"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:background="@color/bgColor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/activity_order_confirm_pay_online_layout" />
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -432,7 +433,7 @@
             android:textColor="@color/white"
             android:textSize="14sp"
             android:gravity="center"
-            android:text="支付"
+            android:text="提交订单"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

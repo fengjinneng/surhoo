@@ -16,6 +16,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.surhoo.sh.R;
 import com.surhoo.sh.base.BaseFragment;
+import com.surhoo.sh.common.util.ClickUtil;
 import com.surhoo.sh.material.MaterialDetailActivity;
 import com.surhoo.sh.material.bean.MaterialBean;
 import com.surhoo.sh.scenario.presenter.ScenarioMaterialPresent;
@@ -28,7 +29,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class ScenarioMaterialFragment extends BaseFragment implements IScenarioMaterialView ,ScenarioActivity.onMaterialSortTypeClickListener {
+public class ScenarioMaterialFragment extends BaseFragment implements IScenarioMaterialView, ScenarioActivity.onMaterialSortTypeClickListener {
     private static final String SCENARIOID = "scenarioId";
     @BindView(R.id.fragment_scenario_material_recyclerview)
     RecyclerView fragmentScenarioMaterialRecyclerview;
@@ -76,11 +77,11 @@ public class ScenarioMaterialFragment extends BaseFragment implements IScenarioM
     public void init() {
 
         present = new ScenarioMaterialPresent();
-        present.bindView(getActivity(),this);
+        present.bindView(getActivity(), this);
 
         datas = new ArrayList<>();
 
-        adapter = new SearchMaterialAdapter(R.layout.item_material_list,datas);
+        adapter = new SearchMaterialAdapter(R.layout.item_material_list, datas);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
@@ -93,15 +94,17 @@ public class ScenarioMaterialFragment extends BaseFragment implements IScenarioM
                 pageIndex++;
                 requestData();
             }
-        },fragmentScenarioMaterialRecyclerview);
+        }, fragmentScenarioMaterialRecyclerview);
 
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MaterialBean materialBean = (MaterialBean)adapter.getData().get(position);
-                Intent i = new Intent(getActivity(), MaterialDetailActivity.class);
-                i.putExtra("id", materialBean.getMaterialId());
-                ActivityUtils.startActivity(i);
+                if (ClickUtil.isFastClick()) {
+                    MaterialBean materialBean = (MaterialBean) adapter.getData().get(position);
+                    Intent i = new Intent(getActivity(), MaterialDetailActivity.class);
+                    i.putExtra("id", materialBean.getMaterialId());
+                    ActivityUtils.startActivity(i);
+                }
             }
         });
 
@@ -116,22 +119,27 @@ public class ScenarioMaterialFragment extends BaseFragment implements IScenarioM
 
     @Override
     public void requestData() {
-        present.requestData(20,pageIndex,sortType,scenarioId);
+        present.requestData(20, pageIndex, sortType, scenarioId);
     }
 
     @Override
-    public void firstInEmpty() {
+    public void setHavePageEmptyView() {
 
     }
 
     @Override
-    public void loadEnd() {
+    public void setHavePageErrorView() {
+
+    }
+
+    @Override
+    public void loadDataEnd() {
         adapter.loadMoreEnd();
     }
 
     @Override
-    public void refresh(List list) {
-        if(!ObjectUtils.isEmpty(list)){
+    public void firstLoadData(List list) {
+        if (!ObjectUtils.isEmpty(list)) {
             adapter.setNewData(list);
             adapter.loadMoreComplete();
         }
@@ -139,7 +147,7 @@ public class ScenarioMaterialFragment extends BaseFragment implements IScenarioM
 
     @Override
     public void loadData(List list) {
-        if(!ObjectUtils.isEmpty(list)){
+        if (!ObjectUtils.isEmpty(list)) {
             adapter.addData(list);
             adapter.loadMoreComplete();
         }
@@ -153,11 +161,11 @@ public class ScenarioMaterialFragment extends BaseFragment implements IScenarioM
 
     @Override
     public void onMaterialSortTypeClick(int sortType) {
-        if(this.sortType==sortType){
+        if (this.sortType == sortType) {
             return;
         }
         this.sortType = sortType;
-        pageIndex=1;
+        pageIndex = 1;
         requestData();
     }
 }

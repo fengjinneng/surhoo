@@ -10,16 +10,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:paddingBottom="10dp"
         android:background="@drawable/bg_desinger_item"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingBottom="10dp"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="10dp">
 
 
         <ImageView
@@ -31,7 +25,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/placeholder_head_img" />
+            app:srcCompat="@mipmap/default_img_round" />
 
         <TextView
             android:id="@+id/item_designer_list_name"
@@ -39,7 +33,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
-            android:text="飞羽"
             android:textColor="@color/pageTitle"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/item_designer_list_avator"
@@ -69,7 +62,7 @@
             android:background="@drawable/bg_round_corner_orange_button"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="lv9"
+            android:text="lv0"
             android:textColor="@color/white"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@+id/item_designer_list_name"
@@ -116,76 +109,26 @@
             android:layout_marginLeft="8dp"
             android:text="热门素材"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/item_designer_list_material"
+            app:layout_constraintBottom_toBottomOf="@+id/item_designer_multiPictureView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/item_designer_list_material" />
+            app:layout_constraintTop_toTopOf="@+id/item_designer_multiPictureView" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/item_designer_list_material"
+        <com.goyourfly.multi_picture.MultiPictureView
+            android:id="@+id/item_designer_multiPictureView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:editable="false"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/item_designer_list_content"
-            app:layout_constraintTop_toBottomOf="@+id/item_designer_list_content">
+            app:layout_constraintTop_toBottomOf="@+id/item_designer_list_content"
+            app:max="6"
+            app:space="5dp"
+            app:span="3" />
 
-            <ImageView
-                android:id="@+id/item_designer_list_material_1"
-                android:layout_width="82dp"
-                android:layout_height="82dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/placeholder_img" />
-
-            <ImageView
-                android:id="@+id/item_designer_list_material_2"
-                android:layout_width="82dp"
-                android:layout_height="82dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                app:layout_constraintStart_toEndOf="@+id/item_designer_list_material_1"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/placeholder_img" />
-
-            <ImageView
-                android:id="@+id/item_designer_list_material_3"
-                android:layout_width="82dp"
-                android:layout_height="82dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                app:layout_constraintStart_toEndOf="@+id/item_designer_list_material_2"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/placeholder_img" />
-
-            <ImageView
-                android:id="@+id/item_designer_list_material_4"
-                android:layout_width="82dp"
-                android:layout_height="82dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/item_designer_list_material_1"
-                app:srcCompat="@mipmap/placeholder_img" />
-
-            <ImageView
-                android:id="@+id/item_designer_list_material_5"
-                android:layout_width="82dp"
-                android:layout_height="82dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                app:layout_constraintStart_toEndOf="@+id/item_designer_list_material_4"
-                app:layout_constraintTop_toTopOf="@+id/item_designer_list_material_4"
-                app:srcCompat="@mipmap/placeholder_img" />
-
-            <ImageView
-                android:id="@+id/item_designer_list_material_6"
-                android:layout_width="82dp"
-                android:layout_height="82dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                app:layout_constraintStart_toEndOf="@+id/item_designer_list_material_5"
-                app:layout_constraintTop_toTopOf="@+id/item_designer_list_material_5"
-                app:srcCompat="@mipmap/placeholder_img" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -33,6 +33,9 @@ import cn.qqtheme.framework.entity.Province;
 
 public class EditAddresActivity extends BaseActivity implements EditAddressView {
 
+    private static final String ADDADDRESS = "addAddress";
+    private static final String UPDATEADDRESS = "updateAddress";
+
     @BindView(R.id.toolbar_layout_back)
     ImageView toolbarLayoutBack;
     @BindView(R.id.toolbar_layout_title)
@@ -174,13 +177,13 @@ public class EditAddresActivity extends BaseActivity implements EditAddressView 
             address.setDistrictName(uploadDistrict);
             address.setAddress(activityEditAddressDetail.getText().toString());
 
-            if (ObjectUtils.isEmpty(address)) {
+            if (ObjectUtils.isEmpty(addressBean)) {
                 //保存地址
-                editAddressPresent.addAddress(address);
+                editAddressPresent.addAddress(ADDADDRESS,address);
             } else {
                 //修改地址
                 address.setId(addressBean.getId());
-                editAddressPresent.updateAddress(address);
+                editAddressPresent.updateAddress(UPDATEADDRESS,address);
             }
         }
     }
@@ -218,21 +221,20 @@ public class EditAddresActivity extends BaseActivity implements EditAddressView 
     }
 
     @Override
-    public void getAddResult() {
-        EventBus.getDefault().post(new EventBusMessageBean(EventBusMessageBean.Address.addAddressSuccess));
-        finish();
-    }
-
-    @Override
-    public void getUpdateResult() {
-        EventBus.getDefault().post(new EventBusMessageBean(EventBusMessageBean.Address.updateAddressSuccess));
-        finish();
-    }
-
-    @Override
     public void showToastMsg(String msg) {
         ToastUtils.showShort(msg);
 
     }
 
+    @Override
+    public void showStringData(String requestTag, String s) {
+        if(StringUtils.equals(ADDADDRESS,requestTag)){
+            EventBus.getDefault().post(new EventBusMessageBean(EventBusMessageBean.Address.addAddressSuccess));
+
+        }
+        if(StringUtils.equals(UPDATEADDRESS,requestTag)){
+            EventBus.getDefault().post(new EventBusMessageBean(EventBusMessageBean.Address.updateAddressSuccess));
+        }
+        finish();
+    }
 }

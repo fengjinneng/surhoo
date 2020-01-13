@@ -5,7 +5,9 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bigkoo.convenientbanner.holder.Holder;
+import com.blankj.utilcode.util.ResourceUtils;
 import com.bumptech.glide.Glide;
+import com.surhoo.sh.R;
 
 //banner工具类
 
@@ -15,6 +17,7 @@ public class NetworkImageHolderView implements Holder<String> {
     public View createView(Context context) {
         //你可以通过layout文件来创建，也可以像我一样用代码创建，不一定是Image，任何控件都可以进行翻页
         imageView = new ImageView(context);
+        imageView.setImageDrawable(context.getResources().getDrawable(R.mipmap.default_img_rect));
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         return imageView;
     }
@@ -25,7 +28,9 @@ public class NetworkImageHolderView implements Holder<String> {
 
 //        Glide.with(context).load(data).into(imageView);
 
-        GlideUtil.loadBannerImage(context,data,imageView);
+        GlideUtil.loadDefaultImg(context,data,imageView);
+
+
     }
 }
 

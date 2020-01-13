@@ -65,84 +65,102 @@
         app:layout_constraintStart_toStartOf="@+id/item_goods_comments_time"
         app:layout_constraintTop_toBottomOf="@+id/item_goods_comments_time" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/item_goods_comments_layout"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
+    <com.goyourfly.multi_picture.MultiPictureView
+        android:id="@+id/item_goods_comments_multiPictureView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:editable="false"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_goods_comments_content">
+        app:layout_constraintTop_toBottomOf="@+id/item_goods_comments_content"
+        app:max="6"
+        app:space="5dp"
+        app:span="4" />
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/item_goods_comments_layout"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_marginStart="15dp"-->
+<!--        android:layout_marginLeft="15dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="15dp"-->
+<!--        android:layout_marginRight="15dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/item_goods_comments_content">-->
 
 
-        <ImageView
-            android:id="@+id/item_goods_comments_img1"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/item_goods_comments_img2"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/placeholder_img" />
+<!--        <ImageView-->
+<!--            android:id="@+id/item_goods_comments_img1"-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/item_goods_comments_img2"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintHorizontal_chainStyle="packed"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:srcCompat="@mipmap/placeholder_img" />-->
 
-        <ImageView
-            android:id="@+id/item_goods_comments_img2"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/item_goods_comments_img3"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/item_goods_comments_img1"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/placeholder_img" />
+<!--        <ImageView-->
+<!--            android:id="@+id/item_goods_comments_img2"-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginLeft="8dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/item_goods_comments_img3"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/item_goods_comments_img1"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:srcCompat="@mipmap/placeholder_img" />-->
 
-        <ImageView
-            android:id="@+id/item_goods_comments_img3"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/item_goods_comments_img4"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/item_goods_comments_img2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/placeholder_img" />
+<!--        <ImageView-->
+<!--            android:id="@+id/item_goods_comments_img3"-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginLeft="8dp"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/item_goods_comments_img4"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/item_goods_comments_img2"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:srcCompat="@mipmap/placeholder_img" />-->
 
-        <ImageView
-            android:id="@+id/item_goods_comments_img4"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/item_goods_comments_img5"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/item_goods_comments_img3"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/placeholder_img" />
+<!--        <ImageView-->
+<!--            android:id="@+id/item_goods_comments_img4"-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginLeft="8dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/item_goods_comments_img5"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/item_goods_comments_img3"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:srcCompat="@mipmap/placeholder_img" />-->
 
-        <ImageView
-            android:id="@+id/item_goods_comments_img5"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/item_goods_comments_img4"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/placeholder_img" />
+<!--        <ImageView-->
+<!--            android:id="@+id/item_goods_comments_img5"-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginLeft="8dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/item_goods_comments_img4"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:srcCompat="@mipmap/placeholder_img" />-->
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@ import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.surhoo.sh.R;
+import com.surhoo.sh.common.util.ClickUtil;
 import com.surhoo.sh.common.util.GlideUtil;
 import com.surhoo.sh.home.bean.HomePageBean;
 import com.surhoo.sh.scenario.view.ScenarioActivity;
@@ -76,9 +77,12 @@ public class LevelOneScenarioLayoutAdapter extends DelegateAdapter.Adapter<Level
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(context,ScenarioActivity.class);
-                intent.putExtra("id",item.getSceneId());
-                ActivityUtils.startActivity(intent);
+                if(ClickUtil.isFastClick()) {
+                    Intent intent = new Intent(context, ScenarioActivity.class);
+                    intent.putExtra("id", item.getSceneId());
+                    intent.putExtra("title", item.getName());
+                    ActivityUtils.startActivity(intent);
+                }
             }
         });
 

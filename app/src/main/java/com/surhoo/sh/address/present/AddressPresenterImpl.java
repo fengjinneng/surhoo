@@ -12,6 +12,7 @@ import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
 import com.lzy.okgo.request.PutRequest;
+import com.surhoo.sh.App;
 import com.surhoo.sh.R;
 import com.surhoo.sh.address.bean.AddressBean;
 import com.surhoo.sh.address.view.AddressView;
@@ -30,52 +31,15 @@ public class AddressPresenterImpl implements AddressPresenter {
     private AddressView addressView;
 
     @Override
-    public void requestData() {
-        NetworkReturnUtil.requestList(addressView,activity,Api.ADDRESSLIST,null, AddressBean.class);
+    public void requestAddressList(String requestTag) {
+        NetworkReturnUtil.requestNoPageList(requestTag,addressView,activity,Api.ADDRESSLIST,null, AddressBean.class);
     }
 
     @Override
-    public void deleteAddress(int id,int position) {
-
-
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    public void deleteAddress(String requestTag,int id) {
 
         String s = "{\"id\":"+id+"}";
-
-        RequestBody requestBody = RequestBody.create(JSON,s );
-
-       PutRequest<String> request = OkGo.<String>put(Api.deleteAddress)
-                .tag(activity)
-                .headers("Authorization", activity.getResources().getString(R.string.Auth))
-                .upRequestBody(requestBody);
-
-        DialogStringCallback stringCallback = new DialogStringCallback(activity) {
-
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtils.v("deleteAddress", response.body());
-                try {
-                    if (response.code() == 200) {
-
-                        addressView.getDeleteResult(position);
-
-
-                    } else {
-                        ToastUtils.showShort("啊哦，出现错误了！");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                addressView.showToastMsg(response.message());
-            }
-        };
-
-        request.execute(stringCallback);
+        NetworkReturnUtil.requestStringResultUsePut(requestTag,addressView,activity, Api.deleteAddress,s);
 
     }
 

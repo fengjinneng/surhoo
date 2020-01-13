@@ -7,9 +7,9 @@ import android.view.View;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ObjectUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.surhoo.sh.ImagePagerActivity;
 import com.surhoo.sh.R;
 import com.surhoo.sh.common.bean.PhotoInfo;
 import com.surhoo.sh.common.util.MultiImageView;
@@ -53,7 +53,12 @@ public class DesignerDynamicAdapter extends BaseQuickAdapter<DesignerDynamicBean
                         materialIntent.putExtra("id",trendsListBean.getMaterialId());
                         ActivityUtils.startActivity(materialIntent);
                     }else {
-                        ToastUtils.showShort("这是设计师成品");
+                        List<String> photoUrls = new ArrayList<String>();
+                        for (int i = 0; i < trendsList.size(); i++) {
+                            photoUrls.add(trendsList.get(i).getLogo());
+                        }
+                        ImagePagerActivity.ImageSize imageSize = new ImagePagerActivity.ImageSize(view.getMeasuredWidth(), view.getMeasuredHeight());
+                        ImagePagerActivity.startImagePagerActivity(mContext, photoUrls, position, imageSize);
                     }
                 }
             });

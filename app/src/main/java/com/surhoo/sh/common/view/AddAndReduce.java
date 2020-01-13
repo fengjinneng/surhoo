@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.surhoo.sh.R;
+import com.surhoo.sh.common.util.ClickUtil;
 
 public class AddAndReduce extends ConstraintLayout {
 
@@ -41,14 +42,18 @@ public class AddAndReduce extends ConstraintLayout {
         add.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                onAddClickListener.onAddClick();
+                if (ClickUtil.isFastClick()) {
+                    onAddClickListener.onAddClick();
+                }
             }
         });
 
         reduce.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                onReduceClickListener.onReduceClick();
+                if (ClickUtil.isFastClick()) {
+                    onReduceClickListener.onReduceClick();
+                }
             }
         });
     }

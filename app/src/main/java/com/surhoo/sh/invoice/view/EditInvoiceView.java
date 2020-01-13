@@ -1,8 +1,9 @@
 package com.surhoo.sh.invoice.view;
 
 
-public interface EditInvoiceView {
+import com.surhoo.sh.base.StringResultBaseView;
 
-    void getResult();
+public interface EditInvoiceView extends StringResultBaseView {
+
 
 }

@@ -42,8 +42,9 @@
 
     <color name="d6d6d6">#D6D6D6</color>
 
-
     <color name="deleteColor">#F01426</color>
+
+    <color name="guideColor">#fe881c</color>
 
 
 </resources>

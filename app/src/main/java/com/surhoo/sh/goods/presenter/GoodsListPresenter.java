@@ -7,4 +7,7 @@ public interface GoodsListPresenter extends BasePresenter<GoodsListView> {
 
     void requestData(int from,int classifyld,int pageSize,int pageIndex,int sortType,String searchName);
 
+
+    void getCollect(int pageSize,int pageIndex,int type);
+
 }

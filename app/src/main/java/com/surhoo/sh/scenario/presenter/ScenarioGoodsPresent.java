@@ -33,7 +33,7 @@ public class ScenarioGoodsPresent implements BasePresenter<IScenarioGoodsView> {
         httpParams.put("sortType", sortType);
         httpParams.put("sceneId", sceneId);
 
-        NetworkReturnUtil.requestPage(iScenarioGoodsView,activity,Api.SCENARIOCATEGORYLIST,httpParams,GoodsBean.class,pageIndex);
+        NetworkReturnUtil.requestHavePageList(iScenarioGoodsView,activity,Api.SCENARIOCATEGORYLIST,httpParams,GoodsBean.class,pageIndex);
 
     }
 

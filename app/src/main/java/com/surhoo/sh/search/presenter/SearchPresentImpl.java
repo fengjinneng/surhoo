@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
 import com.surhoo.sh.R;
@@ -39,41 +40,10 @@ public class SearchPresentImpl implements ISearchPresent {
 
     @Override
     public void requestData(String searchName) {
-        GetRequest<String> request = OkGo.<String>get(Api.SEARCHALL)
-                .tag(activity)
-                .headers("Authorization", activity.getResources().getString(R.string.Auth))
-                .params("searchName",searchName);
+        HttpParams httpParams = new HttpParams();
+        httpParams.put("searchName",searchName);
 
-        DialogStringCallback stringCallback = new DialogStringCallback(activity) {
+        NetworkReturnUtil.requestBeanResultUseGet(searchView,activity,Api.SEARCHALL,httpParams,HomePageBean.class);
 
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtils.v("SEARCHALL", response.body());
-                try {
-                    if (response.code() == 200) {
-                        JSONObject jsonObject = JSONObject.parseObject(response.body());
-                        if (!StringUtils.isEmpty(jsonObject.getString("code"))) {
-                            ToastUtils.showShort(jsonObject.getString("msg"));
-                            return;
-                        }
-
-                        searchView.showData(JSON.parseObject(jsonObject.toString(), HomePageBean.class));
-
-                    } else {
-                        ToastUtils.showShort("啊哦，出现错误了！");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                searchView.showToastMsg(response.message());
-            }
-        };
-
-        request.execute(stringCallback);
     }
 }

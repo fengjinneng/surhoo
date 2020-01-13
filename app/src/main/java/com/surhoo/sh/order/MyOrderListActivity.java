@@ -7,6 +7,7 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.surhoo.sh.R;
 import com.surhoo.sh.base.BaseActivity;
 import com.surhoo.sh.common.util.BaseViewpageAdapter;
+import com.surhoo.sh.common.util.NoCacheBaseViewpageAdapter;
 import com.surhoo.sh.order.fragment.OrderListFragment;
 
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class MyOrderListActivity extends BaseActivity {
     @Override
     public void initView() {
 
-        toolbarLayoutTitle.setText("订单详情");
+        toolbarLayoutTitle.setText("订单列表");
 
     }
 

@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ObjectUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.surhoo.sh.R;

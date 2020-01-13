@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.surhoo.sh.R;
 import com.surhoo.sh.base.BaseFragment;
 import com.surhoo.sh.common.recyclerview.GridDivider;
+import com.surhoo.sh.common.util.ClickUtil;
 import com.surhoo.sh.goods.adapter.GoodsListAdapter;
 import com.surhoo.sh.goods.bean.GoodsBean;
 import com.surhoo.sh.goods.view.impl.GoodsDetailActivity;
@@ -97,10 +98,12 @@ public class ScenarioGoodsFragment extends BaseFragment implements IScenarioGood
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                GoodsBean goodsBean = (GoodsBean) adapter.getData().get(position);
-                Intent i = new Intent(getActivity(), GoodsDetailActivity.class);
-                i.putExtra("id", goodsBean.getGoodsId());
-                ActivityUtils.startActivity(i);
+                if (ClickUtil.isFastClick()) {
+                    GoodsBean goodsBean = (GoodsBean) adapter.getData().get(position);
+                    Intent i = new Intent(getActivity(), GoodsDetailActivity.class);
+                    i.putExtra("id", goodsBean.getGoodsId());
+                    ActivityUtils.startActivity(i);
+                }
             }
         });
 
@@ -119,17 +122,22 @@ public class ScenarioGoodsFragment extends BaseFragment implements IScenarioGood
     }
 
     @Override
-    public void firstInEmpty() {
+    public void setHavePageEmptyView() {
 
     }
 
     @Override
-    public void loadEnd() {
+    public void setHavePageErrorView() {
+
+    }
+
+    @Override
+    public void loadDataEnd() {
         adapter.loadMoreEnd();
     }
 
     @Override
-    public void refresh(List list) {
+    public void firstLoadData(List list) {
         if(!ObjectUtils.isEmpty(list)){
 
             adapter.setNewData(list);
@@ -153,12 +161,12 @@ public class ScenarioGoodsFragment extends BaseFragment implements IScenarioGood
         ToastUtils.showShort(msg);
     }
 
-
     @Override
     public void onGoodsSortTypeClick(int sortType) {
-        if(this.sortType==sortType){
+        if(this.sortType==sortType&&this.sortType < 3){
             return;
         }
+
         this.sortType = sortType;
         pageIndex=1;
         requestData();

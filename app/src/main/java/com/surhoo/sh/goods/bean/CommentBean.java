@@ -190,38 +190,9 @@ public class CommentBean {
     }
 
     public static class ListBean {
-        /**
-         * id : 1
-         * orderId : 132
-         * orderDataId : 132
-         * goodsId : 1
-         * materialId : null
-         * goodsType : 1
-         * goodsName : 撒大声地
-         * userId : 1001
-         * mark : 5
-         * userName : 111
-         * skuId : 1
-         * skuName : 黄色_10*10
-         * orderNo : 13213213
-         * evaluateName : 这是一条评论
-         * img : https://wx.qlogo.cn/mmopen/vi_32/uGOeNuw7ln7BEUFDaNP5WuVGXoqxDRSeibGs1zCWFcHLcEH6hFY7Wn02k5ibictfOmbKGGMpeznEVfbcbficd058YQ/132
-         * isUsed : 0
-         * isShow : true
-         * returnDate : 2019-07-15 08:29:08
-         * returnName : null
-         * returnDesc : 好的好的
-         * gmtCreate : 2019-07-08 02:28:48
-         * gmtModified : null
-         * headimgurl : https://wx.qlogo.cn/mmopen/vi_32/uGOeNuw7ln7BEUFDaNP5WuVGXoqxDRSeibGs1zCWFcHLcEH6hFY7Wn02k5ibictfOmbKGGMpeznEVfbcbficd058YQ/132
-         * mobile : 1313
-         * sysId : null
-         * shopId : null
-         * isPlatform : true
-         * type : 1
-         * isAnonymous : null
-         */
 
+        //是否已经添加过了图片信息
+        private boolean isLoad;
         private Integer id;
         private Integer orderId;
         private Integer orderDataId;
@@ -251,6 +222,14 @@ public class CommentBean {
         private Boolean isPlatform;
         private Integer type;
         private Object isAnonymous;
+
+        public boolean isLoad() {
+            return isLoad;
+        }
+
+        public void setLoad(boolean load) {
+            isLoad = load;
+        }
 
         public Integer getId() {
             return id;

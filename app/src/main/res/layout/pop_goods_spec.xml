@@ -129,6 +129,7 @@
             android:text="加入购物车"
             android:textColor="@color/themeColor"
             android:textSize="16sp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/pop_goods_spec_buy_rightNow"
             app:layout_constraintHorizontal_bias="0.5"
@@ -195,15 +196,18 @@
             android:layout_height="40dp"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/bg_round_corner_orange_button"
             android:text="立刻购买"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/pop_goods_spec_addtocar"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/pop_goods_spec_addtocar" />
+            app:layout_constraintStart_toEndOf="@+id/pop_goods_spec_addtocar"
+            app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

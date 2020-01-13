@@ -17,7 +17,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/placeholder_img" />
+        app:srcCompat="@mipmap/default_img_square" />
 
     <TextView
         android:id="@+id/item_shop_list_name"
@@ -27,7 +27,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="TextViewTextViewTextViewTextViewTextViewTextView"
         android:maxLines="2"
         android:textColor="@color/pageTitle"
         android:ellipsize="end"
@@ -80,7 +79,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:text="388"
         android:textColor="@color/themeColor"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView20"

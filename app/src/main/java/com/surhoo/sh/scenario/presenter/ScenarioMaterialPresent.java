@@ -33,7 +33,7 @@ public class ScenarioMaterialPresent implements BasePresenter<IScenarioMaterialV
         httpParams.put("sortType", sortType);
         httpParams.put("sceneId", sceneId);
 
-        NetworkReturnUtil.requestPage(iScenarioMaterialView,activity,Api.SCENARIOCATEGORYLIST,httpParams,MaterialBean.class,pageIndex);
+        NetworkReturnUtil.requestHavePageList(iScenarioMaterialView,activity,Api.SCENARIOCATEGORYLIST,httpParams,MaterialBean.class,pageIndex);
 
     }
 

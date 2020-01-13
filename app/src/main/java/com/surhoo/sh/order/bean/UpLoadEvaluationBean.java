@@ -2,13 +2,25 @@ package com.surhoo.sh.order.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import java.io.File;
+import java.util.List;
+
 public class UpLoadEvaluationBean {
 
 
-    private int maxCount = 5;
+    private int maxCount = 6;
 
     private int requestCode;
 
+    private boolean havaContent;
+
+    public boolean isHavaContent() {
+        return havaContent;
+    }
+
+    public void setHavaContent(boolean havaContent) {
+        this.havaContent = havaContent;
+    }
 
     public int getMaxCount() {
         return maxCount;
@@ -25,9 +37,6 @@ public class UpLoadEvaluationBean {
     public void setRequestCode(int requestCode) {
         this.requestCode = requestCode;
     }
-
-
-
 
     private int position;
 
@@ -46,6 +55,16 @@ public class UpLoadEvaluationBean {
     private boolean isAnonymous;
     private int mark;
     private String img;
+
+    private List<File> imgFiles;
+
+    public List<File> getImgFiles() {
+        return imgFiles;
+    }
+
+    public void setImgFiles(List<File> imgFiles) {
+        this.imgFiles = imgFiles;
+    }
 
     public boolean isAnonymous() {
         return isAnonymous;
@@ -101,5 +120,23 @@ public class UpLoadEvaluationBean {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+
+    @Override
+    public String toString() {
+        return "UpLoadEvaluationBean{" +
+                "maxCount=" + maxCount +
+                ", requestCode=" + requestCode +
+                ", havaContent=" + havaContent +
+                ", position=" + position +
+                ", orderDataId=" + orderDataId +
+                ", orderId=" + orderId +
+                ", evaluateName='" + evaluateName + '\'' +
+                ", isAnonymous=" + isAnonymous +
+                ", mark=" + mark +
+                ", img='" + img + '\'' +
+                ", imgFiles=" + imgFiles +
+                '}';
     }
 }

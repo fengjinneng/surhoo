@@ -6,7 +6,7 @@ import com.surhoo.sh.invoice.view.InvoiceView;
 public interface InvoicePresenter extends BasePresenter<InvoiceView> {
 
 
-    void requestData();
-    void deleteInvoice(int id,int position);
+    void requestInvoiceList(String requestTag);
+    void deleteInvoice(String requestTag,int id);
 
 }

@@ -1,19 +1,18 @@
 package com.surhoo.sh.scenario.view;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -24,9 +23,9 @@ import com.surhoo.sh.R;
 import com.surhoo.sh.base.BaseActivity;
 import com.surhoo.sh.common.Api;
 import com.surhoo.sh.common.util.BaseViewpageAdapter;
+import com.surhoo.sh.common.util.ClickUtil;
 import com.surhoo.sh.common.util.GlideUtil;
 import com.surhoo.sh.scenario.NextLevelScenarioAdapter;
-import com.surhoo.sh.scenario.ScenarioAdapter;
 import com.surhoo.sh.scenario.bean.ScenarioBean;
 import com.surhoo.sh.scenario.fragment.ScenarioGoodsFragment;
 import com.surhoo.sh.scenario.fragment.ScenarioMaterialFragment;
@@ -35,14 +34,18 @@ import com.surhoo.sh.scenario.presenter.ScenarioPresenterImpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ScenarioActivity extends BaseActivity implements IScenarioView {
 
-
     NextLevelScenarioAdapter nextLevelScenarioAdapter;
-
     @BindView(R.id.toolbar_layout_back)
     ImageView toolbarLayoutBack;
     @BindView(R.id.toolbar_layout_title)
@@ -56,8 +59,6 @@ public class ScenarioActivity extends BaseActivity implements IScenarioView {
 
 
     ScenarioPresenterImpl presenter;
-
-    ScenarioAdapter scenarioAdapter;
 
     List<ScenarioBean.InfoListBean> nextLevelScenarioDatas;
     @BindView(R.id.activity_scenario_category_img)
@@ -79,13 +80,26 @@ public class ScenarioActivity extends BaseActivity implements IScenarioView {
     @BindView(R.id.activity_scenario_sort_material_tab)
     ConstraintLayout activityScenarioSortMaterialTab;
 
+    @BindView(R.id.activity_scenario_nextlevel_decoration)
+    View nextLevelDecoraation;
+    @BindView(R.id.activity_scenario_sort_goods_price_img)
+    ImageView activityScenarioSortGoodsPriceImg;
+    @BindView(R.id.activity_scenario_sort_goods_price_layout)
+    ConstraintLayout activityScenarioSortGoodsPriceLayout;
+    @BindView(R.id.activity_scenario_sort_material_price_img)
+    ImageView activityScenarioSortMaterialPriceImg;
+    @BindView(R.id.activity_scenario_sort_material_price_layout)
+    ConstraintLayout activityScenarioSortMaterialPriceLayout;
+
 
     //    1 商品 2 素材
     private int type = 1;
     //排序方式 1综合 2销量 3价格
-    private int sortType = 1;
+    private int goodSortType = 1;
+    private int materialSortType = 1;
 
     private Integer id;
+    private String title;
 
     private onGoodsSortTypeClickListener onGoodsSortTypeClickListener;
     private onMaterialSortTypeClickListener onMaterialSortTypeClickListener;
@@ -105,11 +119,12 @@ public class ScenarioActivity extends BaseActivity implements IScenarioView {
     public void initView() {
 
         id = getIntent().getIntExtra("id", 0);
+        title =getIntent().getStringExtra("title");
 
         presenter = new ScenarioPresenterImpl();
         presenter.bindView(this, this);
 
-        toolbarLayoutTitle.setText("场景");
+        toolbarLayoutTitle.setText(title);
 
     }
 
@@ -146,7 +161,7 @@ public class ScenarioActivity extends BaseActivity implements IScenarioView {
         httpParams.put("pageSize", 5);
         httpParams.put("pageIndex", 1);
         httpParams.put("type", 2);
-        httpParams.put("sortType", sortType);
+        httpParams.put("sortType", materialSortType);
         httpParams.put("sceneId", id);
 
         GetRequest<String> request = OkGo.<String>get(Api.SCENARIOCATEGORYLIST)
@@ -208,10 +223,11 @@ public class ScenarioActivity extends BaseActivity implements IScenarioView {
                     public void onPageScrolled(int i, float v, int i1) {
 
                     }
+
                     @Override
                     public void onPageSelected(int i) {
                         type = i + 1;
-                        switch (i){
+                        switch (i) {
                             case 0:
                                 activityScenarioSortGoodsTab.setVisibility(View.VISIBLE);
                                 activityScenarioSortMaterialTab.setVisibility(View.GONE);
@@ -236,13 +252,16 @@ public class ScenarioActivity extends BaseActivity implements IScenarioView {
                 List<Fragment> fragments = new ArrayList<>();
                 fragments.add(ScenarioGoodsFragment.newInstance(id));
                 activityScenarioViewPager.setAdapter(new BaseViewpageAdapter(getSupportFragmentManager(), fragments));
+                activityScenarioSortGoodsTab.setVisibility(View.VISIBLE);
+                activityScenarioSortMaterialTab.setVisibility(View.GONE);
                 return;
             }
             if (hasMaterial) {
                 List<Fragment> fragments = new ArrayList<>();
                 fragments.add(ScenarioMaterialFragment.newInstance(id));
                 activityScenarioViewPager.setAdapter(new BaseViewpageAdapter(getSupportFragmentManager(), fragments));
-                type = 2;
+                activityScenarioSortGoodsTab.setVisibility(View.GONE);
+                activityScenarioSortMaterialTab.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -252,7 +271,7 @@ public class ScenarioActivity extends BaseActivity implements IScenarioView {
         httpParams.put("pageSize", 5);
         httpParams.put("pageIndex", 1);
         httpParams.put("type", 1);
-        httpParams.put("sortType", sortType);
+        httpParams.put("sortType", goodSortType);
         httpParams.put("sceneId", id);
 
         GetRequest<String> request = OkGo.<String>get(Api.SCENARIOCATEGORYLIST)
@@ -306,11 +325,12 @@ public class ScenarioActivity extends BaseActivity implements IScenarioView {
 
 
     @Override
-    public void showData(ScenarioBean scenarioBean) {
+    public void showBeanData(ScenarioBean scenarioBean) {
 
         GlideUtil.loadDefaultImg(this, scenarioBean.getLogo(), activityScenarioCategoryImg);
 
         if (!ObjectUtils.isEmpty(scenarioBean.getInfoList())) {
+            nextLevelDecoraation.setVisibility(View.VISIBLE);
             activityScenarioNextlevelRecyclerview.setVisibility(View.VISIBLE);
             nextLevelScenarioDatas = new ArrayList<>();
             nextLevelScenarioDatas.addAll(scenarioBean.getInfoList());
@@ -318,57 +338,100 @@ public class ScenarioActivity extends BaseActivity implements IScenarioView {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
             activityScenarioNextlevelRecyclerview.setLayoutManager(linearLayoutManager);
             activityScenarioNextlevelRecyclerview.setAdapter(nextLevelScenarioAdapter);
+            nextLevelScenarioAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    if (ClickUtil.isFastClick()) {
+                        ScenarioBean.InfoListBean infoListBean = (ScenarioBean.InfoListBean) adapter.getData().get(position);
+                        Integer sceneId = infoListBean.getSceneId();
+                        Intent intent = new Intent(ScenarioActivity.this, ScenarioActivity.class);
+                        intent.putExtra("id", sceneId);
+                        intent.putExtra("title", infoListBean.getName());
+                        ActivityUtils.startActivity(intent);
+                    }
+                }
+            });
+
         }
 
     }
 
-    @OnClick({R.id.toolbar_layout_back,R.id.activity_scenario_sort_goods_normal, R.id.activity_scenario_sort_goods_sale_count
-            , R.id.activity_scenario_sort_goods_price, R.id.activity_scenario_sort_material_normal
+
+    @OnClick({R.id.toolbar_layout_back, R.id.activity_scenario_sort_goods_normal, R.id.activity_scenario_sort_goods_sale_count
+            , R.id.activity_scenario_sort_goods_price_layout, R.id.activity_scenario_sort_material_normal
             , R.id.activity_scenario_sort_material_sale_count,
-            R.id.activity_scenario_sort_material_price})
+            R.id.activity_scenario_sort_material_price_layout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_layout_back:
                 finish();
                 break;
             case R.id.activity_scenario_sort_goods_normal:
-                if(ObjectUtils.isEmpty(onGoodsSortTypeClickListener)) return;
-                onGoodsSortTypeClickListener.onGoodsSortTypeClick(1);
+                if (ObjectUtils.isEmpty(onGoodsSortTypeClickListener)) return;
+                goodSortType = 1;
+                activityScenarioSortGoodsPriceImg.setImageDrawable(getResources().getDrawable(R.mipmap.good_order_default));
+                onGoodsSortTypeClickListener.onGoodsSortTypeClick(goodSortType);
                 activityScenarioSortGoodsNormal.setTextColor(getResources().getColor(R.color.themeColor));
                 activityScenarioSortGoodsSaleCount.setTextColor(getResources().getColor(R.color.saleColor));
                 activityScenarioSortGoodsPrice.setTextColor(getResources().getColor(R.color.saleColor));
                 break;
             case R.id.activity_scenario_sort_goods_sale_count:
-                if(ObjectUtils.isEmpty(onGoodsSortTypeClickListener)) return;
-                onGoodsSortTypeClickListener.onGoodsSortTypeClick(2);
+                if (ObjectUtils.isEmpty(onGoodsSortTypeClickListener)) return;
+                goodSortType = 2;
+                activityScenarioSortGoodsPriceImg.setImageDrawable(getResources().getDrawable(R.mipmap.good_order_default));
+                onGoodsSortTypeClickListener.onGoodsSortTypeClick(goodSortType);
                 activityScenarioSortGoodsNormal.setTextColor(getResources().getColor(R.color.saleColor));
                 activityScenarioSortGoodsSaleCount.setTextColor(getResources().getColor(R.color.themeColor));
                 activityScenarioSortGoodsPrice.setTextColor(getResources().getColor(R.color.saleColor));
                 break;
-            case R.id.activity_scenario_sort_goods_price:
-                if(ObjectUtils.isEmpty(onGoodsSortTypeClickListener)) return;
-                onGoodsSortTypeClickListener.onGoodsSortTypeClick(3);
+            case R.id.activity_scenario_sort_goods_price_layout:
+                if (ObjectUtils.isEmpty(onGoodsSortTypeClickListener)) return;
+                if (goodSortType == 3) {
+                    goodSortType = 4;
+                    activityScenarioSortGoodsPriceImg.setImageDrawable(getResources().getDrawable(R.mipmap.good_order_up));
+                } else if (goodSortType == 4) {
+                    goodSortType = 3;
+                    activityScenarioSortGoodsPriceImg.setImageDrawable(getResources().getDrawable(R.mipmap.good_order_down));
+                } else {
+                    goodSortType = 3;
+                    activityScenarioSortGoodsPriceImg.setImageDrawable(getResources().getDrawable(R.mipmap.good_order_down));
+                }
+                onGoodsSortTypeClickListener.onGoodsSortTypeClick(goodSortType);
                 activityScenarioSortGoodsNormal.setTextColor(getResources().getColor(R.color.saleColor));
                 activityScenarioSortGoodsSaleCount.setTextColor(getResources().getColor(R.color.saleColor));
                 activityScenarioSortGoodsPrice.setTextColor(getResources().getColor(R.color.themeColor));
                 break;
             case R.id.activity_scenario_sort_material_normal:
-                if(ObjectUtils.isEmpty(onMaterialSortTypeClickListener)) return;
-                onMaterialSortTypeClickListener.onMaterialSortTypeClick(1);
+                if (ObjectUtils.isEmpty(onMaterialSortTypeClickListener)) return;
+                materialSortType = 1;
+                activityScenarioSortMaterialPriceImg.setImageDrawable(getResources().getDrawable(R.mipmap.good_order_default));
+                onMaterialSortTypeClickListener.onMaterialSortTypeClick(materialSortType);
                 activityScenarioSortMaterialNormal.setTextColor(getResources().getColor(R.color.themeColor));
                 activityScenarioSortMaterialSaleCount.setTextColor(getResources().getColor(R.color.saleColor));
                 activityScenarioSortMaterialPrice.setTextColor(getResources().getColor(R.color.saleColor));
                 break;
             case R.id.activity_scenario_sort_material_sale_count:
-                if(ObjectUtils.isEmpty(onMaterialSortTypeClickListener)) return;
-                onMaterialSortTypeClickListener.onMaterialSortTypeClick(2);
+                if (ObjectUtils.isEmpty(onMaterialSortTypeClickListener)) return;
+                materialSortType = 2;
+                activityScenarioSortMaterialPriceImg.setImageDrawable(getResources().getDrawable(R.mipmap.good_order_default));
+                onMaterialSortTypeClickListener.onMaterialSortTypeClick(materialSortType);
                 activityScenarioSortMaterialNormal.setTextColor(getResources().getColor(R.color.saleColor));
                 activityScenarioSortMaterialSaleCount.setTextColor(getResources().getColor(R.color.themeColor));
                 activityScenarioSortMaterialPrice.setTextColor(getResources().getColor(R.color.saleColor));
                 break;
-            case R.id.activity_scenario_sort_material_price:
-                if(ObjectUtils.isEmpty(onMaterialSortTypeClickListener)) return;
-                onMaterialSortTypeClickListener.onMaterialSortTypeClick(3);
+            case R.id.activity_scenario_sort_material_price_layout:
+                if (ObjectUtils.isEmpty(onMaterialSortTypeClickListener)) return;
+                if (materialSortType == 3) {
+                    materialSortType = 4;
+                    activityScenarioSortMaterialPriceImg.setImageDrawable(getResources().getDrawable(R.mipmap.good_order_up));
+                } else if (materialSortType == 4) {
+                    materialSortType = 3;
+                    activityScenarioSortMaterialPriceImg.setImageDrawable(getResources().getDrawable(R.mipmap.good_order_down));
+                } else {
+                    materialSortType = 3;
+                    activityScenarioSortMaterialPriceImg.setImageDrawable(getResources().getDrawable(R.mipmap.good_order_down));
+                }
+                onMaterialSortTypeClickListener.onMaterialSortTypeClick(materialSortType);
                 activityScenarioSortMaterialNormal.setTextColor(getResources().getColor(R.color.saleColor));
                 activityScenarioSortMaterialSaleCount.setTextColor(getResources().getColor(R.color.saleColor));
                 activityScenarioSortMaterialPrice.setTextColor(getResources().getColor(R.color.themeColor));
@@ -376,6 +439,7 @@ public class ScenarioActivity extends BaseActivity implements IScenarioView {
                 break;
         }
     }
+
 
     public interface onGoodsSortTypeClickListener {
         void onGoodsSortTypeClick(int sortType);

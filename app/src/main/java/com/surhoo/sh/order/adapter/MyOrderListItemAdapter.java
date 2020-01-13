@@ -5,24 +5,23 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.surhoo.sh.R;
+import com.surhoo.sh.bean.order.response.OrderDetailReturnBean;
 import com.surhoo.sh.common.util.GlideUtil;
-import com.surhoo.sh.order.bean.OrderListBean;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class MyOrderListItemAdapter extends BaseQuickAdapter<OrderListBean.OrderDataListBean, BaseViewHolder> {
+public class MyOrderListItemAdapter extends BaseQuickAdapter<OrderDetailReturnBean.OrderDataListBean, BaseViewHolder> {
 
 
-    public MyOrderListItemAdapter(int layoutResId, @Nullable List<OrderListBean.OrderDataListBean> data) {
+    public MyOrderListItemAdapter(int layoutResId, @Nullable List<OrderDetailReturnBean.OrderDataListBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(@NonNull BaseViewHolder helper, OrderListBean.OrderDataListBean item) {
-
+    protected void convert(@NonNull BaseViewHolder helper, OrderDetailReturnBean.OrderDataListBean item) {
 
         helper.setText(R.id.item_order_confirm_goodsName, item.getGoodsName());
         helper.setText(R.id.item_order_confirm_price, "¥"+item.getGoodsPrice());

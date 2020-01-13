@@ -19,6 +19,7 @@ import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.surhoo.sh.R;
+import com.surhoo.sh.common.util.ClickUtil;
 import com.surhoo.sh.common.util.GlideUtil;
 import com.surhoo.sh.goods.view.impl.GoodsDetailActivity;
 import com.surhoo.sh.home.bean.HomePageBean;
@@ -99,9 +100,11 @@ public class MaterialLayoutAdapter extends DelegateAdapter.Adapter<MaterialLayou
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent materialIntent = new Intent(context, MaterialDetailActivity.class);
-                materialIntent.putExtra("id", item.getMaterialId());
-                ActivityUtils.startActivity(materialIntent);
+                if (ClickUtil.isFastClick()) {
+                    Intent materialIntent = new Intent(context, MaterialDetailActivity.class);
+                    materialIntent.putExtra("id", item.getMaterialId());
+                    ActivityUtils.startActivity(materialIntent);
+                }
             }
         });
 

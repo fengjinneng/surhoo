@@ -1,6 +1,6 @@
 package com.surhoo.sh.login.view;
 
-import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -8,19 +8,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.ObjectUtils;
+import com.blankj.utilcode.util.RegexUtils;
+import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.surhoo.sh.base.BaseActivity;
 import com.surhoo.sh.R;
+import com.surhoo.sh.common.eventBus.EventBusMessageBean;
+import com.surhoo.sh.login.bean.UserDataBean;
 import com.surhoo.sh.login.presenter.LoginPresenter;
 import com.surhoo.sh.login.presenter.LoginPresenterImpl;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
 public class LoginActivity extends BaseActivity implements LoginView {
-
 
     LoginPresenter loginPresenter;
     @BindView(R.id.activity_login_phone)
@@ -35,14 +44,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
     ImageView toolbarLayoutBack;
     @BindView(R.id.toolbar_layout_title)
     TextView toolbarLayoutTitle;
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }
 
     @Override
     public int getContentView() {
@@ -59,7 +60,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     public void initView() {
         loginPresenter = new LoginPresenterImpl();
 
-        loginPresenter.bindView(this,this);
+        loginPresenter.bindView(this, this);
         toolbarLayoutTitle.setText("登录");
     }
 
@@ -77,10 +78,37 @@ public class LoginActivity extends BaseActivity implements LoginView {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.activity_login_send_verifycode:
+
+                if (StringUtils.isEmpty(activityLoginPhone.getText().toString())) {
+                    showToastMsg("请填写手机号!");
+                    return;
+                }
+
+                if (!RegexUtils.isMobileSimple(activityLoginPhone.getText().toString())) {
+                    showToastMsg("您的手机号有误!");
+                    return;
+                }
+
+                activityLoginVerifycode.requestFocus();
+
                 loginPresenter.sendVerifycode(activityLoginPhone.getText().toString());
                 break;
             case R.id.activity_login_login:
-                loginPresenter.login(activityLoginPhone.getText().toString(), activityLoginPhone.getText().toString());
+                if (StringUtils.isEmpty(activityLoginPhone.getText().toString())) {
+                    showToastMsg("请填写手机号!");
+                    return;
+                }
+
+                if (!RegexUtils.isMobileSimple(activityLoginPhone.getText().toString())) {
+                    showToastMsg("您的手机号有误!");
+                    return;
+                }
+                if (StringUtils.isEmpty(activityLoginVerifycode.getText().toString())) {
+                    showToastMsg("验证码不能为空！");
+                    return;
+                }
+
+                loginPresenter.login(activityLoginPhone.getText().toString(), activityLoginVerifycode.getText().toString());
                 break;
         }
     }
@@ -93,15 +121,17 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
 
     @Override
-    public void setCountDown(String text) {
-        activityLoginSendVerifycode.setText(text);
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (!ObjectUtils.isEmpty(timer)) {
+            timer.cancel();
+        }
+
     }
 
-    @Override
-    public void setSendVerifycodeEnable(boolean b) {
-        activityLoginSendVerifycode.setEnabled(b);
+    private CountDownTimer timer;
 
-    }
 
     @OnClick(R.id.toolbar_layout_back)
     public void onViewClicked() {
@@ -109,8 +139,41 @@ public class LoginActivity extends BaseActivity implements LoginView {
         finish();
     }
 
+
     @Override
-    public void showData(Object o) {
+    public void showStringData(String requestTag, String s) {
+        activityLoginSendVerifycode.setEnabled(false);
+
+        timer = new CountDownTimer(59000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (!ObjectUtils.isEmpty(activityLoginSendVerifycode)) {
+                    activityLoginSendVerifycode.setTextColor(getResources().getColor(R.color.saleColor));
+                    SimpleDateFormat sdf = new SimpleDateFormat("ss");
+                    activityLoginSendVerifycode.setText(sdf.format(new Date(millisUntilFinished)) + "s后重试");
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                if (!ObjectUtils.isEmpty(activityLoginSendVerifycode)) {
+                    activityLoginSendVerifycode.setTextColor(getResources().getColor(R.color.themeColor));
+                    activityLoginSendVerifycode.setEnabled(true);
+                    activityLoginSendVerifycode.setText("发送验证码");
+                }
+            }
+        }.start();
+    }
+
+    @Override
+    public void showBeanData(UserDataBean userBean) {
+        SPUtils.getInstance().put("token", userBean.getToken());
+        SPUtils.getInstance().put("nickName", userBean.getUser().getNickname());
+        SPUtils.getInstance().put("headImg", userBean.getUser().getHeadimgurl());
+
+        EventBus.getDefault().post(new EventBusMessageBean(EventBusMessageBean.User.login));
+
+        finish();
 
     }
 }

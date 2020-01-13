@@ -33,7 +33,19 @@ public class MaterialDetailPresentImpl implements IMaterialDetailPresent {
 
         HttpParams httpParams = new HttpParams();
 
-        NetworkReturnUtil.requestOne(materialDetailView,activity,Api.MATERIALDETAIL+"/"+id,httpParams,MaterialBean.class);
+        NetworkReturnUtil.requestBeanResultUseGet(materialDetailView,activity,Api.MATERIALDETAIL+"/"+id,httpParams,MaterialBean.class);
 
+    }
+
+    @Override
+    public void cancelCollect(String requestTag, int typeId) {
+        String s = "{\"type\":2,\"typeId\":"+typeId+"}";
+        NetworkReturnUtil.requestStringResultUsePut(requestTag,materialDetailView,activity,Api.collect,s);
+    }
+
+    @Override
+    public void addCollect(String requestTag, int typeId) {
+        String s = "{\"type\":2,\"typeId\":"+typeId+"}";
+        NetworkReturnUtil.requestStringResultUsePost(requestTag,materialDetailView,activity,Api.collect,s);
     }
 }

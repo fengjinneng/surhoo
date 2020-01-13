@@ -3,11 +3,11 @@ package com.surhoo.sh.search;
 import android.content.Intent;
 import android.graphics.Color;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.net.Uri;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -21,26 +21,26 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.goyourfly.multi_picture.ImageLoader;
+import com.goyourfly.multi_picture.MultiPictureView;
 import com.surhoo.sh.base.BaseActivity;
 import com.surhoo.sh.R;
-import com.surhoo.sh.common.recyclerview.GridDivider;
+import com.surhoo.sh.common.util.ClickUtil;
+import com.surhoo.sh.common.util.GlideUtil;
 import com.surhoo.sh.designer.adapter.DesignerLabelAdapter;
 import com.surhoo.sh.designer.bean.DesignerLabelBean;
 import com.surhoo.sh.designer.bean.DesignerListBean;
 import com.surhoo.sh.designer.view.DesignerActivity;
-import com.surhoo.sh.goods.bean.GoodsBean;
-import com.surhoo.sh.goods.view.impl.GoodsDetailActivity;
-import com.surhoo.sh.home.vlayout.MaterialLayoutAdapter;
 import com.surhoo.sh.material.adapter.MaterialLabelAdapter;
 import com.surhoo.sh.material.bean.MaterialBean;
 import com.surhoo.sh.material.MaterialDetailActivity;
 import com.surhoo.sh.material.bean.MaterialLabelBean;
+import com.surhoo.sh.order.OrderEvaluationActivity;
 import com.surhoo.sh.scenario.bean.ScenarioBean;
 import com.surhoo.sh.scenario.view.ScenarioActivity;
 import com.surhoo.sh.search.adapter.SearchDesignerAdapter;
@@ -51,7 +51,11 @@ import com.surhoo.sh.search.adapter.SearchShopAdapter;
 import com.surhoo.sh.search.presenter.SearchCategoryPresenter;
 import com.surhoo.sh.search.presenter.SearchCategoryPresenterImpl;
 import com.surhoo.sh.search.view.SearchCategoryView;
+import com.surhoo.sh.shop.bean.ShopListBean;
+import com.surhoo.sh.shop.view.ShopActivity;
 import com.zyyoona7.popup.EasyPopup;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +65,9 @@ import butterknife.OnClick;
 
 public class SearchCategoryActivity extends BaseActivity implements SearchCategoryView,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
+
+    private static final String GETDESIGNERLABEL = "getDesignerLabel";
+    private static final String GETMATERIALLABEL = "getMaterialLabel";
 
     @BindView(R.id.search_layout_content)
     EditText searchLayoutContent;
@@ -81,6 +88,10 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
 
     private String searchName;
 
+    private View loadingView;
+    private View loadingEmptyView;
+    private View loadingErrorView;
+
     @Override
     public int getContentView() {
         return R.layout.activity_search_category;
@@ -96,7 +107,9 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
 
         type = getIntent().getIntExtra("type", 0);
 
-        searchName  = getIntent().getStringExtra("searchName");
+        searchName = getIntent().getStringExtra("searchName");
+
+        initLoadingView();
 
         setPageTitle();
 
@@ -116,13 +129,44 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
             }
         });
 
-        if(!StringUtils.isEmpty(searchName)){
+        if (!StringUtils.isEmpty(searchName)) {
             searchLayoutContent.setText(searchName);
             searchLayoutContent.setSelection(searchName.length());
             requestData();
 
         }
+
+        MultiPictureView.setImageLoader(new ImageLoader() {
+            @Override
+            public void loadImage(@NotNull ImageView imageView, @NotNull Uri uri) {
+//                Glide.with(OrderEvaluationActivity.this).load(uri).into(imageView);
+                GlideUtil.loadDefaultImg(SearchCategoryActivity.this,String.valueOf(uri),imageView);
+            }
+        });
+
+
     }
+
+
+    private void initLoadingView() {
+        loadingView = LayoutInflater.from(this).inflate(R.layout.load_data_loading_view, null);
+        loadingEmptyView = LayoutInflater.from(this).inflate(R.layout.load_data_empty_view, null);
+        ImageView emptyImg = (ImageView) loadingEmptyView.findViewById(R.id.load_data_empty_view_img);
+        emptyImg.setImageDrawable(getResources().getDrawable(R.mipmap.search_empty_img));
+        TextView emptyText = (TextView) loadingEmptyView.findViewById(R.id.load_data_empty_view_content);
+        emptyText.setText("抱歉，没有找到相关内容");
+
+        loadingErrorView = LayoutInflater.from(this).inflate(R.layout.load_data_error_view, null);
+
+        TextView errorText = (TextView) loadingErrorView.findViewById(R.id.load_data_error_view_retry);
+        errorText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requestData();
+            }
+        });
+    }
+
 
     @Override
     public void initData() {
@@ -153,6 +197,7 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
                 searchShopAdapter = new SearchShopAdapter(R.layout.item_shop_list, null);
                 activitySearchCategoryRecyclerview.setAdapter(searchShopAdapter);
                 searchShopAdapter.setOnLoadMoreListener(this, activitySearchCategoryRecyclerview);
+                searchShopAdapter.setOnItemClickListener(this);
                 break;
             case 4:
                 searchLayoutContent.setHint("搜索设计师");
@@ -166,19 +211,19 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         DesignerListBean designerListBean = (DesignerListBean) adapter.getData().get(position);
                         switch (view.getId()) {
-                            case R.id.item_designer_list_material_1:
-//                                ActivityUtils.startActivity(MaterialDetailActivity.class);
-                                break;
-                            case R.id.item_designer_list_material_2:
-                                break;
-                            case R.id.item_designer_list_material_3:
-                                break;
-                            case R.id.item_designer_list_material_4:
-                                break;
-                            case R.id.item_designer_list_material_5:
-                                break;
-                            case R.id.item_designer_list_material_6:
-                                break;
+//                            case R.id.item_designer_list_material_1:
+////                                ActivityUtils.startActivity(MaterialDetailActivity.class);
+//                                break;
+//                            case R.id.item_designer_list_material_2:
+//                                break;
+//                            case R.id.item_designer_list_material_3:
+//                                break;
+//                            case R.id.item_designer_list_material_4:
+//                                break;
+//                            case R.id.item_designer_list_material_5:
+//                                break;
+//                            case R.id.item_designer_list_material_6:
+//                                break;
 
                         }
                     }
@@ -224,33 +269,81 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
     }
 
     @Override
-    public void firstInEmpty() {
+    public void setHavePageEmptyView() {
         switch (type) {
 
             case 2:
                 searchScenarioAdapter.setNewData(null);
-                searchScenarioAdapter.setEmptyView(LayoutInflater.from(this).inflate(R.layout.search_empty_view,null));
+                searchScenarioAdapter.setEmptyView(loadingEmptyView);
                 break;
 
             case 3:
                 searchShopAdapter.setNewData(null);
-                searchShopAdapter.setEmptyView(LayoutInflater.from(this).inflate(R.layout.search_empty_view,null));
+                searchShopAdapter.setEmptyView(loadingEmptyView);
                 break;
 
             case 4:
                 searchDesignerAdapter.setNewData(null);
-                searchDesignerAdapter.setEmptyView(LayoutInflater.from(this).inflate(R.layout.search_empty_view,null));
+                searchDesignerAdapter.setEmptyView(loadingEmptyView);
                 break;
 
             case 5:
                 searchMaterialAdapter.setNewData(null);
-                searchMaterialAdapter.setEmptyView(LayoutInflater.from(this).inflate(R.layout.search_empty_view,null));
+                searchMaterialAdapter.setEmptyView(loadingEmptyView);
                 break;
         }
     }
 
     @Override
-    public void loadEnd() {
+    public void setHavePageErrorView() {
+        switch (type) {
+
+            case 2:
+                searchScenarioAdapter.setNewData(null);
+                searchScenarioAdapter.setEmptyView(loadingErrorView);
+                break;
+
+            case 3:
+                searchShopAdapter.setNewData(null);
+                searchShopAdapter.setEmptyView(loadingErrorView);
+                break;
+
+            case 4:
+                searchDesignerAdapter.setNewData(null);
+                searchDesignerAdapter.setEmptyView(loadingErrorView);
+                break;
+
+            case 5:
+                searchMaterialAdapter.setNewData(null);
+                searchMaterialAdapter.setEmptyView(loadingErrorView);
+                break;
+        }
+    }
+
+    @Override
+    public void setNoPageEmptyView() {
+
+    }
+
+    @Override
+    public void setNoPageErrorView() {
+
+    }
+
+    @Override
+    public void showNoPageList(String requestTag, List list) {
+        if (StringUtils.equals(GETDESIGNERLABEL, requestTag)) {
+            setDesignerPopInfo(list);
+        }
+
+        if (StringUtils.equals(GETMATERIALLABEL, requestTag)) {
+            setMaterialPopInfo(list);
+        }
+    }
+
+
+    @Override
+    public void loadDataEnd() {
         switch (type) {
 
             case 2:
@@ -269,7 +362,7 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
     }
 
     @Override
-    public void refresh(List list) {
+    public void firstLoadData(List list) {
 
         //1 商品 2 场景 3 店铺 4 设计师 5素材
         switch (type) {
@@ -339,9 +432,16 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
                 ScenarioBean scenarioBean = (ScenarioBean) adapter.getData().get(position);
                 Intent intent = new Intent(SearchCategoryActivity.this, ScenarioActivity.class);
                 intent.putExtra("id", scenarioBean.getSceneId());
+                intent.putExtra("title", scenarioBean.getName());
                 ActivityUtils.startActivity(intent);
                 break;
             case 3:
+
+                ShopListBean shopListBean = (ShopListBean) adapter.getData().get(position);
+                Intent shopIntent = new Intent(SearchCategoryActivity.this, ShopActivity.class);
+                shopIntent.putExtra("id", shopListBean.getShopId());
+                ActivityUtils.startActivity(shopIntent);
+
                 break;
             case 4:
                 DesignerListBean designerBean = (DesignerListBean) adapter.getData().get(position);
@@ -372,7 +472,7 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
 
                     case 4:
                         if (ObjectUtils.isEmpty(labelPop)) {
-                            searchCategoryPresenter.requestDesignerLabel();
+                            searchCategoryPresenter.requestDesignerLabel(GETDESIGNERLABEL);
                         } else {
                             labelPop.showAtLocation(searchLayoutContent, Gravity.TOP, 0, 0);
                         }
@@ -380,7 +480,7 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
 
                     case 5:
                         if (ObjectUtils.isEmpty(labelPop)) {
-                            searchCategoryPresenter.requestMaterialLabel();
+                            searchCategoryPresenter.requestMaterialLabel(GETMATERIALLABEL);
                         } else {
                             labelPop.showAtLocation(searchLayoutContent, Gravity.TOP, 0, 0);
                         }
@@ -417,35 +517,38 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                TextView labelName = (TextView) adapter.getViewByPosition(recyclerView, position, R.id.item_label_name);
+                if (ClickUtil.isFastClick()) {
+                    TextView labelName = (TextView) adapter.getViewByPosition(recyclerView, position, R.id.item_label_name);
 
-                DesignerLabelBean designerLabelBean = (DesignerLabelBean) adapter.getData().get(position);
+                    DesignerLabelBean designerLabelBean = (DesignerLabelBean) adapter.getData().get(position);
 
-                if (designerLabelBean.isChecked()) {
-                    designerLabelBean.setChecked(false);
-                    labelName.setTextColor(getResources().getColor(R.color.a4a4a4));
-                    labelName.setBackground(getResources().getDrawable(R.drawable.bg_goods_spec_item_uncheck));
-                    idList.remove(designerLabelBean.getId());
-                } else {
-                    idList.add(designerLabelBean.getId());
-                    designerLabelBean.setChecked(true);
-                    labelName.setTextColor(getResources().getColor(R.color.themeColor));
-                    labelName.setBackground(getResources().getDrawable(R.drawable.bg_goods_spec_item_check));
+                    if (designerLabelBean.isChecked()) {
+                        designerLabelBean.setChecked(false);
+                        labelName.setTextColor(getResources().getColor(R.color.a4a4a4));
+                        labelName.setBackground(getResources().getDrawable(R.drawable.bg_goods_spec_item_uncheck));
+                        idList.remove(designerLabelBean.getId());
+                    } else {
+                        idList.add(designerLabelBean.getId());
+                        designerLabelBean.setChecked(true);
+                        labelName.setTextColor(getResources().getColor(R.color.themeColor));
+                        labelName.setBackground(getResources().getDrawable(R.drawable.bg_goods_spec_item_check));
+                    }
+
                 }
-
             }
         });
 
         cancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (ClickUtil.isFastClick()) {
 
-                for (int i = 0; i < adapter.getData().size(); i++) {
-                    adapter.getData().get(i).setChecked(false);
+                    for (int i = 0; i < adapter.getData().size(); i++) {
+                        adapter.getData().get(i).setChecked(false);
+                    }
+                    adapter.notifyDataSetChanged();
+                    idList.clear();
                 }
-                adapter.notifyDataSetChanged();
-                idList.clear();
-
             }
         });
 
@@ -459,7 +562,8 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
         labelPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                pageIndex=1;
+                KeyboardUtils.hideSoftInput(SearchCategoryActivity.this);
+                pageIndex = 1;
                 requestData();
             }
         });
@@ -480,22 +584,24 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                TextView labelName = (TextView) adapter.getViewByPosition(recyclerView, position, R.id.item_label_name);
+                if (ClickUtil.isFastClick()) {
+                    TextView labelName = (TextView) adapter.getViewByPosition(recyclerView, position, R.id.item_label_name);
 
-                MaterialLabelBean materialLabelBean = (MaterialLabelBean) adapter.getData().get(position);
+                    MaterialLabelBean materialLabelBean = (MaterialLabelBean) adapter.getData().get(position);
 
-                if (materialLabelBean.isChecked()) {
-                    materialLabelBean.setChecked(false);
-                    labelName.setTextColor(getResources().getColor(R.color.a4a4a4));
-                    labelName.setBackground(getResources().getDrawable(R.drawable.bg_goods_spec_item_uncheck));
-                    idList.remove(materialLabelBean.getId());
-                } else {
-                    idList.add(materialLabelBean.getId());
-                    materialLabelBean.setChecked(true);
-                    labelName.setTextColor(getResources().getColor(R.color.themeColor));
-                    labelName.setBackground(getResources().getDrawable(R.drawable.bg_goods_spec_item_check));
+                    if (materialLabelBean.isChecked()) {
+                        materialLabelBean.setChecked(false);
+                        labelName.setTextColor(getResources().getColor(R.color.a4a4a4));
+                        labelName.setBackground(getResources().getDrawable(R.drawable.bg_goods_spec_item_uncheck));
+                        idList.remove(materialLabelBean.getId());
+                    } else {
+                        idList.add(materialLabelBean.getId());
+                        materialLabelBean.setChecked(true);
+                        labelName.setTextColor(getResources().getColor(R.color.themeColor));
+                        labelName.setBackground(getResources().getDrawable(R.drawable.bg_goods_spec_item_check));
+                    }
+
                 }
-
             }
         });
 
@@ -503,11 +609,14 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
             @Override
             public void onClick(View v) {
 
-                for (int i = 0; i < adapter.getData().size(); i++) {
-                    adapter.getData().get(i).setChecked(false);
+                if (ClickUtil.isFastClick()) {
+
+                    for (int i = 0; i < adapter.getData().size(); i++) {
+                        adapter.getData().get(i).setChecked(false);
+                    }
+                    adapter.notifyDataSetChanged();
+                    idList.clear();
                 }
-                adapter.notifyDataSetChanged();
-                idList.clear();
 
             }
         });
@@ -515,14 +624,17 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                labelPop.dismiss();
+                if (ClickUtil.isFastClick()) {
+                    labelPop.dismiss();
+                }
             }
         });
 
         labelPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                pageIndex=1;
+                KeyboardUtils.hideSoftInput(SearchCategoryActivity.this);
+                pageIndex = 1;
                 requestData();
             }
         });
@@ -551,15 +663,6 @@ public class SearchCategoryActivity extends BaseActivity implements SearchCatego
 
     }
 
-    @Override
-    public void showDesignerCategory(List<DesignerLabelBean> labelBeans) {
-        setDesignerPopInfo(labelBeans);
-    }
-
-    @Override
-    public void showMaterialLabel(List<MaterialLabelBean> labelBeans) {
-        setMaterialPopInfo(labelBeans);
-    }
 
     private void setMaterialPopInfo(List<MaterialLabelBean> labelBeans) {
         if (ObjectUtils.isEmpty(labelPop)) {

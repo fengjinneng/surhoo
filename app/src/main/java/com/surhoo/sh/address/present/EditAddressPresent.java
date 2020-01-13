@@ -7,7 +7,7 @@ import com.surhoo.sh.base.BasePresenter;
 public interface EditAddressPresent extends BasePresenter<EditAddressView> {
 
 
-    void addAddress(AddressBean addressBean);
-    void updateAddress(AddressBean addressBean);
+    void addAddress(String requestTag,AddressBean addressBean);
+    void updateAddress(String requestTag,AddressBean addressBean);
 
 }

@@ -1,6 +1,6 @@
 package com.surhoo.sh.scenario.view;
 
-import com.surhoo.sh.base.PagerBaseView;
+import com.surhoo.sh.base.HavePageListBaseView;
 
-public interface IScenarioMaterialView extends PagerBaseView {
+public interface IScenarioMaterialView extends HavePageListBaseView {
 }

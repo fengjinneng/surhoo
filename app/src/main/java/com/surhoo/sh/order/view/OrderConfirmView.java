@@ -1,14 +1,15 @@
 package com.surhoo.sh.order.view;
 
-import com.surhoo.sh.address.bean.AddressBean;
-import com.surhoo.sh.base.NoPageListBaseView;
+import com.surhoo.sh.base.OneResultBaseView;
+import com.surhoo.sh.base.StringResultBaseView;
+import com.surhoo.sh.bean.order.response.OrderInfoBean;
 
-public interface OrderConfirmView extends NoPageListBaseView<AddressBean> {
-
-
-    void showPostage(String postage);
+public interface OrderConfirmView extends OneResultBaseView<OrderInfoBean> , StringResultBaseView {
 
 
-    void getPayOrderResult();
+//    void showPostage(String postage);
+//
+//
+//    void getPayOrderResult();
 
 }

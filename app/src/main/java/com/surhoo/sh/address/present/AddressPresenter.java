@@ -5,8 +5,8 @@ import com.surhoo.sh.base.BasePresenter;
 
 public interface AddressPresenter extends BasePresenter<AddressView> {
 
-    void requestData();
+    void requestAddressList(String requestTag);
 
-    void deleteAddress(int id,int position);
+    void deleteAddress(String requestTag,int id);
 
 }

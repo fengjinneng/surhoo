@@ -13,9 +13,13 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.surhoo.sh.R;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.runtime.Permission;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.filter.Filter;
@@ -47,59 +51,68 @@ public class MatisseImageUtil {
      * @param REQUEST_CODE_CHOOSE 请求响应吗
      */
     public static void choosePhoto(Activity activity, int maxCount, int REQUEST_CODE_CHOOSE) {
-        Matisse.from(activity)
-                .choose(MimeType.ofImage())
-                .countable(true)//有序选择图片
-                .maxSelectable(maxCount)//最大选择数
-                .gridExpectedSize(320)//图片显示表格的大小120
-                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)//图像选择和预览活动所需的方向。
-                .thumbnailScale(0.85f)//缩放比例
-//                .theme(R.style.Matisse_Zhihu)//主题  知乎de主题
-                .theme(R.style.Matisse_Dracula)//主题  暗色主题
-                .imageEngine(new MyGlideEngine())//加载方式
-                .showSingleMediaType(true)
-                .capture(true)//设置是否可以拍照  ---> 需要配置清单文件
-                .captureStrategy(new CaptureStrategy(true, "com.surhoo.sh.fileprovider"))//存储到哪里
-                .forResult(REQUEST_CODE_CHOOSE);// 请求响应吗
 
+        AndPermission.with(activity)
+                .runtime()
+                .permission(Permission.CAMERA, Permission.WRITE_EXTERNAL_STORAGE)
+                .onGranted(permissions -> {
+
+                    Matisse.from(activity)
+                            .choose(MimeType.ofImage())
+                            .countable(true)//有序选择图片
+                            .maxSelectable(maxCount)//最大选择数
+                            .gridExpectedSize(320)//图片显示表格的大小120
+                            .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)//图像选择和预览活动所需的方向。
+                            .thumbnailScale(0.85f)//缩放比例
+//                .theme(R.style.Matisse_Zhihu)//主题  知乎de主题
+                            .theme(R.style.Matisse_Dracula)//主题  暗色主题
+                            .imageEngine(new MyGlideEngine())//加载方式
+                            .showSingleMediaType(true)
+                            .capture(true)//设置是否可以拍照  ---> 需要配置清单文件
+                            .captureStrategy(new CaptureStrategy(true, "com.surhoo.sh.fileprovider"))//存储到哪里
+                            .forResult(REQUEST_CODE_CHOOSE);// 请求响应吗
+
+                })
+                .onDenied(permissions -> {
+                    // Storage permission are not allowed.
+                    ToastUtils.showShort(activity.getResources().getString(R.string.applyPermissionFail));
+                })
+                .start();
 
     }
 
     public static void chooseOnlyOnePhoto(Activity activity, int REQUEST_CODE_CHOOSE){
-        Matisse.from(activity)
-                .choose(MimeType.ofImage())
-                .countable(false)
-                .maxSelectable(1)
-                //是否需要拍照
-//                .capture(true)
-                //兼容7.0系统
-                .captureStrategy(new CaptureStrategy(true, "com.company.qcy.fileprovider"))
-                .showSingleMediaType(true)
+
+
+        AndPermission.with(activity)
+                .runtime()
+                .permission(Permission.CAMERA, Permission.WRITE_EXTERNAL_STORAGE)
+                .onGranted(permissions -> {
+
+                    Matisse.from(activity)
+                            .choose(MimeType.ofImage())
+                            .countable(false)
+                            .maxSelectable(1)
+                            //是否需要拍照
+                           .capture(true)
+                            //兼容7.0系统
+                            .theme(R.style.Matisse_Dracula)//主题  暗色主题
+                            .captureStrategy(new CaptureStrategy(true, "com.surhoo.sh.fileprovider"))
+                            .showSingleMediaType(true)
 //                        .addFilter(new GifSizeFilter(320))
 //                        .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
-                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
-                .thumbnailScale(0.85f)
-                .imageEngine(new MyGlideEngine())
-                .forResult(REQUEST_CODE_CHOOSE);
-    }
+                            .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                            .thumbnailScale(0.85f)
+                            .imageEngine(new MyGlideEngine())
+                            .forResult(REQUEST_CODE_CHOOSE);
 
+                })
+                .onDenied(permissions -> {
+                    // Storage permission are not allowed.
+                    ToastUtils.showShort(activity.getResources().getString(R.string.applyPermissionFail));
+                })
+                .start();
 
-
-    public static void chooseAll(Activity activity, int maxCount, int REQUEST_CODE_CHOOSE) {
-        Matisse.from(activity)
-                .choose(MimeType.of(MimeType.JPEG, MimeType.WEBP, MimeType.PNG, MimeType.MP4))
-                .countable(true)//有序选择图片
-                .maxSelectable(maxCount)//最大选择数量为9
-                .gridExpectedSize(320)//图片显示表格的大小120
-                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)//图像选择和预览活动所需的方向。
-                .thumbnailScale(0.85f)//缩放比例
-                .theme(R.style.Matisse_Zhihu)//主题  知乎de主题
-                //.theme(R.style.Matisse_Dracula)//主题  暗色主题
-                .imageEngine(new MyGlideEngine())//加载方式
-                .addFilter(new GifSizeFilter(100 * Filter.K * Filter.K))//限制文件大小
-//                .capture(true)//设置是否可以拍照  ---> 需要配置清单文件
-                .captureStrategy(new CaptureStrategy(true, "com.company.qcy.fileprovider"))//存储到哪里
-                .forResult(REQUEST_CODE_CHOOSE);// 请求响应吗
     }
 
 
@@ -120,29 +133,55 @@ public class MatisseImageUtil {
     }
 
 
-    // 根据Uri获取真实路径以及文件名的方法
-    public static String getRealFilePath(final Context context, final Uri uri) {
+
+    /**
+     *  根据Uri获取文件真实地址
+     */
+    public static String getRealFilePath(Context context, Uri uri) {
         if (null == uri) return null;
         final String scheme = uri.getScheme();
-        String data = null;
+        String realPath = null;
         if (scheme == null)
-            data = uri.getPath();
+            realPath = uri.getPath();
         else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
-            data = uri.getPath();
+            realPath = uri.getPath();
         } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
-            Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            Cursor cursor = context.getContentResolver().query(uri,
+                    new String[]{MediaStore.Images.ImageColumns.DATA},
+                    null, null, null);
             if (null != cursor) {
                 if (cursor.moveToFirst()) {
                     int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
                     if (index > -1) {
-                        data = cursor.getString(index);
+                        realPath = cursor.getString(index);
                     }
                 }
                 cursor.close();
             }
         }
-        return data;
+        if (TextUtils.isEmpty(realPath)) {
+            if (uri != null) {
+                String uriString = uri.toString();
+                int index = uriString.lastIndexOf("/");
+                String imageName = uriString.substring(index);
+                File storageDir;
+
+                storageDir = Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES);
+                File file = new File(storageDir, imageName);
+                if (file.exists()) {
+                    realPath = file.getAbsolutePath();
+                } else {
+                    storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                    File file1 = new File(storageDir, imageName);
+                    realPath = file1.getAbsolutePath();
+                }
+            }
+        }
+        return realPath;
     }
+
+
 
     // 根据真实路径获取文件名
     public static String getFileName(String realFilePath) {
@@ -203,18 +242,6 @@ public class MatisseImageUtil {
 
     }
 
-
-    /**
-     * Bitmap转二进制byte[]
-     *
-     * @param bm
-     * @return
-     */
-    public static byte[] BitmapToBytes(Bitmap bm) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        return baos.toByteArray();
-    }
 
     /**
      * 保存方法

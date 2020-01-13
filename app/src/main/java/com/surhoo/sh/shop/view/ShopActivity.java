@@ -11,13 +11,19 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.SlidingTabLayout;
+import com.flyco.tablayout.listener.CustomTabEntity;
+import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.surhoo.sh.base.BaseActivity;
 import com.surhoo.sh.R;
 import com.surhoo.sh.common.util.BaseViewpageAdapter;
+import com.surhoo.sh.common.util.CommonUtil;
 import com.surhoo.sh.common.util.NetworkImageHolderView;
-import com.surhoo.sh.goods.fragment.GoodsListFragment;
-import com.surhoo.sh.shop.ShopDetailBean;
+import com.surhoo.sh.scenario.fragment.ScenarioGoodsFragment;
+import com.surhoo.sh.scenario.fragment.ScenarioMaterialFragment;
+import com.surhoo.sh.shop.bean.ShopDetailBean;
+import com.surhoo.sh.shop.bean.ShopTypeEntry;
 import com.surhoo.sh.shop.presenter.ShopPresenter;
 import com.surhoo.sh.shop.presenter.impl.ShopPresenterImpl;
 
@@ -41,21 +47,17 @@ public class ShopActivity extends BaseActivity implements ShopView{
     ConvenientBanner activityShopBanner;
     @BindView(R.id.activity_shop_category_tab)
     SlidingTabLayout activityShopCategoryTab;
-    @BindView(R.id.activity_shop_sort_tab)
-    SlidingTabLayout activityShopSortTab;
     @BindView(R.id.activity_shop_viewPager)
     ViewPager activityShopViewPager;
 
+    private int id;
 
-    ShopPresenter presenter;
+    private ShopPresenter presenter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
     }
 
     @Override
@@ -81,11 +83,13 @@ public class ShopActivity extends BaseActivity implements ShopView{
     @Override
     public void initData() {
 
+        id =   getIntent().getIntExtra("id",0);
+
     }
 
     @Override
     public void requestData() {
-        presenter.requestData(false,1);
+        presenter.requestData(id);
     }
 
     @OnClick(R.id.toolbar_layout_back)
@@ -95,7 +99,7 @@ public class ShopActivity extends BaseActivity implements ShopView{
 
 
     @Override
-    public void showData(ShopDetailBean shopDetailBean) {
+    public void showBeanData(ShopDetailBean shopDetailBean) {
         activityShopName.setText(shopDetailBean.getName());
 
         Glide.with(this).load(shopDetailBean.getShopLogo()).into(activityShopLogo);
@@ -106,19 +110,7 @@ public class ShopActivity extends BaseActivity implements ShopView{
             bannerData.add(shopDetailBean.getBannerList().get(i));
         }
 
-        activityShopBanner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
-            @Override
-            public NetworkImageHolderView createHolder() {
-                return new NetworkImageHolderView();
-            }
-        }, bannerData);
-
-//        convenientBanner.setPageIndicator(new int[]{R.mipmap.banner_unchoiced, R.mipmap.banner_choiced});
-//        convenientBanner.setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
-        //设置如果只有一组数据时不能滑动
-//        convenientBanner.setPointViewVisible(bannerData.size() == 1 ? false : true); // 指示器
-        activityShopBanner.setManualPageable(bannerData.size() == 1 ? false : true);//设置false,手动影响（设置了该项无法手动切换）
-        activityShopBanner.setCanLoop(bannerData.size() == 1 ? false : true); // 是否循环
+        CommonUtil.setBannerInfo(activityShopBanner,bannerData);
 
         activityShopBanner.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -127,15 +119,16 @@ public class ShopActivity extends BaseActivity implements ShopView{
             }
         });
 
-        List<Fragment> fragments = new ArrayList<>();
+
         String[] arr = new String[shopDetailBean.getClassifyList().size()];
 
         for (int i = 0; i < shopDetailBean.getClassifyList().size(); i++) {
-            fragments.add(GoodsListFragment.newInstance(2,shopDetailBean.getClassifyList().get(i).getClassifyId(),1));
             arr[i] = shopDetailBean.getClassifyList().get(i).getName();
         }
 
-
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(ScenarioGoodsFragment.newInstance(id));
+        fragments.add(ScenarioMaterialFragment.newInstance(id));
         activityShopViewPager.setAdapter(new BaseViewpageAdapter(getSupportFragmentManager(), fragments));
         activityShopCategoryTab.setViewPager(activityShopViewPager, arr);
 

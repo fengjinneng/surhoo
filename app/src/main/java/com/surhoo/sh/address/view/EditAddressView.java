@@ -1,9 +1,7 @@
 package com.surhoo.sh.address.view;
 
-import com.surhoo.sh.base.BaseView;
+import com.surhoo.sh.base.StringResultBaseView;
 
-public interface EditAddressView extends BaseView {
+public interface EditAddressView extends StringResultBaseView {
 
-    void getAddResult();
-    void getUpdateResult();
 }

@@ -173,7 +173,18 @@ public class SearchActivity extends BaseActivity implements SearchView {
 
 
     @Override
-    public void showData(HomePageBean homePageBean) {
+    public void showBeanData(HomePageBean homePageBean) {
+
+        if(ObjectUtils.isEmpty(homePageBean.getGOODS())
+        &&ObjectUtils.isEmpty(homePageBean.getSCENE())
+        &&ObjectUtils.isEmpty(homePageBean.getDESIGNER())
+        && ObjectUtils.isEmpty(homePageBean.getMATERIAL())){
+
+            KeyboardUtils.hideSoftInput(this);
+            ToastUtils.showShort("抱歉，没有找到相关内容！");
+            return;
+
+        }
 
         delegateAdapter = new DelegateAdapter(virtualLayoutManager);
         activitySearchRecyclerView.setAdapter(delegateAdapter);

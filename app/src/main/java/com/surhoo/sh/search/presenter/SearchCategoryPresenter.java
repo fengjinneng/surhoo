@@ -9,7 +9,7 @@ public interface SearchCategoryPresenter extends BasePresenter<SearchCategoryVie
                      int pageSize, int pageIndex, String idList);
 
 
-    void requestDesignerLabel();
-    void requestMaterialLabel();
+    void requestDesignerLabel(String requestTag);
+    void requestMaterialLabel(String requestTag);
 
 }

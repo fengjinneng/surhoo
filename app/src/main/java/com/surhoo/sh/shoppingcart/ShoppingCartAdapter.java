@@ -24,6 +24,8 @@ public class ShoppingCartAdapter extends BaseMultiItemQuickAdapter<CarGoodsListB
 
     @Override
     protected void convert(@NonNull BaseViewHolder helper, CarGoodsListBean item) {
+
+        item.setPosition(helper.getLayoutPosition());
         switch (helper.getItemViewType()) {
             case CarGoodsListBean.head:
                 CheckBox checkBox1 = (CheckBox) helper.getView(R.id.item_shopping_cart1_checkbox);
@@ -45,7 +47,6 @@ public class ShoppingCartAdapter extends BaseMultiItemQuickAdapter<CarGoodsListB
                 GlideUtil.loadDefaultImg(mContext,item.getGoodsImg(),imageView);
                 break;
             case CarGoodsListBean.foot:
-                break;
             default:
                 break;
         }

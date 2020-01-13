@@ -23,4 +23,6 @@ public class MyLoadMoreView extends LoadMoreView {
     protected int getLoadEndViewId() {
         return R.id.load_more_load_end_view;
     }
+
+
 }

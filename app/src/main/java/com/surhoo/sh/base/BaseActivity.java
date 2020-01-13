@@ -127,6 +127,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         EventBus.getDefault().unregister(this);
         mBinder.unbind();
+
+        //根据 Tag 取消请求
+        OkGo.getInstance().cancelTag(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
