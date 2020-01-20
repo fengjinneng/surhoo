@@ -113,16 +113,6 @@ public class SearchDesignerAdapter extends BaseQuickAdapter<DesignerListBean
 
             pictureView.addItem(temp);
 
-//            ArrayList<String> temp = new ArrayList<>();
-//
-//            for (int i = 0; i < item.getMaterialList().size(); i++) {
-//
-//                if(i==6){
-//                    break;
-//                }
-//                temp.add(item.getMaterialList().get(i));
-//            }
-
         pictureView.setItemClickCallback(new MultiPictureView.ItemClickCallback() {
             @Override
             public void onItemClicked(@NotNull View view, int i, @NotNull ArrayList<Uri> arrayList) {

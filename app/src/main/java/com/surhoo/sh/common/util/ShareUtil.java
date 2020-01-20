@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.surhoo.sh.R;
 
@@ -46,6 +47,7 @@ public class ShareUtil {
         }else {
             oks.setImageUrl(imgUrl);
         }
+
 
         // url仅在微信（包括好友和朋友圈）中使用
         oks.setUrl(shareUrl+"productDetails?productDetailsId=" + id);

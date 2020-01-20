@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.surhoo.sh.R;
-import com.surhoo.sh.designer.bean.DesignerLabelBean;
+import com.surhoo.sh.designer.bean.SearchLabelBean;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class DesignerGridViewAdapter extends BaseAdapter {
 
 
     private Context context;
-    private List<DesignerLabelBean> datas;
+    private List<SearchLabelBean> datas;
     private LayoutInflater layoutInflater;
 
     private int clicked = -1;
@@ -25,7 +25,7 @@ public class DesignerGridViewAdapter extends BaseAdapter {
         this.clicked = clicked;
     }
 
-    public DesignerGridViewAdapter(Context context, List<DesignerLabelBean> datas, LayoutInflater layoutInflater) {
+    public DesignerGridViewAdapter(Context context, List<SearchLabelBean> datas, LayoutInflater layoutInflater) {
         this.context = context;
         this.datas = datas;
         this.layoutInflater = layoutInflater;

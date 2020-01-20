@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar" >
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -53,11 +53,9 @@
     </style>
 
 
-
     <style name="loading_dialog" parent="@android:style/Theme.Dialog">
         <item name="android:backgroundDimEnabled">false</item><!--activity不变暗-->
     </style>
-
 
 
     <style name="common" parent="@style/Widget.AppCompat.Button">
@@ -69,11 +67,16 @@
     </style>
 
 
-
     <!--dialog  弹出拍照样式-->
     <style name="BottomDialog" parent="@style/Base.V7.Theme.AppCompat.Light.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+
+    <style name="MyCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/saleColor</item>
+        <item name="colorControlActivated">@color/themeColor</item>
     </style>
 
 

@@ -7,23 +7,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
-import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
-import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.SlidingTabLayout;
-import com.flyco.tablayout.listener.CustomTabEntity;
-import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.surhoo.sh.base.BaseActivity;
 import com.surhoo.sh.R;
 import com.surhoo.sh.common.util.BaseViewpageAdapter;
 import com.surhoo.sh.common.util.CommonUtil;
-import com.surhoo.sh.common.util.NetworkImageHolderView;
-import com.surhoo.sh.scenario.fragment.ScenarioGoodsFragment;
-import com.surhoo.sh.scenario.fragment.ScenarioMaterialFragment;
 import com.surhoo.sh.shop.bean.ShopDetailBean;
-import com.surhoo.sh.shop.bean.ShopTypeEntry;
+import com.surhoo.sh.shop.fragment.ShopFragment;
 import com.surhoo.sh.shop.presenter.ShopPresenter;
 import com.surhoo.sh.shop.presenter.impl.ShopPresenterImpl;
 
@@ -127,11 +120,11 @@ public class ShopActivity extends BaseActivity implements ShopView{
         }
 
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(ScenarioGoodsFragment.newInstance(id));
-        fragments.add(ScenarioMaterialFragment.newInstance(id));
+        for (int i = 0; i < shopDetailBean.getClassifyList().size(); i++) {
+            fragments.add(ShopFragment.newInstance(shopDetailBean.getClassifyList().get(i).getClassifyId()));
+        }
         activityShopViewPager.setAdapter(new BaseViewpageAdapter(getSupportFragmentManager(), fragments));
         activityShopCategoryTab.setViewPager(activityShopViewPager, arr);
-
 
     }
 
@@ -139,4 +132,5 @@ public class ShopActivity extends BaseActivity implements ShopView{
     public void showToastMsg(String msg) {
         ToastUtils.showShort(msg);
     }
+
 }

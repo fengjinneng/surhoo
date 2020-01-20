@@ -5,23 +5,23 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.surhoo.sh.R;
-import com.surhoo.sh.material.bean.MaterialLabelBean;
+import com.surhoo.sh.designer.bean.SearchLabelBean;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class MaterialLabelAdapter extends BaseQuickAdapter<MaterialLabelBean
+public class MaterialLabelAdapter extends BaseQuickAdapter<SearchLabelBean
         , BaseViewHolder> {
 
 
-    public MaterialLabelAdapter(int layoutResId, @Nullable List<MaterialLabelBean> data) {
+    public MaterialLabelAdapter(int layoutResId, @Nullable List<SearchLabelBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(@NonNull BaseViewHolder helper, MaterialLabelBean item) {
+    protected void convert(@NonNull BaseViewHolder helper, SearchLabelBean item) {
 
         TextView textView = (TextView) helper.getView(R.id.item_label_name);
 

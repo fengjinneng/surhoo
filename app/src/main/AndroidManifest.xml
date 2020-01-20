@@ -20,10 +20,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SchemeFilterActivity">
+        <activity android:name=".shop.view.impl.ArtistShopListActivity">
 
 
         </activity>
+        <activity android:name=".shop.view.impl.ArtistShopDetailActivity" />
+        <activity android:name=".SchemeFilterActivity" />
         <activity android:name=".user.UpdateNickNameActivity" />
         <activity android:name=".user.UpdateHeadImgActivity" />
         <activity android:name=".user.MineInformationActivity" />
@@ -62,12 +64,7 @@
         <activity android:name=".home.view.MainActivity" />
         <activity android:name=".login.view.LoginActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".scenario.view.ScenarioActivity" />
         <activity android:name=".base.BaseActivity" />
@@ -76,7 +73,6 @@
         <activity
             android:name=".goods.view.impl.GoodsDetailActivity"
             android:launchMode="singleTop">
-
             <intent-filter>
                 <data
                     android:host="com.surhoo.sh"
@@ -87,7 +83,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
-
         </activity>
         <activity android:name=".search.SearchActivity" />
         <activity android:name=".search.SearchCategoryActivity" />

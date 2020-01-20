@@ -53,7 +53,7 @@
                             android:layout_marginTop="8dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@mipmap/goods_home" />
+                            app:srcCompat="@mipmap/default_img_round" />
 
                         <TextView
                             android:id="@+id/activity_shop_name"
@@ -76,7 +76,6 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
-
 
                     <com.bigkoo.convenientbanner.ConvenientBanner
                         android:id="@+id/activity_shop_banner"
@@ -102,9 +101,8 @@
                 android:id="@+id/activity_shop_category_tab"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                app:tl_indicator_bounce_enable="false"
                 app:tl_indicator_color="@color/themeColor"
-                app:tl_indicator_gravity="BOTTOM"
+                app:tl_indicator_width="15dp"
                 app:tl_textSelectColor="@color/themeColor"
                 app:tl_textUnselectColor="@color/saleColor"
                 app:tl_textsize="15sp"

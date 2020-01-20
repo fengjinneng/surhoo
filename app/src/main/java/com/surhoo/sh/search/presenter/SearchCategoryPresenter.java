@@ -11,5 +11,6 @@ public interface SearchCategoryPresenter extends BasePresenter<SearchCategoryVie
 
     void requestDesignerLabel(String requestTag);
     void requestMaterialLabel(String requestTag);
+    void requestShopLabel(String requestTag);
 
 }

@@ -107,7 +107,7 @@ public class ScenarioGoodsFragment extends BaseFragment implements IScenarioGood
             }
         });
 
-        fragmentScenarioGoodsRecyclerview.addItemDecoration(new GridDivider(20));
+        fragmentScenarioGoodsRecyclerview.addItemDecoration(new GridDivider(45));
 
     }
 

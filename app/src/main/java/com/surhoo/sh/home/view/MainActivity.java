@@ -13,12 +13,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.githang.statusbar.StatusBarCompat;
+import com.lzy.okgo.model.HttpParams;
 import com.surhoo.sh.R;
 import com.surhoo.sh.base.BaseActivity;
+import com.surhoo.sh.base.StringResultBaseView;
+import com.surhoo.sh.common.Api;
 import com.surhoo.sh.common.UserUtil;
+import com.surhoo.sh.common.util.NetworkReturnUtil;
 import com.surhoo.sh.home.fragment.HomeFragment;
 import com.surhoo.sh.home.fragment.MineFragment;
 import com.surhoo.sh.login.view.LoginActivity;
@@ -26,7 +31,7 @@ import com.surhoo.sh.login.view.LoginActivity;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements StringResultBaseView {
 
 
     @BindView(R.id.activity_main_home_tv)
@@ -81,6 +86,13 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void requestData() {
+
+        HttpParams httpParams = new HttpParams();
+
+        httpParams.put("editionNum", AppUtils.getAppVersionName());
+        httpParams.put("equipmentType",2);
+
+        NetworkReturnUtil.requestStringResultUseGet("",this,this, Api.appUpdate,httpParams);
 
     }
 
@@ -143,5 +155,15 @@ public class MainActivity extends BaseActivity {
                 break;
         }
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void showStringData(String requestTag, String s) {
+
+    }
+
+    @Override
+    public void showToastMsg(String msg) {
+
     }
 }

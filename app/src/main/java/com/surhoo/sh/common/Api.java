@@ -12,6 +12,9 @@ public class Api {
 //    public static final String URL = "https://xcx.shanghusm.com/api/";
 
 
+
+
+
     //首页
     //首页数据
     public static final String HOMEPAGE = URL + "index";
@@ -20,6 +23,8 @@ public class Api {
     //全部搜索
     public static final String SEARCHALL = URL + "index/search/all";
 
+    //app更新 login/edition?editionNum=%@&equipmentType=%d
+    public static final String appUpdate = URL + "login/edition";
 
     //获取验证码
     public static final String GETVERIFYCODE = URL + "login/code";
@@ -74,6 +79,18 @@ public class Api {
     public static final String SHOPDETAIL = URL + "shop";
     //查看店铺下的商品
     public static final String SHOPGOODS = URL + "shop/goods";
+    //查看店铺下的标签label
+    public static final String shopLabel = URL + "shop/label";
+
+    //艺术家店铺的简介
+    public static final String shopSynopsis = URL + "shop/synopsis";
+
+    //艺术家店铺的作品分类
+    public static final String shopOriginalClassifys = URL + "shop/originalClassifys";
+
+    //艺术家店铺的作品列表
+    public static final String shopArtistOriginal = URL + "shop/artistOriginal";
+
 
     //购物车
 //    查询购物车

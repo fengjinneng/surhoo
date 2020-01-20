@@ -554,7 +554,10 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsDetailView
                     return;
                 }
 
-                ShareUtil.shareGoods(this,goodDetailBean.getGoodsName(),goodDetailBean.getGoodsDetail(),goodDetailBean.getImg(),id);
+                String[] split = goodDetailBean.getBanner().split(",");
+
+
+                ShareUtil.shareGoods(this,goodDetailBean.getGoodsName(),"",split[0],id);
 
                 break;
             case R.id.activity_goods_detail_spec_layout:

@@ -12,6 +12,7 @@ public class HomePageBean {
     private List<SCENEBean> SCENE;
     private List<BARGAINGOODSBean> BARGAINGOODS;
     private List<MATERIALBean> MATERIAL;
+    private List<ArtistShopListBean> artistShopList;
 
     public List<MATERIALBean> getMATERIAL() {
         return MATERIAL;
@@ -68,6 +69,91 @@ public class HomePageBean {
     public void setBARGAINGOODS(List<BARGAINGOODSBean> BARGAINGOODS) {
         this.BARGAINGOODS = BARGAINGOODS;
     }
+
+    public List<ArtistShopListBean> getArtistShopList() {
+        return artistShopList;
+    }
+
+    public void setArtistShopList(List<ArtistShopListBean> artistShopList) {
+        this.artistShopList = artistShopList;
+    }
+
+    public static class ArtistShopListBean {
+        /**
+         * labelNames : 艺术,时尚
+         * viewNum : 971
+         * user_id : 10025398
+         * name : 胡伟达艺术时尚工作室
+         * logo : https://shanghusm-shanghai-picture.oss-cn-shanghai.aliyuncs.com/img/xcx/material/FX6kZAb6MYbX4c6BZ5NfJrTz2wN     └──────────────────────────────────────────────────────────────────────────────────────────────────────────────── 2020-01-14 09:51:01.778 16926-16926/com.surhoo.sh V/NetworkReturnUtil:       ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────     │ e4rab.png
+         * banner : https://shanghusm-shanghai-picture.oss-cn-shanghai.aliyuncs.com/img/xcx/material/7Xc6RGQkjjNMpSssFTsBHp7D5mm3Grh5.png
+         * shopId : 48
+         */
+
+        private String labelNames;
+        private Integer viewNum;
+        private Integer user_id;
+        private String name;
+        private String logo;
+        private String banner;
+        private Integer shopId;
+
+        public String getLabelNames() {
+            return labelNames;
+        }
+
+        public void setLabelNames(String labelNames) {
+            this.labelNames = labelNames;
+        }
+
+        public Integer getViewNum() {
+            return viewNum;
+        }
+
+        public void setViewNum(Integer viewNum) {
+            this.viewNum = viewNum;
+        }
+
+        public Integer getUser_id() {
+            return user_id;
+        }
+
+        public void setUser_id(Integer user_id) {
+            this.user_id = user_id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getLogo() {
+            return logo;
+        }
+
+        public void setLogo(String logo) {
+            this.logo = logo;
+        }
+
+        public String getBanner() {
+            return banner;
+        }
+
+        public void setBanner(String banner) {
+            this.banner = banner;
+        }
+
+        public Integer getShopId() {
+            return shopId;
+        }
+
+        public void setShopId(Integer shopId) {
+            this.shopId = shopId;
+        }
+    }
+
 
     public static class MATERIALBean {
         /**

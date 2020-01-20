@@ -8,20 +8,20 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.surhoo.sh.R;
-import com.surhoo.sh.designer.bean.DesignerLabelBean;
+import com.surhoo.sh.designer.bean.SearchLabelBean;
 
 import java.util.List;
 
-public class DesignerLabelAdapter extends BaseQuickAdapter<DesignerLabelBean
+public class DesignerLabelAdapter extends BaseQuickAdapter<SearchLabelBean
         , BaseViewHolder> {
 
 
-    public DesignerLabelAdapter(int layoutResId, @Nullable List<DesignerLabelBean> data) {
+    public DesignerLabelAdapter(int layoutResId, @Nullable List<SearchLabelBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(@NonNull BaseViewHolder helper, DesignerLabelBean item) {
+    protected void convert(@NonNull BaseViewHolder helper, SearchLabelBean item) {
 
         TextView textView = (TextView) helper.getView(R.id.item_label_name);
 

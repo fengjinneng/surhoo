@@ -21,7 +21,9 @@ import com.surhoo.sh.home.bean.HomePageBean;
 import com.surhoo.sh.home.presenter.HomePresenter;
 import com.surhoo.sh.home.presenter.HomePresenterImpl;
 import com.surhoo.sh.home.view.HomeView;
+import com.surhoo.sh.home.vlayout.ArtistLayoutAdapter;
 import com.surhoo.sh.home.vlayout.BannerLayoutAdapter;
+import com.surhoo.sh.home.vlayout.DesignerLayoutAdapter;
 import com.surhoo.sh.home.vlayout.FootLayoutAdapter;
 import com.surhoo.sh.home.vlayout.GoodsLayoutAdapter;
 import com.surhoo.sh.home.vlayout.LevelOneScenarioLayoutAdapter;
@@ -156,6 +158,9 @@ public class HomeFragment extends BaseFragment implements HomeView {
     private ScenarioLayoutAdapter scenarioLayoutAdapter;
     private List<HomePageBean.SCENEBean> allScenario = new ArrayList<>();
 
+    private ArtistLayoutAdapter artistLayoutAdapter;
+    private List<HomePageBean.ArtistShopListBean> allArtist = new ArrayList<>();
+
     private GoodsLayoutAdapter goodsLayoutAdapter;
     private List<HomePageBean.GOODSBean> allGoods = new ArrayList<>();
 
@@ -210,6 +215,13 @@ public class HomeFragment extends BaseFragment implements HomeView {
             scenarioLayoutAdapter = new ScenarioLayoutAdapter(getActivity(), allScenario);
             delegateAdapter.addAdapter(scenarioLayoutAdapter);
 
+            TitleLayoutAdapter titleLayoutAdapter3 = new TitleLayoutAdapter(getActivity(), "艺术时尚工作室");
+            delegateAdapter.addAdapter(titleLayoutAdapter3);
+
+            artistLayoutAdapter = new ArtistLayoutAdapter(getActivity(),homePageBean.getArtistShopList());
+            delegateAdapter.addAdapter(artistLayoutAdapter);
+
+
             TitleLayoutAdapter titleLayoutAdapter2 = new TitleLayoutAdapter(getActivity(), "热门商品");
             delegateAdapter.addAdapter(titleLayoutAdapter2);
 
@@ -257,7 +269,11 @@ public class HomeFragment extends BaseFragment implements HomeView {
 //            DesignerLayoutAdapter designerLayoutAdapter = new DesignerLayoutAdapter(getContext(), homePageBean.getDESIGNER());
 //            delegateAdapter.addAdapter(designerLayoutAdapter);
 //        }
-//
+
+        if (!ObjectUtils.isEmpty(homePageBean.getArtistShopList())) {
+
+        }
+
 //        if (!ObjectUtils.isEmpty(homePageBean.getGOODS())) {
 //            TitleLayoutAdapter titleLayoutAdapter = new TitleLayoutAdapter(getContext(), "砍价活动");
 //            delegateAdapter.addAdapter(titleLayoutAdapter);

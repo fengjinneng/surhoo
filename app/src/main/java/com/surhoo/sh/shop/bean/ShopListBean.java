@@ -1,5 +1,7 @@
 package com.surhoo.sh.shop.bean;
 
+import com.zhy.view.flowlayout.TagAdapter;
+
 public class ShopListBean {
 
 
@@ -16,6 +18,25 @@ public class ShopListBean {
     private String name;
     private String labelNames;
     private Integer viewNum;
+
+    private boolean hasTagAdapter;
+    private TagAdapter tagAdapter;
+
+    public boolean isHasTagAdapter() {
+        return hasTagAdapter;
+    }
+
+    public void setHasTagAdapter(boolean hasTagAdapter) {
+        this.hasTagAdapter = hasTagAdapter;
+    }
+
+    public TagAdapter getTagAdapter() {
+        return tagAdapter;
+    }
+
+    public void setTagAdapter(TagAdapter tagAdapter) {
+        this.tagAdapter = tagAdapter;
+    }
 
     public Integer getShopId() {
         return shopId;

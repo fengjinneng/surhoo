@@ -7,11 +7,10 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.lzy.okgo.model.HttpParams;
 import com.surhoo.sh.common.Api;
 import com.surhoo.sh.common.util.NetworkReturnUtil;
-import com.surhoo.sh.designer.bean.DesignerLabelBean;
+import com.surhoo.sh.designer.bean.SearchLabelBean;
 import com.surhoo.sh.designer.bean.DesignerListBean;
 import com.surhoo.sh.goods.view.GoodsListActivity;
 import com.surhoo.sh.material.bean.MaterialBean;
-import com.surhoo.sh.material.bean.MaterialLabelBean;
 import com.surhoo.sh.scenario.bean.ScenarioBean;
 import com.surhoo.sh.search.view.SearchCategoryView;
 import com.surhoo.sh.shop.bean.ShopListBean;
@@ -76,15 +75,20 @@ public class SearchCategoryPresenterImpl implements SearchCategoryPresenter {
     public void requestDesignerLabel(String requestTag) {
 
 
-        NetworkReturnUtil.requestNoPageList(requestTag,searchCategoryView, activity, Api.designerLabel, null,DesignerLabelBean.class);
+        NetworkReturnUtil.requestNoPageList(requestTag,searchCategoryView, activity, Api.designerLabel, null, SearchLabelBean.class);
 
     }
 
     @Override
     public void requestMaterialLabel(String requestTag) {
 
-        NetworkReturnUtil.requestNoPageList(requestTag,searchCategoryView, activity, Api.materialLabel, null,MaterialLabelBean.class);
+        NetworkReturnUtil.requestNoPageList(requestTag,searchCategoryView, activity, Api.materialLabel, null,SearchLabelBean.class);
 
     }
 
+    @Override
+    public void requestShopLabel(String requestTag) {
+
+        NetworkReturnUtil.requestNoPageList(requestTag,searchCategoryView, activity, Api.shopLabel, null,SearchLabelBean.class);
+    }
 }

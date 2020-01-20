@@ -19,13 +19,12 @@ public class CommonUtil {
                 return new NetworkImageHolderView();
             }
         }, bannerDatas);
-//        convenientBanner.setPageIndicator(new int[]{R.mipmap.banner_unchoiced, R.mipmap.banner_choiced});
+        convenientBanner.setPageIndicator(new int[]{R.mipmap.banner_unchoice, R.mipmap.banner_choice});
         convenientBanner.setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
         //设置如果只有一组数据时不能滑动
         convenientBanner.setPointViewVisible(bannerDatas.size() == 1 ? false : true); // 指示器
         convenientBanner.setManualPageable(bannerDatas.size() == 1 ? false : true);//设置false,手动影响（设置了该项无法手动切换）
     }
-
 
     public static GoodDetailBean.SkuListBean  getSku(List<GoodDetailBean.SkuListBean> skuListBeans,String... spec){
 

@@ -1,13 +1,13 @@
 package com.surhoo.sh;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.surhoo.sh.address.bean.AddressBean;
-import com.surhoo.sh.common.util.MyJsonUtil;
 
 import java.util.List;
 
 public class Test {
+
+
 
 
     public static void main(String[] args) {
@@ -33,6 +33,7 @@ public class Test {
 
 
     }
+
 
 
     class Abc{}

@@ -1,6 +1,6 @@
 package com.surhoo.sh.designer.bean;
 
-public class DesignerLabelBean {
+public class SearchLabelBean {
 
 
     /**

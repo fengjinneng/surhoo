@@ -11,7 +11,10 @@ import android.widget.TextView;
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
+import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.surhoo.sh.R;
+import com.surhoo.sh.shop.view.impl.ArtistShopListActivity;
 
 public class TitleLayoutAdapter extends DelegateAdapter.Adapter<TitleLayoutAdapter.TitleLayoutViewHolder> {
 
@@ -40,6 +43,15 @@ public class TitleLayoutAdapter extends DelegateAdapter.Adapter<TitleLayoutAdapt
     public void onBindViewHolder(@NonNull TitleLayoutViewHolder titleLayoutViewHolder, int i) {
 
         titleLayoutViewHolder.title.setText(title);
+        if(StringUtils.equals(title,"艺术时尚工作室")){
+            titleLayoutViewHolder.more.setVisibility(View.VISIBLE);
+            titleLayoutViewHolder.more.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ActivityUtils.startActivity(ArtistShopListActivity.class);
+                }
+            });
+        }
     }
 
     @Override
@@ -50,10 +62,12 @@ public class TitleLayoutAdapter extends DelegateAdapter.Adapter<TitleLayoutAdapt
     static class TitleLayoutViewHolder extends RecyclerView.ViewHolder {
 
         TextView title;
+        TextView more;
 
         public TitleLayoutViewHolder(View root) {
             super(root);
             title = root.findViewById(R.id.home_title_name);
+            more = root.findViewById(R.id.home_title_more);
         }
     }
 }
